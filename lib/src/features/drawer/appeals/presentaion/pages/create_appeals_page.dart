@@ -5,6 +5,7 @@ import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/component
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/components/input/masked_text_controller.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button.dart';
+import 'package:fairtech_mobile/src/features/components/buttons/custom_button_without_gradient.dart';
 import 'package:fairtech_mobile/src/features/components/loading_widgets/modal_progress_hud.dart';
 import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/models/appeal_model.dart';
@@ -86,7 +87,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
       listener: (context, state) {
         _phoneNumberController.text = '${state.profileDataResponse?.phoneNumber}';
         if (state.sendAppealResponse?.status == 0) {
-          AppSnackBar.showSuccessSnackBar(context, '${state.sendAppealResponse?.message}');
+          AppSnackBar.showSuccessSnackBar(context,'Success','${state.sendAppealResponse?.message}');
           selectedFileList = [];
           selectedFileNameList = [];
           setState(() {
@@ -98,6 +99,11 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
         }
       },
       builder: (context, state) {
+        if(state.profileDataResponse == null){
+          return Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
         return Scaffold(
           appBar: CustomAppBar(title: 'Murojaat yaratish',),
           body: ModalProgressHUD(
@@ -108,335 +114,338 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: context.theme.primaryColor,
-                        ),
-                        child: const Text('Murojaatchi ma\'lumotlari'),
-                      ),
-                    ),
-                    AppUtils.kGap12,
-                    Text('Shaxs turi'),
-                    DropdownButtonFormField(
-                        value: dropdownPersonType,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        elevation: 16,
-                        dropdownColor: Colors.white,
-                        style: const TextStyle(color: Colors.grey),
-                        decoration: InputDecoration(
-                          fillColor: context.theme.cardColor,
-                          filled: true,
-                          hintText: 'Shaxs turi',
-                          hintStyle: TextStyle(
-                              color: context.theme.canvasColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 16),
-                          // prefixIcon: const Icon(Icons.not_listed_location_outlined),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                        ),
-                        items: personTypeList
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? value) {
-                          setState(() {
-                            dropdownPersonType = value!;
-                          });
-                        }),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const Text('Foydalanuvchi JSHSHIR'),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              // ScaffoldMessenger.of(context).showSnackBar(snackBar)
-                              AppSnackBar.showWarningSnackBar(
-                                  context, 'You cant change this field');
-                            },
-                            child: CustomTextField(
-                              controller: _pinflController..text = '${state.profileDataResponse?.pinfl}',
-                              enabled: false,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 48,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const Text('Murojaatchi FISH'),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField(
-                            controller: _fullNameController
-                              ..text =
-                                  '${state.profileDataResponse?.lastName} ${state.profileDataResponse?.firstName} ${state.profileDataResponse?.middleName}',
-                            enabled: false,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 48,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const Text('Telefon raqami'),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField(
-                            controller: _phoneNumberController,
-                            enabled: isPhoneNumberEnabled,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(
-                              () {
-                                isPhoneNumberEnabled = true;
-                              },
-                            );
-                          },
-                          icon: Icon(Icons.edit_rounded),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const Text('Pochta indeksi'),
-                    Row(
-                      children: [
-                        const Expanded(
-                          child: CustomTextField(
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 5,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit_rounded),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    const Text('Manzili'),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField(
-                            controller: _addressController
-                              ..text = '${state.profileDataResponse?.perAdress}',
-                            keyboardType: TextInputType.multiline,
-                            enabled: isAddressEnabled,
-                            maxLines: 5,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(
-                              () {
-                                isAddressEnabled = true;
-                              },
-                            );
-                          },
-                          icon: Icon(Icons.edit_rounded),
-                        )
-                      ],
-                    ),
+                   Card(
+                     color: Colors.white,
+                     child: Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Text('Murojaatchi ma\'lumotlari', style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor),),
+                           AppUtils.kGap12,
+                           Text('Shaxs turi',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText),),
+                           DropdownButtonFormField(
+                               value: dropdownPersonType,
+                               icon: const Icon(Icons.arrow_drop_down),
+                               elevation: 16,
+                               dropdownColor: Colors.white,
+                               style: context.textStyle.regularBody,
+                               decoration: InputDecoration(
+                                 fillColor: context.theme.cardColor,
+                                 filled: true,
+                                 hintText: 'Shaxs turi',
+                                 hintStyle: context.textStyle.regularBody,
+                                 // prefixIcon: const Icon(Icons.not_listed_location_outlined),
+                                 border: OutlineInputBorder(
+                                   borderRadius:
+                                   const BorderRadius.all(Radius.circular(16)),
+                                   borderSide: BorderSide(
+                                       color: context.theme.primaryColor, width: 1),
+                                 ),
+                                 enabledBorder: OutlineInputBorder(
+                                   borderRadius:
+                                   const BorderRadius.all(Radius.circular(16)),
+                                   borderSide: BorderSide(
+                                       color: context.theme.primaryColor, width: 1),
+                                 ),
+                                 focusedBorder: OutlineInputBorder(
+                                   borderRadius:
+                                   const BorderRadius.all(Radius.circular(16)),
+                                   borderSide: BorderSide(
+                                       color: context.theme.primaryColor, width: 1),
+                                 ),
+                                 errorBorder: OutlineInputBorder(
+                                   borderRadius:
+                                   const BorderRadius.all(Radius.circular(16)),
+                                   borderSide: BorderSide(
+                                       color: context.theme.primaryColor, width: 1),
+                                 ),
+                                 focusedErrorBorder: OutlineInputBorder(
+                                   borderRadius:
+                                   const BorderRadius.all(Radius.circular(16)),
+                                   borderSide: BorderSide(
+                                       color: context.theme.primaryColor, width: 1),
+                                 ),
+                               ),
+                               items: personTypeList
+                                   .map<DropdownMenuItem<String>>((String value) {
+                                 return DropdownMenuItem<String>(
+                                   value: value,
+                                   child: Text(
+                                     value,
+                                     maxLines: 3,
+                                     overflow: TextOverflow.ellipsis,
+                                   ),
+                                 );
+                               }).toList(),
+                               onChanged: (String? value) {
+                                 setState(() {
+                                   dropdownPersonType = value!;
+                                 });
+                               }),
+                           const SizedBox(
+                             height: 12,
+                           ),
+                           Text('Foydalanuvchi JSHSHIR',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                           Row(
+                             children: [
+                               Expanded(
+                                 child: InkWell(
+                                   onTap: () {
+                                     AppSnackBar.showWarningSnackBar(
+                                         context, 'You can\'t change this field'
+                                     );
+                                   },
+                                   child: CustomTextField(
+                                     controller: _pinflController..text = '${state.profileDataResponse?.pinfl}',
+                                     enabled: false,
+                                     style: context.textStyle.regularBody,
+                                   ),
+                                 ),
+                               ),
+                               const SizedBox(
+                                 width: 48,
+                               ),
+                             ],
+                           ),
+                           const SizedBox(
+                             height: 12,
+                           ),
+                           Text('Murojaatchi FISH',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                           Row(
+                             children: [
+                               Expanded(
+                                 child: CustomTextField(
+                                   controller: _fullNameController
+                                     ..text =
+                                         '${state.profileDataResponse?.lastName} ${state.profileDataResponse?.firstName} ${state.profileDataResponse?.middleName}',
+                                   enabled: false,
+                                   style: context.textStyle.regularBody,
+                                 ),
+                               ),
+                               const SizedBox(
+                                 width: 48,
+                               ),
+                             ],
+                           ),
+                           const SizedBox(
+                             height: 12,
+                           ),
+                           Text('Telefon raqami',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                           Row(
+                             children: [
+                               Expanded(
+                                 child: CustomTextField(
+                                   controller: _phoneNumberController,
+                                   enabled: isPhoneNumberEnabled,
+                                   style: context.textStyle.regularBody,
+                                 ),
+                               ),
+                               IconButton(
+                                 onPressed: () {
+                                   setState(
+                                         () {
+                                       isPhoneNumberEnabled = true;
+                                     },
+                                   );
+                                 },
+                                 icon: Icon(Icons.edit_rounded),
+                               )
+                             ],
+                           ),
+                           const SizedBox(
+                             height: 12,
+                           ),
+                           Text('Pochta indeksi',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                           Row(
+                             children: [
+                               const Expanded(
+                                 child: CustomTextField(
+                                   keyboardType: TextInputType.multiline,
+                                   maxLines: 5,
+                                 ),
+                               ),
+                               IconButton(
+                                 onPressed: () {},
+                                 icon: const Icon(Icons.edit_rounded),
+                               )
+                             ],
+                           ),
+                           const SizedBox(
+                             height: 12,
+                           ),
+                           Text('Manzili',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                           Row(
+                             children: [
+                               Expanded(
+                                 child: CustomTextField(
+                                   controller: _addressController
+                                     ..text = '${state.profileDataResponse?.perAdress}',
+                                   keyboardType: TextInputType.multiline,
+                                   enabled: isAddressEnabled,
+                                   maxLines: 5,
+                                   style: context.textStyle.regularBody,
+                                 ),
+                               ),
+                               IconButton(
+                                 onPressed: () {
+                                   setState(
+                                         () {
+                                       isAddressEnabled = true;
+                                     },
+                                   );
+                                 },
+                                 icon: Icon(Icons.edit_rounded),
+                               )
+                             ],
+                           ),
+                         ],
+                       ),
+                     ),
+                   ),
                     const SizedBox(
                       height: 24,
                     ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: context.theme.primaryColor,
-                        ),
-                        child: const Text('Murojaat mazmuni'),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    DropdownButtonFormField(
-                        value: dropdownValueCategory,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        elevation: 16,
-                        isExpanded: true,
-                        isDense: false,
-                        itemHeight: 50,
-                        dropdownColor: Colors.white,
-                        style: const TextStyle(color: Colors.grey),
-                        decoration: InputDecoration(
-                          fillColor: context.theme.cardColor,
-                          filled: true,
-                          hintText: 'Category',
-                          hintStyle: TextStyle(
-                              color: context.theme.canvasColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 16),
-                          // prefixIcon: const Icon(Icons.not_listed_location_outlined),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                                color: context.theme.primaryColor, width: 1),
-                          ),
-                        ),
-                        items: subCategoryList
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
+                    Card(
+                     color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Murojaat mazmuni',style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+                            const SizedBox(
+                              height: 12,
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (String? value) {
-                          setState(() {
-                            dropdownValueCategory = value!;
-                          });
-                        }),
-                    AppUtils.kGap12,
-                    const Text('Qisqacha mazmuni'),
-                    CustomTextField(
-                      controller: _shortDescController,
-                      hintText: 'Enter short description',
-                      keyboardType: TextInputType.multiline,
-                      minLines: 5,
-                      maxLines: 10,
-                    ),
-                    AppUtils.kGap24,
-                    InkWell(
-                      onTap: () {
-                        selectFile();
-                      },
-                      child: CustomButton(
-                        text: 'Fayl yuklash',
-                        color: context.theme.primaryColor.withOpacity(0.5),
-                      ),
-                    ),
-                    AppUtils.kGap12,
-                    selectedFileNameList.isEmpty
-                        ? Container()
-                        : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ...selectedFileNameList.map((item) => Container(
-                            margin: const EdgeInsets.symmetric(vertical: 4),
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[100]),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.file_copy, color: Colors.redAccent),
-                                const SizedBox(width: 12),
-                                Flexible(
-                                  child: Text(
-                                    item,
-                                    style: const TextStyle(color: Colors.black, fontSize: 14),
+                            DropdownButtonFormField(
+                                value: dropdownValueCategory,
+                                icon: const Icon(Icons.arrow_drop_down),
+                                elevation: 16,
+                                isExpanded: true,
+                                isDense: false,
+                                itemHeight: 50,
+                                dropdownColor: Colors.white,
+                                style: context.textStyle.regularBody,
+                                decoration: InputDecoration(
+                                  fillColor: context.theme.cardColor,
+                                  filled: true,
+                                  hintText: 'Category',
+                                  hintStyle: context.textStyle.regularBody,
+                                  // prefixIcon: const Icon(Icons.not_listed_location_outlined),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                    borderSide: BorderSide(
+                                        color: context.theme.primaryColor, width: 1),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                    borderSide: BorderSide(
+                                        color: context.theme.primaryColor, width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                    borderSide: BorderSide(
+                                        color: context.theme.primaryColor, width: 1),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                    borderSide: BorderSide(
+                                        color: context.theme.primaryColor, width: 1),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                    borderSide: BorderSide(
+                                        color: context.theme.primaryColor, width: 1),
                                   ),
                                 ),
+                                items: subCategoryList
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    dropdownValueCategory = value!;
+                                  });
+                                }),
+                            AppUtils.kGap12,
+                            Text('Qisqacha mazmuni',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                            CustomTextField(
+                              controller: _shortDescController,
+                              hintText: 'Enter short description',
+                              keyboardType: TextInputType.multiline,
+                              minLines: 5,
+                              maxLines: 10,
+                              style: context.textStyle.regularBody,
+                            ),
+                            AppUtils.kGap24,
+                            CustomButtonWithoutGradient(
+                              text: 'Fayl yuklash',
+                              onTap: (){
+                                selectFile();
+                              },
+                              textColor: Colors.white,
+                            ),
+                            AppUtils.kGap12,
+                            selectedFileNameList.isEmpty
+                                ? Container()
+                                : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ...selectedFileNameList.map((item) => Container(
+                                    margin: const EdgeInsets.symmetric(vertical: 4),
+                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[100]),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(Icons.file_copy, color: Colors.redAccent),
+                                        const SizedBox(width: 12),
+                                        Flexible(
+                                          child: Text(
+                                            item,
+                                            style: context.textStyle.regularBody,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                ),)
                               ],
-                            )
-                        ),)
-                      ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 10),
                     AppUtils.kGap40,
                     Row(
                       children: [
-                        const Expanded(
-                          child: CustomButton(
-                            text: 'Qoralam saqlash',
+                        Expanded(
+                          child: CustomButtonWithoutGradient(
+                            onTap: (){
+
+                            },
+                            text: 'Qoralama saqlash',
                             color: Colors.yellow,
+                            textColor: Colors.white,
                           ),
                         ),
                         AppUtils.kGap12,
                         Expanded(
-                            child: InkWell(
-                          onTap: () {
-                            context.read<AppealsBloc>().add(
+                            child: CustomButtonWithoutGradient(
+                              onTap: () {
+                                context.read<AppealsBloc>().add(
                                   SendAppealEvent(
                                     context: context,
                                     appealModel: AppealModel(
@@ -453,11 +462,10 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                     ),
                                   ),
                                 );
-                          },
-                          child: const CustomButton(
-                            text: 'Yuborish',
-                          ),
-                        ))
+                              },
+                              text: 'Yuborish',
+                              textColor: Colors.white,
+                            ))
                       ],
                     ),
                   ],

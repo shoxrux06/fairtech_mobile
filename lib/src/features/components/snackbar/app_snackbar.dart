@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppSnackBar {
 
-  static customMessage(BuildContext context,String text, String desc)=>Flushbar(
+  static customMessage(BuildContext context,String text, String desc)=> Flushbar(
     title: text,
     titleColor: Colors.white,
     message: desc,
@@ -20,19 +20,12 @@ class AppSnackBar {
       Icons.check,
       color: Colors.greenAccent,
     ),
-    // mainButton: TextButton(
-    //   onPressed: () {},
-    //   child: Text(
-    //     "CLAP",
-    //     style: TextStyle(color: Colors.amber),
-    //   ),
-    // ),
     showProgressIndicator: false,
     progressIndicatorBackgroundColor: Colors.blueGrey,
     titleText: Text(
      text,
       style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.yellow[600], fontFamily: "ShadowsIntoLightTwo"),
+          fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
     ),
     messageText: Text(
       desc,
@@ -40,28 +33,107 @@ class AppSnackBar {
     ),
   )..show(context);
 
-  static showSuccessSnackBar(BuildContext context, String text) =>
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(text),
-          backgroundColor: Colors.green,
+  static showSuc(BuildContext context, String title) =>  ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(title),
+        backgroundColor: Colors.green,
+      ));
+  static showSuccessSnackBar(BuildContext context, String text, String desc) {
+    Future.delayed(Duration.zero,(){
+      Flushbar(
+        title: text,
+        titleColor: Colors.white,
+        message: desc,
+        flushbarPosition: FlushbarPosition.TOP,
+        flushbarStyle: FlushbarStyle.FLOATING,
+        reverseAnimationCurve: Curves.decelerate,
+        forwardAnimationCurve: Curves.elasticOut,
+        backgroundColor: Colors.red,
+        boxShadows: [BoxShadow(color: Colors.blueAccent.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
+        backgroundGradient: LinearGradient(colors: [Colors.blueGrey, Colors.black]),
+        isDismissible: false,
+        duration: Duration(seconds: 4),
+        icon: Icon(
+          Icons.check,
+          color: Colors.greenAccent,
         ),
-      );
-  static showWarningSnackBar(BuildContext context, String text) =>
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Align(
-              alignment: Alignment.topCenter,
-              child: Text(text)),
-          backgroundColor: Colors.yellow,
+        showProgressIndicator: false,
+        progressIndicatorBackgroundColor: Colors.blueGrey,
+        titleText: Text(
+          text,
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.yellow[600], fontFamily: "ShadowsIntoLightTwo"),
         ),
-      );
+        messageText: Text(
+          desc,
+          style: TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
+        ),
+      )..show(context);
+    });
+  }
 
-  static showErrorSnackBar(BuildContext context, String text) =>
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(text),
-          backgroundColor: Colors.red,
+  static showWarningSnackBar(BuildContext context, String desc) {
+    Future.delayed(Duration.zero,(){
+      Flushbar(
+        title: 'Warning',
+        titleColor: Colors.white,
+        message: desc,
+        flushbarPosition: FlushbarPosition.TOP,
+        flushbarStyle: FlushbarStyle.FLOATING,
+        reverseAnimationCurve: Curves.decelerate,
+        forwardAnimationCurve: Curves.elasticOut,
+        backgroundColor: Colors.red,
+        boxShadows: [BoxShadow(color: Colors.blueAccent.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
+        backgroundGradient: LinearGradient(colors: [Colors.blueGrey, Colors.black]),
+        isDismissible: false,
+        duration: Duration(seconds: 4),
+        icon: const Icon(
+          Icons.check,
+          color: Colors.greenAccent,
         ),
-      );
+        showProgressIndicator: false,
+        progressIndicatorBackgroundColor: Colors.blueGrey,
+        titleText: Text(
+          'Warning',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.yellow[600], fontFamily: "ShadowsIntoLightTwo"),
+        ),
+        messageText: Text(
+          desc,
+          style: TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
+        ),
+      ).show(context);
+    });
+  }
+
+  static showErrorSnackBar(BuildContext context, String text, String desc) =>
+      Flushbar(
+        title: text,
+        titleColor: Colors.white,
+        message: desc,
+        flushbarPosition: FlushbarPosition.TOP,
+        flushbarStyle: FlushbarStyle.FLOATING,
+        reverseAnimationCurve: Curves.decelerate,
+        forwardAnimationCurve: Curves.elasticOut,
+        backgroundColor: Colors.red,
+        boxShadows: [BoxShadow(color: Colors.blueAccent.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
+        backgroundGradient: LinearGradient(colors: [Colors.blueGrey, Colors.black]),
+        isDismissible: false,
+        duration: const Duration(seconds: 4),
+        icon: const Icon(
+          Icons.check,
+          color: Colors.greenAccent,
+        ),
+        showProgressIndicator: false,
+        progressIndicatorBackgroundColor: Colors.blueGrey,
+        titleText: Text(
+          text,
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.red, fontFamily: "ShadowsIntoLightTwo"),
+        ),
+        messageText: Text(
+          desc,
+          style: const TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
+        ),
+      )..show(context);
 }

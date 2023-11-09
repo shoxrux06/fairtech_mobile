@@ -52,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                 style: TextStyle(color: context.color?.primaryText, fontSize: 15, fontWeight: FontWeight.w500),
               ),
               onTap: () {
-                context.push(Routes.createAppeals);
+
               },
             ),
             ListTile(
@@ -111,7 +111,9 @@ class SettingsPage extends StatelessWidget {
                 context.tr('deleteProfile'),
                 style: TextStyle(color: context.color?.red, fontSize: 15, fontWeight: FontWeight.w500),
               ),
-              onTap: () {},
+              onTap: () {
+                _deleteProfile();
+              },
             ),
 
           ],
@@ -119,4 +121,34 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
+  void _deleteProfile() {
+    showDialog(
+      context: scaffoldKey.currentContext!,
+      builder: (BuildContext ctx) {
+        return AlertDialog(
+          title: Text(ctx.tr('pleaseConfirm'), style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
+          content: Text(ctx.tr('deleteProfileMessage'), style: ctx.textStyle.regularBody.copyWith(color: ctx.color?.primaryText)),
+          actions: [
+            // The "Yes" button
+            TextButton(
+              onPressed: () {
+                ctx.pop();
+              },
+              child: Text(ctx.tr('no'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.theme.primaryColor)),
+            ),
+            TextButton(
+              onPressed: () {
+                // LocalStorage.instance.deleteToken();
+                // LocalStorage.instance.deletePinCode();
+                ctx.pop();
+                // ctx.pushReplacement(Routes.signIn);
+              },
+              child: Text(ctx.tr('yes'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

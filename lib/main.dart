@@ -2,21 +2,18 @@ import 'package:fairtech_mobile/src/app_options.dart';
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/config/themes/themes.dart';
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
+import 'package:fairtech_mobile/src/core/handlers/http_service.dart';
 import 'package:fairtech_mobile/src/core/l10n/AppLocalizations.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
-import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
-import 'package:fairtech_mobile/src/features/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:get_it/get_it.dart';
-
-import 'src/features/main/menu/services/presentation/bloc/services_bloc.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await LocalStorage.getInstance();
   setUpDependencies();
+  HttpService().setCertificate();
   runApp(
     ModelBinding(
         initialModel: AppOptions(

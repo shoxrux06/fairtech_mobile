@@ -25,15 +25,14 @@ class CustomDrawer extends StatelessWidget {
       context: scaffoldKey.currentContext!,
       builder: (BuildContext ctx) {
         return AlertDialog(
-          title: Text(ctx.tr('pleaseConfirm'), style: TextStyle(color: ctx.color?.primaryText, fontWeight: FontWeight.w500),),
-          content: Text(ctx.tr('doYouWantLogout'),style: TextStyle(color: ctx.color?.primaryText, fontWeight: FontWeight.w400),),
+          title: Text(ctx.tr('pleaseConfirm'), style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
+          content: Text(ctx.tr('doYouWantLogout'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.theme.primaryColor)),
           actions: [
-            // The "Yes" button
             TextButton(
               onPressed: () {
                 ctx.pop();
               },
-              child: Text(ctx.tr('no')),
+              child: Text(ctx.tr('no'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.theme.primaryColor)),
             ),
             TextButton(
               onPressed: () {
@@ -42,7 +41,7 @@ class CustomDrawer extends StatelessWidget {
                 ctx.pop();
                 ctx.pushReplacement(Routes.signIn);
               },
-              child: Text(ctx.tr('yes')),
+              child: Text(ctx.tr('yes'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
             ),
           ],
         );
@@ -78,7 +77,7 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             contentPadding:
-                EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
             dense: true,
             leading: SvgPicture.asset(AppConstants.personalInfoSvg),
             title: Text(
@@ -142,8 +141,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {},
           ),
           ListTile(
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+            contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
             dense: true,
             leading: SvgPicture.asset(AppConstants.offertaSvg),
             title: Text(
@@ -164,18 +162,10 @@ class CustomDrawer extends StatelessWidget {
             ),
             onTap: () {
               context.push(Routes.aboutSystem);
-              // customModalBottomSheet<void>(
-              //   context: context,
-              //   builder: (context, controller) => SizedBox(
-              //       width: double.infinity,
-              //       height: MediaQuery.of(context).size.height / 2,
-              //       child: AboutApp()),
-              // );
             },
           ),
           ListTile(
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+            contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
             dense: true,
             leading: SvgPicture.asset(AppConstants.logoutSvg),
             title: Text(

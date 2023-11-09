@@ -1,8 +1,10 @@
+import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
 import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/widgets/choose_option_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage({super.key});
@@ -30,7 +32,7 @@ class _ServicesPageState extends State<ServicesPage> {
           itemCount: items.length, // total number of items
           itemBuilder: (context, index) {
             switch(index){
-              case 0 || 1 ||2 :
+              case 0 || 1 :
                 return InkWell(
                   onTap: (){
                     if(items[index] == 'Product Info'){
@@ -38,6 +40,9 @@ class _ServicesPageState extends State<ServicesPage> {
                           context: context,
                           builder: (context, controller) => const ChooseOptionWidget()
                       );
+                    }
+                    if(items[index] == 'Pharm Info'){
+                      context.push(Routes.pharmInfo);
                     }
                     setState(() {
                       selectedIndex = index;
@@ -60,7 +65,7 @@ class _ServicesPageState extends State<ServicesPage> {
                     ),
                   ),
                 );
-              case 3 || 4 || 5:
+              case 2 || 3 || 4 || 5:
                 return InkWell(
                   onTap: (){
                     AppSnackBar.customMessage(context,'Soon', 'This feature will be soon');

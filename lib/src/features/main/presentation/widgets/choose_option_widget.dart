@@ -109,9 +109,11 @@ class _ChooseOptionWidgetState extends State<ChooseOptionWidget> {
           AppUtils.kGap24,
           Text('By TnVed Code',style: context.textStyle.regularTitle1,),
           AppUtils.kGap24,
-          CustomButtonWithoutGradient(onTap: (){
-            context.push(Routes.tnVedCode);
-          }, text: 'Choose')
+          CustomButtonWithoutGradient(
+              onTap: (){context.push(Routes.tnVedCode);},
+              text: 'Choose',
+              textColor: Colors.white,
+          )
         ],
       ),
     );

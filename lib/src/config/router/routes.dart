@@ -11,6 +11,7 @@ sealed class Routes {
   static const String qrCode = '/qr_code';
   static const String scannerResult = '/scanner_result';
   static const String tnVedCode = '/tn_ved_code';
+  static const String pharmInfo = '/pharm_info';
 
   /// auth
   static const String authOneId = '/auth_one_id';

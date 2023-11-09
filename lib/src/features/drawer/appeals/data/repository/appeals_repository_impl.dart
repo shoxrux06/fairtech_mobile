@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:fairtech_mobile/src/core/di/inject.dart';
 import 'package:fairtech_mobile/src/core/handlers/api_result.dart';
 import 'package:fairtech_mobile/src/core/handlers/http_service.dart';
@@ -17,11 +18,15 @@ class AppealsRepositoryImpl implements AppealsRepository {
   Future<ApiResult<ProfileDataResponse>> getProfileData(BuildContext context) async {
     try {
       final client = inject<HttpService>().client(requireAuth: true);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
+      HttpClient()
+        ..badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
       final response = await client.post('/api/v.1/outer-cabinet/profile-data');
       return ApiResult.success(data: ProfileDataResponse.fromJson(response.data));
     } catch (e) {
       print('==> products failure: $e');
-      AppSnackBar.showErrorSnackBar(context, '${e.toString()}');
+      AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }
@@ -46,6 +51,10 @@ class AppealsRepositoryImpl implements AppealsRepository {
         )
       });
       final client = inject<HttpService>().client(requireAuth: true);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
+      HttpClient()
+        ..badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
       final response = await client.post(
         '/api/v.1/outer-cabinet/send-appeal',
         data: formData,
@@ -54,7 +63,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
       return ApiResult.success(data:SendAppealResponse.fromJson(response.data));
     } catch (e) {
       print('==> products failure: $e');
-      AppSnackBar.showErrorSnackBar(context, '${e.toString()}');
+      AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }

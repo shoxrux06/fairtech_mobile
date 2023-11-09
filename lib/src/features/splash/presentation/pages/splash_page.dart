@@ -30,36 +30,35 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) => BlocListener<SplashBloc, SplashState>(
         listener: (context, state) {
           if (state.isTimerFinished) {
-            context.pushReplacementNamed(Routes.main);
-            // if (LocalStorage.instance.getToken().isNotEmpty) {
-            //   final passCode = LocalStorage.instance.getPinCode();
-            //   if (passCode.isNotEmpty) {
-            //     screenLock(
-            //       context: context,
-            //       correctString: passCode,
-            //       useBlur: false,
-            //       canCancel: false,
-            //       config: const ScreenLockConfig(
-            //         backgroundColor: Colors.white,
-            //       ),
-            //       secretsConfig: const SecretsConfig(
-            //         secretConfig: SecretConfig(
-            //           disabledColor: Colors.black,
-            //           enabledColor: Colors.amber,
-            //           size: 24
-            //         )
-            //       ),
-            //       onUnlocked: () {
-            //         Navigator.of(context).pop();
-            //         context.pushReplacement(Routes.main);
-            //       },
-            //     );
-            //   } else {
-            //     Navigator.of(context).push(MaterialPageRoute(builder: (_) => EmptyPage()));
-            //   }
-            // } else {
-            //   context.pushReplacementNamed(Routes.signIn);
-            // }
+            if (LocalStorage.instance.getToken().isNotEmpty) {
+              final passCode = LocalStorage.instance.getPinCode();
+              if (passCode.isNotEmpty) {
+                screenLock(
+                  context: context,
+                  correctString: passCode,
+                  useBlur: false,
+                  canCancel: false,
+                  config: const ScreenLockConfig(
+                    backgroundColor: Colors.white,
+                  ),
+                  secretsConfig: const SecretsConfig(
+                    secretConfig: SecretConfig(
+                      disabledColor: Colors.black,
+                      enabledColor: Colors.amber,
+                      size: 24
+                    )
+                  ),
+                  onUnlocked: () {
+                    Navigator.of(context).pop();
+                    context.pushReplacement(Routes.main);
+                  },
+                );
+              } else {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => EmptyPage()));
+              }
+            } else {
+              context.pushReplacement(Routes.signIn);
+            }
           }
         },
         child: AnnotatedRegion<SystemUiOverlayStyle>(

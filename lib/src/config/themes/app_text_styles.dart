@@ -67,9 +67,10 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       fontWeight: FontWeight.w600,
     ),
     regularBody: TextStyle(
-      color: Colors.black,
-      fontSize: 17,
+      color:  Color(0xFF0D0D26),
+      fontSize: 14,
       fontWeight: FontWeight.w400,
+      fontFamily: 'Poppins',
     ),
     regularCallout: TextStyle(
       color: Colors.black,
@@ -198,9 +199,10 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       fontWeight: FontWeight.w600,
     ),
     regularBody: TextStyle(
-      color: Colors.white,
-      fontSize: 17,
+      color:  Color(0xFF0D0D26),
+      fontSize: 14,
       fontWeight: FontWeight.w400,
+      fontFamily: 'Poppins',
     ),
     regularCallout: TextStyle(
       color: Colors.white,

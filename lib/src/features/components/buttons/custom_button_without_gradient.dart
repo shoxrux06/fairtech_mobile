@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomButtonWithoutGradient extends StatelessWidget {
-  const CustomButtonWithoutGradient({super.key,required this.onTap, required this.text, this.color});
+  const CustomButtonWithoutGradient({super.key,required this.onTap, required this.text, this.color, this.textColor});
 
   final Function onTap;
   final String text;
   final Color? color;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,7 @@ class CustomButtonWithoutGradient extends StatelessWidget {
         child:Center(
           child: Text(
             text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
+              style: context.textStyle.regularTitle2.copyWith(color: textColor?? context.color?.primaryText)
           ),
         ),
       ),

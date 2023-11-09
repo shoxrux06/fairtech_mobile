@@ -19,6 +19,7 @@ import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pag
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/pages/main_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/settings/presentation/pages/settings_page.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/pages/pharrm_info_page.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,7 @@ class AppGoRouter {
             providers: [
               BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
               BlocProvider<ServicesBloc>(create: (_) => sl<ServicesBloc>()),
+              BlocProvider<SignInBloc>(create: (_) => sl<SignInBloc>()),
             ],
             child: MainPage(),
           ),
@@ -94,10 +96,12 @@ class AppGoRouter {
         path: Routes.signIn,
         pageBuilder: (_, state) => CustomTransitionPage(
           transitionDuration: const Duration(milliseconds: 1200),
-          child: BlocProvider(
-            create: (_) => SignInBloc(signInRepository),
-            child: const SignInPage(),
-          ),
+          child: MultiBlocProvider(
+              providers: [
+                BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
+                BlocProvider<SignInBloc>(create: (_) => sl<SignInBloc>()),
+              ],
+              child: const SignInPage()),
           transitionsBuilder: (_, animation, __, child) => FadeTransition(
             opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
             child: child,
@@ -264,6 +268,20 @@ class AppGoRouter {
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
                     CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.pharmInfo,
+          path: Routes.pharmInfo,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: const PharmInfoPage(),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/io.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/di/inject.dart';
 import 'package:fairtech_mobile/src/core/handlers/api_result.dart';
@@ -14,6 +17,10 @@ class SignInRepositoryImpl extends SignInRepository {
   Future<ApiResult<OneIdAuthResponse>> getOneIdData(BuildContext context, dynamic resultCode) async {
     try {
       final client = inject<HttpService>().client(requireAuth: false);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
+      HttpClient()
+        ..badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
       final response = await client.get(AppConstants.redirect, queryParameters: {
         'code': '${resultCode['code']}',
         'state': '${resultCode['state']}',
@@ -34,6 +41,10 @@ class SignInRepositoryImpl extends SignInRepository {
   ) async{
     try {
       final client = inject<HttpService>().client(requireAuth: true);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
+      HttpClient()
+        ..badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
       final response = await client.post('https://app.fairtech.uz/api/v.1/product-auth/edit-password?id=$userID&username=$userName&password=$password');
       return ApiResult.success(data: EditPasswordResponse.fromJson(response.data));
     } catch (e) {
