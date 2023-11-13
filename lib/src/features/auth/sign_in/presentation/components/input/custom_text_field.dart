@@ -28,6 +28,7 @@ class CustomTextField extends StatelessWidget {
     this.autofocus,
     this.prefixIcon,
     this.prefixText,
+    this.hintStyle,
     this.prefixStyle,
     this.contentPadding,
     this.style,
@@ -57,6 +58,7 @@ class CustomTextField extends StatelessWidget {
   final void Function()? onComplete;
   final String Function(String?)? validator;
   final String? prefixText;
+  final TextStyle? hintStyle;
   final TextStyle? prefixStyle;
   final EdgeInsets? contentPadding;
   final TextStyle? style;
@@ -127,6 +129,7 @@ class CustomTextField extends StatelessWidget {
           errorText: showError ? errorText : null,
           errorStyle: const TextStyle(fontSize: 13),
           hintText: hintText,
+          hintStyle: hintStyle,
           contentPadding: contentPadding,
           prefixText: prefixText,
           prefixStyle: prefixStyle,

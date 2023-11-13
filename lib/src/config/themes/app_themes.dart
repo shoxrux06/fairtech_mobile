@@ -67,7 +67,7 @@ final ThemeData lightTheme = appTheme.copyWith(
           return colorLightScheme.primary;
         },
       ),
-      textStyle: MaterialStatePropertyAll(ThemeTextStyles.light.buttonStyle),
+      textStyle: MaterialStatePropertyAll(ThemeTextStyles.light.hintStyle),
       elevation: const MaterialStatePropertyAll(0),
       shape: const MaterialStatePropertyAll(
         RoundedRectangleBorder(

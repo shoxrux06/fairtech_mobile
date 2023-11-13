@@ -3,7 +3,7 @@ part of 'themes.dart';
 class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
   const ThemeTextStyles({
     required this.appBarTitle,
-    required this.buttonStyle,
+    required this.hintStyle,
     required this.regularCaption2,
     required this.regularCaption1,
     required this.regularFootnote,
@@ -30,7 +30,7 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
   });
 
   final TextStyle appBarTitle;
-  final TextStyle buttonStyle;
+  final TextStyle hintStyle;
   final TextStyle regularCaption2;
   final TextStyle regularCaption1;
   final TextStyle regularFootnote;
@@ -61,10 +61,11 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       fontSize: 20,
       fontWeight: FontWeight.w600,
     ),
-    buttonStyle: TextStyle(
-      color: Colors.white,
-      fontSize: 17,
-      fontWeight: FontWeight.w600,
+    hintStyle: TextStyle(
+      color: Color(0xFF95969D),
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Poppins',
     ),
     regularBody: TextStyle(
       color:  Color(0xFF0D0D26),
@@ -193,10 +194,11 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
       fontSize: 20,
       fontWeight: FontWeight.w600,
     ),
-    buttonStyle: TextStyle(
-      color: Colors.white,
-      fontSize: 17,
-      fontWeight: FontWeight.w600,
+    hintStyle: TextStyle(
+      color: Color(0xFF95969D),
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Poppins',
     ),
     regularBody: TextStyle(
       color:  Color(0xFF0D0D26),
@@ -351,7 +353,7 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
   }) =>
       ThemeTextStyles(
         appBarTitle: appBarTitle ?? this.appBarTitle,
-        buttonStyle: buttonStyle ?? this.buttonStyle,
+        hintStyle: buttonStyle ?? this.hintStyle,
         regularBody: regularBody ?? this.regularBody,
         regularCallout: regularCallout ?? this.regularCallout,
         regularCaption1: regularCaption1 ?? this.regularCaption1,
@@ -385,7 +387,7 @@ class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
     }
     return ThemeTextStyles(
       appBarTitle: TextStyle.lerp(appBarTitle, other.appBarTitle, t)!,
-      buttonStyle: TextStyle.lerp(buttonStyle, other.buttonStyle, t)!,
+      hintStyle: TextStyle.lerp(hintStyle, other.hintStyle, t)!,
       regularBody: TextStyle.lerp(regularBody, other.regularBody, t)!,
       regularCallout: TextStyle.lerp(regularCallout, other.regularCallout, t)!,
       regularCaption1:

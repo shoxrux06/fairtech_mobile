@@ -167,8 +167,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                        color: context.theme.primaryColor, width: 1),
                                  ),
                                ),
-                               items: personTypeList
-                                   .map<DropdownMenuItem<String>>((String value) {
+                               items: personTypeList.map<DropdownMenuItem<String>>((String value) {
                                  return DropdownMenuItem<String>(
                                    value: value,
                                    child: Text(

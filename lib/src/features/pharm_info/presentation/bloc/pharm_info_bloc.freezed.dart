@@ -18,6 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PharmInfoState {
   PharmInfoResponse? get pharmInfoResponse =>
       throw _privateConstructorUsedError;
+  List<GetRegionListResponse?> get getRegionListResponse =>
+      throw _privateConstructorUsedError;
+  ProfileDataResponse? get profileDataResponse =>
+      throw _privateConstructorUsedError;
+  StatusCountOutsideResponse? get statusCountOutsideResponse =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PharmInfoStateCopyWith<PharmInfoState> get copyWith =>
@@ -30,7 +36,11 @@ abstract class $PharmInfoStateCopyWith<$Res> {
           PharmInfoState value, $Res Function(PharmInfoState) then) =
       _$PharmInfoStateCopyWithImpl<$Res, PharmInfoState>;
   @useResult
-  $Res call({PharmInfoResponse? pharmInfoResponse});
+  $Res call(
+      {PharmInfoResponse? pharmInfoResponse,
+      List<GetRegionListResponse?> getRegionListResponse,
+      ProfileDataResponse? profileDataResponse,
+      StatusCountOutsideResponse? statusCountOutsideResponse});
 }
 
 /// @nodoc
@@ -47,12 +57,27 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
   @override
   $Res call({
     Object? pharmInfoResponse = freezed,
+    Object? getRegionListResponse = null,
+    Object? profileDataResponse = freezed,
+    Object? statusCountOutsideResponse = freezed,
   }) {
     return _then(_value.copyWith(
       pharmInfoResponse: freezed == pharmInfoResponse
           ? _value.pharmInfoResponse
           : pharmInfoResponse // ignore: cast_nullable_to_non_nullable
               as PharmInfoResponse?,
+      getRegionListResponse: null == getRegionListResponse
+          ? _value.getRegionListResponse
+          : getRegionListResponse // ignore: cast_nullable_to_non_nullable
+              as List<GetRegionListResponse?>,
+      profileDataResponse: freezed == profileDataResponse
+          ? _value.profileDataResponse
+          : profileDataResponse // ignore: cast_nullable_to_non_nullable
+              as ProfileDataResponse?,
+      statusCountOutsideResponse: freezed == statusCountOutsideResponse
+          ? _value.statusCountOutsideResponse
+          : statusCountOutsideResponse // ignore: cast_nullable_to_non_nullable
+              as StatusCountOutsideResponse?,
     ) as $Val);
   }
 }
@@ -65,7 +90,11 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PharmInfoResponse? pharmInfoResponse});
+  $Res call(
+      {PharmInfoResponse? pharmInfoResponse,
+      List<GetRegionListResponse?> getRegionListResponse,
+      ProfileDataResponse? profileDataResponse,
+      StatusCountOutsideResponse? statusCountOutsideResponse});
 }
 
 /// @nodoc
@@ -80,12 +109,27 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? pharmInfoResponse = freezed,
+    Object? getRegionListResponse = null,
+    Object? profileDataResponse = freezed,
+    Object? statusCountOutsideResponse = freezed,
   }) {
     return _then(_$InitialImpl(
       pharmInfoResponse: freezed == pharmInfoResponse
           ? _value.pharmInfoResponse
           : pharmInfoResponse // ignore: cast_nullable_to_non_nullable
               as PharmInfoResponse?,
+      getRegionListResponse: null == getRegionListResponse
+          ? _value._getRegionListResponse
+          : getRegionListResponse // ignore: cast_nullable_to_non_nullable
+              as List<GetRegionListResponse?>,
+      profileDataResponse: freezed == profileDataResponse
+          ? _value.profileDataResponse
+          : profileDataResponse // ignore: cast_nullable_to_non_nullable
+              as ProfileDataResponse?,
+      statusCountOutsideResponse: freezed == statusCountOutsideResponse
+          ? _value.statusCountOutsideResponse
+          : statusCountOutsideResponse // ignore: cast_nullable_to_non_nullable
+              as StatusCountOutsideResponse?,
     ));
   }
 }
@@ -93,14 +137,33 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl implements Initial {
-  const _$InitialImpl({this.pharmInfoResponse});
+  const _$InitialImpl(
+      {this.pharmInfoResponse,
+      final List<GetRegionListResponse?> getRegionListResponse = const [],
+      this.profileDataResponse,
+      this.statusCountOutsideResponse})
+      : _getRegionListResponse = getRegionListResponse;
 
   @override
   final PharmInfoResponse? pharmInfoResponse;
+  final List<GetRegionListResponse?> _getRegionListResponse;
+  @override
+  @JsonKey()
+  List<GetRegionListResponse?> get getRegionListResponse {
+    if (_getRegionListResponse is EqualUnmodifiableListView)
+      return _getRegionListResponse;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_getRegionListResponse);
+  }
+
+  @override
+  final ProfileDataResponse? profileDataResponse;
+  @override
+  final StatusCountOutsideResponse? statusCountOutsideResponse;
 
   @override
   String toString() {
-    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse)';
+    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse)';
   }
 
   @override
@@ -109,11 +172,24 @@ class _$InitialImpl implements Initial {
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
             (identical(other.pharmInfoResponse, pharmInfoResponse) ||
-                other.pharmInfoResponse == pharmInfoResponse));
+                other.pharmInfoResponse == pharmInfoResponse) &&
+            const DeepCollectionEquality()
+                .equals(other._getRegionListResponse, _getRegionListResponse) &&
+            (identical(other.profileDataResponse, profileDataResponse) ||
+                other.profileDataResponse == profileDataResponse) &&
+            (identical(other.statusCountOutsideResponse,
+                    statusCountOutsideResponse) ||
+                other.statusCountOutsideResponse ==
+                    statusCountOutsideResponse));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, pharmInfoResponse);
+  int get hashCode => Object.hash(
+      runtimeType,
+      pharmInfoResponse,
+      const DeepCollectionEquality().hash(_getRegionListResponse),
+      profileDataResponse,
+      statusCountOutsideResponse);
 
   @JsonKey(ignore: true)
   @override
@@ -123,11 +199,21 @@ class _$InitialImpl implements Initial {
 }
 
 abstract class Initial implements PharmInfoState {
-  const factory Initial({final PharmInfoResponse? pharmInfoResponse}) =
+  const factory Initial(
+          {final PharmInfoResponse? pharmInfoResponse,
+          final List<GetRegionListResponse?> getRegionListResponse,
+          final ProfileDataResponse? profileDataResponse,
+          final StatusCountOutsideResponse? statusCountOutsideResponse}) =
       _$InitialImpl;
 
   @override
   PharmInfoResponse? get pharmInfoResponse;
+  @override
+  List<GetRegionListResponse?> get getRegionListResponse;
+  @override
+  ProfileDataResponse? get profileDataResponse;
+  @override
+  StatusCountOutsideResponse? get statusCountOutsideResponse;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

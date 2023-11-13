@@ -19,6 +19,7 @@ import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pag
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/pages/main_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/settings/presentation/pages/settings_page.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/pages/pharrm_info_page.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/pages/splash_page.dart';
@@ -278,7 +279,10 @@ class AppGoRouter {
           pageBuilder: (_, state) {
             return CustomTransitionPage(
               transitionDuration: const Duration(milliseconds: 1200),
-              child: const PharmInfoPage(),
+              child: BlocProvider(
+                create: (_) => PharmInfoBloc(pharmInfoRepository),
+                child:  const PharmInfoPage(),
+              ),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
                 CurveTween(curve: Curves.easeInOutCirc).animate(animation),

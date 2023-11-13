@@ -7,6 +7,9 @@ class AppConstants{
   static const editPassword = '/api/v.1/product-auth/edit-password?';
   static const getProductInfo = '/api/v.1/bojxona/tnved-code?';
   static const getPharmInfo = '/api/v.1/pharm/searchOutside?';
+  static const getRegionList = '/api/v.1/geographical-region/get-region-soatos';
+  static const getProfileData = '/api/v.1/outer-cabinet/profile-data';
+  static const getAppealsCount = '/api/v.1/pharm/status-count-outside';
   AppConstants._();
   ///prefs
   static const String keyToken = 'keyToken';

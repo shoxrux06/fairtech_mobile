@@ -20,3 +20,7 @@ class GetPharmInfoEvent extends PharmInfoEvent {
     required this.page,
   });
 }
+
+class GetRegionListEvent extends PharmInfoEvent {}
+class GetProfileDataEvent extends PharmInfoEvent {}
+class GetAppealsCountEvent extends PharmInfoEvent {}

@@ -5,10 +5,15 @@ import 'package:fairtech_mobile/src/core/di/inject.dart';
 import 'package:fairtech_mobile/src/core/handlers/api_result.dart';
 import 'package:fairtech_mobile/src/core/handlers/http_service.dart';
 import 'package:fairtech_mobile/src/core/handlers/network_exceptions.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/data/models/get_region_list_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/pharm_info_response.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/data/models/status_count_outside_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
 
 class PharmInfoRepositoryImpl implements PharmInfoRepository {
+
+
   @override
   Future<ApiResult<PharmInfoResponse>> getPharmInfo(String keyword, String status, int itemsPerPage, int page) async {
     try {
@@ -24,7 +29,61 @@ class PharmInfoRepositoryImpl implements PharmInfoRepository {
       );
       return ApiResult.success(data: PharmInfoResponse.fromJson(response.data));
     } catch (e) {
-      print('==> products failure: $e');
+      print('==> failure: $e');
+      return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<List<GetRegionListResponse>>> getRegionList() async{
+    try {
+      final client = inject<HttpService>().client(requireAuth: true);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
+      HttpClient()
+        ..badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+      final response = await client.get(
+        AppConstants.getRegionList,
+      );
+      return ApiResult.success(data: List.from(response.data.map((e) => GetRegionListResponse.fromJson(e))));
+    } catch (e) {
+      print('==> failure: $e');
+      return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<ProfileDataResponse>> getProfileData()async {
+    try {
+      final client = inject<HttpService>().client(requireAuth: true);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
+      HttpClient()
+        ..badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+      final response = await client.post(
+        AppConstants.getProfileData,
+      );
+      return ApiResult.success(data: ProfileDataResponse.fromJson(response.data));
+    } catch (e) {
+      print('==> failure: $e');
+      return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<StatusCountOutsideResponse>> getAppealsCount() async{
+    try {
+      final client = inject<HttpService>().client(requireAuth: true);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
+      HttpClient()
+        ..badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+      final response = await client.get(
+        AppConstants.getAppealsCount,
+      );
+      return ApiResult.success(data: StatusCountOutsideResponse.fromJson(response.data));
+    } catch (e) {
+      print('==> failure: $e');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }
