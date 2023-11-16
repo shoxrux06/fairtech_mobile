@@ -1,3 +1,6 @@
+import 'package:fairtech_mobile/src/features/main/menu/profile/data/local_data.dart';
+import 'package:fairtech_mobile/src/features/pdf/data/models/invoice.dart';
+import 'package:fairtech_mobile/src/features/pdf/presentation/pages/pdf_review.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -10,9 +13,13 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Profile Page'),
+    return Scaffold(
+      body: PdfPreviewPage(
+        invoice: Invoice(
+          dateTime: DateTime.now(),
+          id: 1,
+          orderItems: LocalData.orderItems
+        ),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:fairtech_mobile/src/features/pharm_info/data/models/get_region_l
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/pharm_info_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/status_count_outside_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -28,7 +29,7 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     GetPharmInfoEvent event,
     Emitter<PharmInfoState> emit,
   ) async {
-    final result = await pharmInfoRepository.getPharmInfo(event.keyword, event.status, event.itemsPerPage, event.page);
+    final result = await pharmInfoRepository.getPharmInfo(event.context,event.keyword, event.status, event.itemsPerPage, event.page);
     result.when(
       success: (data) {
         event.onSuccess();
@@ -36,6 +37,7 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
       },
       failure: (failure) {
         event.onError();
+        emit(state.copyWith(isErrorOccurredWhileGettingPharmInfo: true));
       },
     );
   }

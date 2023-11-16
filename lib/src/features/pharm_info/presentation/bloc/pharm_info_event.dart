@@ -4,6 +4,7 @@ part of 'pharm_info_bloc.dart';
 abstract class PharmInfoEvent {}
 
 class GetPharmInfoEvent extends PharmInfoEvent {
+  final BuildContext context;
   final Function onSuccess;
   final Function onError;
   final String keyword;
@@ -12,6 +13,7 @@ class GetPharmInfoEvent extends PharmInfoEvent {
   final int page;
 
   GetPharmInfoEvent({
+    required this.context,
     required this.onSuccess,
     required this.onError,
     required this.keyword,

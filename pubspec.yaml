@@ -47,6 +47,8 @@ dependencies:
   grouped_list: ^5.1.2
   persistent_bottom_nav_bar: ^5.0.2
   another_flushbar: ^1.12.30
+  pdf: ^3.10.6
+  printing: ^5.11.1
 
 
 

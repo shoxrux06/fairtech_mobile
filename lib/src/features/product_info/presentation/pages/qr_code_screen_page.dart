@@ -1,11 +1,9 @@
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
-import 'package:fairtech_mobile/src/features/components/buttons/custom_button.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button_without_gradient.dart';
 import 'package:fairtech_mobile/src/features/main/menu/services/presentation/bloc/services_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/qr_scanner_overlay.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/widgets/tn_ved_code_response_widget.dart';
 import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/widgets/fiscal_number_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

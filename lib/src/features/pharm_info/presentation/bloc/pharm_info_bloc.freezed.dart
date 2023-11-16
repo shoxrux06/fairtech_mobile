@@ -24,6 +24,8 @@ mixin _$PharmInfoState {
       throw _privateConstructorUsedError;
   StatusCountOutsideResponse? get statusCountOutsideResponse =>
       throw _privateConstructorUsedError;
+  bool get isErrorOccurredWhileGettingPharmInfo =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PharmInfoStateCopyWith<PharmInfoState> get copyWith =>
@@ -40,7 +42,8 @@ abstract class $PharmInfoStateCopyWith<$Res> {
       {PharmInfoResponse? pharmInfoResponse,
       List<GetRegionListResponse?> getRegionListResponse,
       ProfileDataResponse? profileDataResponse,
-      StatusCountOutsideResponse? statusCountOutsideResponse});
+      StatusCountOutsideResponse? statusCountOutsideResponse,
+      bool isErrorOccurredWhileGettingPharmInfo});
 }
 
 /// @nodoc
@@ -60,6 +63,7 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
     Object? getRegionListResponse = null,
     Object? profileDataResponse = freezed,
     Object? statusCountOutsideResponse = freezed,
+    Object? isErrorOccurredWhileGettingPharmInfo = null,
   }) {
     return _then(_value.copyWith(
       pharmInfoResponse: freezed == pharmInfoResponse
@@ -78,6 +82,11 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
           ? _value.statusCountOutsideResponse
           : statusCountOutsideResponse // ignore: cast_nullable_to_non_nullable
               as StatusCountOutsideResponse?,
+      isErrorOccurredWhileGettingPharmInfo: null ==
+              isErrorOccurredWhileGettingPharmInfo
+          ? _value.isErrorOccurredWhileGettingPharmInfo
+          : isErrorOccurredWhileGettingPharmInfo // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -94,7 +103,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       {PharmInfoResponse? pharmInfoResponse,
       List<GetRegionListResponse?> getRegionListResponse,
       ProfileDataResponse? profileDataResponse,
-      StatusCountOutsideResponse? statusCountOutsideResponse});
+      StatusCountOutsideResponse? statusCountOutsideResponse,
+      bool isErrorOccurredWhileGettingPharmInfo});
 }
 
 /// @nodoc
@@ -112,6 +122,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? getRegionListResponse = null,
     Object? profileDataResponse = freezed,
     Object? statusCountOutsideResponse = freezed,
+    Object? isErrorOccurredWhileGettingPharmInfo = null,
   }) {
     return _then(_$InitialImpl(
       pharmInfoResponse: freezed == pharmInfoResponse
@@ -130,6 +141,11 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.statusCountOutsideResponse
           : statusCountOutsideResponse // ignore: cast_nullable_to_non_nullable
               as StatusCountOutsideResponse?,
+      isErrorOccurredWhileGettingPharmInfo: null ==
+              isErrorOccurredWhileGettingPharmInfo
+          ? _value.isErrorOccurredWhileGettingPharmInfo
+          : isErrorOccurredWhileGettingPharmInfo // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -141,7 +157,8 @@ class _$InitialImpl implements Initial {
       {this.pharmInfoResponse,
       final List<GetRegionListResponse?> getRegionListResponse = const [],
       this.profileDataResponse,
-      this.statusCountOutsideResponse})
+      this.statusCountOutsideResponse,
+      this.isErrorOccurredWhileGettingPharmInfo = false})
       : _getRegionListResponse = getRegionListResponse;
 
   @override
@@ -160,10 +177,13 @@ class _$InitialImpl implements Initial {
   final ProfileDataResponse? profileDataResponse;
   @override
   final StatusCountOutsideResponse? statusCountOutsideResponse;
+  @override
+  @JsonKey()
+  final bool isErrorOccurredWhileGettingPharmInfo;
 
   @override
   String toString() {
-    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse)';
+    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse, isErrorOccurredWhileGettingPharmInfo: $isErrorOccurredWhileGettingPharmInfo)';
   }
 
   @override
@@ -180,7 +200,11 @@ class _$InitialImpl implements Initial {
             (identical(other.statusCountOutsideResponse,
                     statusCountOutsideResponse) ||
                 other.statusCountOutsideResponse ==
-                    statusCountOutsideResponse));
+                    statusCountOutsideResponse) &&
+            (identical(other.isErrorOccurredWhileGettingPharmInfo,
+                    isErrorOccurredWhileGettingPharmInfo) ||
+                other.isErrorOccurredWhileGettingPharmInfo ==
+                    isErrorOccurredWhileGettingPharmInfo));
   }
 
   @override
@@ -189,7 +213,8 @@ class _$InitialImpl implements Initial {
       pharmInfoResponse,
       const DeepCollectionEquality().hash(_getRegionListResponse),
       profileDataResponse,
-      statusCountOutsideResponse);
+      statusCountOutsideResponse,
+      isErrorOccurredWhileGettingPharmInfo);
 
   @JsonKey(ignore: true)
   @override
@@ -200,11 +225,11 @@ class _$InitialImpl implements Initial {
 
 abstract class Initial implements PharmInfoState {
   const factory Initial(
-          {final PharmInfoResponse? pharmInfoResponse,
-          final List<GetRegionListResponse?> getRegionListResponse,
-          final ProfileDataResponse? profileDataResponse,
-          final StatusCountOutsideResponse? statusCountOutsideResponse}) =
-      _$InitialImpl;
+      {final PharmInfoResponse? pharmInfoResponse,
+      final List<GetRegionListResponse?> getRegionListResponse,
+      final ProfileDataResponse? profileDataResponse,
+      final StatusCountOutsideResponse? statusCountOutsideResponse,
+      final bool isErrorOccurredWhileGettingPharmInfo}) = _$InitialImpl;
 
   @override
   PharmInfoResponse? get pharmInfoResponse;
@@ -214,6 +239,8 @@ abstract class Initial implements PharmInfoState {
   ProfileDataResponse? get profileDataResponse;
   @override
   StatusCountOutsideResponse? get statusCountOutsideResponse;
+  @override
+  bool get isErrorOccurredWhileGettingPharmInfo;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

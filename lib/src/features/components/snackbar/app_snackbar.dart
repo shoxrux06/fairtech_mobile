@@ -116,24 +116,24 @@ class AppSnackBar {
         reverseAnimationCurve: Curves.decelerate,
         forwardAnimationCurve: Curves.elasticOut,
         backgroundColor: Colors.red,
-        boxShadows: [BoxShadow(color: Colors.blueAccent.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
-        backgroundGradient: LinearGradient(colors: [Colors.blueGrey, Colors.black]),
+        boxShadows: [BoxShadow(color: Colors.red.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
+        backgroundGradient: LinearGradient(colors: [Colors.red, Colors.red.shade100]),
         isDismissible: false,
         duration: const Duration(seconds: 4),
         icon: const Icon(
           Icons.check,
-          color: Colors.greenAccent,
+          color: Colors.white,
         ),
         showProgressIndicator: false,
         progressIndicatorBackgroundColor: Colors.blueGrey,
         titleText: Text(
           text,
           style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.red, fontFamily: "ShadowsIntoLightTwo"),
+              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white, fontFamily: "ShadowsIntoLightTwo"),
         ),
         messageText: Text(
           desc,
-          style: const TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
+          style: const TextStyle(fontSize: 18.0, color: Colors.white, fontFamily: "ShadowsIntoLightTwo"),
         ),
       )..show(context);
 }

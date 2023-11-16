@@ -48,6 +48,7 @@ class _PharmInfoPageState extends State<PharmInfoPage>
       }
     });
     context.read<PharmInfoBloc>().add(GetPharmInfoEvent(
+        context: context,
         onSuccess: () {
           print('Success');
         },
@@ -145,6 +146,7 @@ class _PharmInfoPageState extends State<PharmInfoPage>
   void sendRequest(int index){
     if (index == 0) {
       context.read<PharmInfoBloc>().add(GetPharmInfoEvent(
+          context: context,
           onSuccess: () {
             print('Success');
           },
@@ -157,6 +159,7 @@ class _PharmInfoPageState extends State<PharmInfoPage>
           page: 0));
     } else if (index == 1) {
       context.read<PharmInfoBloc>().add(GetPharmInfoEvent(
+          context: context,
           onSuccess: () {
             print('Success');
           },
@@ -169,6 +172,7 @@ class _PharmInfoPageState extends State<PharmInfoPage>
           page: 0));
     } else if (index == 2) {
       context.read<PharmInfoBloc>().add(GetPharmInfoEvent(
+          context: context,
           onSuccess: () {
             print('Success');
           },

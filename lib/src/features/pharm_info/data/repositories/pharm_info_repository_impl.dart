@@ -5,17 +5,19 @@ import 'package:fairtech_mobile/src/core/di/inject.dart';
 import 'package:fairtech_mobile/src/core/handlers/api_result.dart';
 import 'package:fairtech_mobile/src/core/handlers/http_service.dart';
 import 'package:fairtech_mobile/src/core/handlers/network_exceptions.dart';
+import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/get_region_list_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/pharm_info_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/status_count_outside_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
+import 'package:flutter/cupertino.dart';
 
 class PharmInfoRepositoryImpl implements PharmInfoRepository {
 
 
   @override
-  Future<ApiResult<PharmInfoResponse>> getPharmInfo(String keyword, String status, int itemsPerPage, int page) async {
+  Future<ApiResult<PharmInfoResponse>> getPharmInfo(BuildContext context,String keyword, String status, int itemsPerPage, int page) async {
     try {
       final client = inject<HttpService>().client(requireAuth: true);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
@@ -30,6 +32,7 @@ class PharmInfoRepositoryImpl implements PharmInfoRepository {
       return ApiResult.success(data: PharmInfoResponse.fromJson(response.data));
     } catch (e) {
       print('==> failure: $e');
+      AppSnackBar.showErrorSnackBar(context, 'Error', 'Error occurred');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }

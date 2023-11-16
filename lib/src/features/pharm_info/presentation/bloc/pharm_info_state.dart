@@ -7,5 +7,6 @@ class PharmInfoState with _$PharmInfoState{
     @Default([])List<GetRegionListResponse?> getRegionListResponse,
     ProfileDataResponse? profileDataResponse,
     StatusCountOutsideResponse? statusCountOutsideResponse,
+    @Default(false) bool isErrorOccurredWhileGettingPharmInfo
 }) = Initial;
 }

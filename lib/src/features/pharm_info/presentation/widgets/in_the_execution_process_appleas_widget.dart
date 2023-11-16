@@ -16,7 +16,11 @@ class InTheExecutionProcessAppealsWidget extends StatelessWidget {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        }else{
+        }else if(state.isErrorOccurredWhileGettingPharmInfo){
+          return Center(
+            child: Text('Xatolik yuz berdi', style: context.textStyle.regularTitle2,),
+          );
+        } else {
           return Center(
             child: Text('Ma\'lumot topilmadi', style: context.textStyle.regularTitle2,),
           );

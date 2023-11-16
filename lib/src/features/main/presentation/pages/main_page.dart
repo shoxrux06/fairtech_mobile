@@ -6,6 +6,7 @@ import 'package:fairtech_mobile/src/features/drawer/presentation/custom_drawer.d
 import 'package:fairtech_mobile/src/features/drawer/widgets/language_bottom_widget.dart';
 import 'package:fairtech_mobile/src/features/main/menu/home/presentation/pages/home_page.dart';
 import 'package:fairtech_mobile/src/features/main/menu/profile/presentation/pages/presentation.dart';
+import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/pages/star_page.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/widgets/choose_option_widget.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/widgets/custom_bottom_bar.dart';
@@ -55,15 +56,13 @@ class MainPage extends StatelessWidget {
             body: IndexedStack(
               index: bottomMenu.index,
               children: [
-                HomePage(),
+                const HomePage(),
                 Scaffold(
                   body: Container(child: Center(child: Text('Second page')),),
                 ),
-                ServicesPage(),
-                ProfilePage(),
-                Scaffold(
-                  body: Container(child: Center(child: Text('More page')),),
-                ),
+                const ServicesPage(),
+                const ProfilePage(),
+                const StarPage()
               ],
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,

@@ -1,3 +1,5 @@
+import 'package:fairtech_mobile/src/features/main/menu/profile/data/local_data.dart';
+import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/widgets/region_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class StarPage extends StatefulWidget {
@@ -10,10 +12,8 @@ class StarPage extends StatefulWidget {
 class _StarPageState extends State<StarPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Star Page'),
-      ),
+    return Scaffold(
+      body: RegionItemWidget(orderItems: LocalData.orderItems,)
     );
   }
 }

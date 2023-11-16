@@ -58,11 +58,13 @@ class _TnVedCodeResponseWidgetState extends State<TnVedCodeResponseWidget> {
                     children: [
                       Expanded(
                           flex: 2,
-                          child: Text('Netto',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))),
+                          child: Text('Netto',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))
+                      ),
                       const SizedBox(width: 12,),
                       Expanded(
                           flex: 2,
-                          child: Text('${widget.productInfoResponse?.data[index].goods[i].weightNetto}',style: context.textStyle.regularBody))
+                          child: Text('${widget.productInfoResponse?.data[index].goods[i].weightNetto}',style: context.textStyle.regularBody)
+                      )
                     ],
                   ),
                   AppUtils.kGap8,

@@ -69,7 +69,7 @@ class AppGoRouter {
               BlocProvider<ServicesBloc>(create: (_) => sl<ServicesBloc>()),
               BlocProvider<SignInBloc>(create: (_) => sl<SignInBloc>()),
             ],
-            child: MainPage(),
+            child: const MainPage(),
           ),
           transitionsBuilder: (_, animation, __, child) => FadeTransition(
             opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
