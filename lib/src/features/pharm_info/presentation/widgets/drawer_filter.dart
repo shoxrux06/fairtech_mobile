@@ -88,7 +88,7 @@ class _DrawerFilterState extends State<DrawerFilter> {
             ),
             AppUtils.kGap8,
             Text('Murojaat holati', style: context.textStyle.regularTitle1,),
-            CustomDropDownFormField(value: appealStatus, hintText: 'Murojaat holati', items: appealStatusItems),
+            CustomDropDownFormField(value: appealStatus, hintText: 'Murojaat holati', items: appealStatusItems, onChanged: (String? val) {  },),
             AppUtils.kGap8,
             Text('Tashkilot ma\'lumotlari', style: context.textStyle.regularTitle1,),
             CustomTextField(

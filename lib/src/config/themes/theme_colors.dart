@@ -28,6 +28,7 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
   const ThemeColors({
     required this.yellow,
     required this.green,
+    required this.white,
     required this.blueDark,
     required this.blueLight,
     required this.red,
@@ -38,6 +39,7 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
 
   final Color green;
   final Color yellow;
+  final Color white;
   final Color blueDark;
   final Color blueLight;
   final Color red;
@@ -47,6 +49,7 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
 
   static const ThemeColors light = ThemeColors(
     yellow: Color(0xFFF4CA36),
+    white: Color(0xFFFFFFFF),
     green: Color(0xFF119C2B),
     blueDark: Color(0xFF2A56C8),
     blueLight: Color(0xFF2A7CC8),
@@ -58,6 +61,7 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
   static const ThemeColors dark = ThemeColors(
     yellow: Color(0xFFF4CA36),
     green: Color(0xFF119C2B),
+    white: Color(0xFFFFFFFF),
     blueDark: Color(0xFF2A56C8),
     blueLight: Color(0xFF2A7CC8),
     red: Color(0xFFC82A63),
@@ -75,6 +79,7 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
     Color? blueDark,
     Color? blueLight,
     Color? red,
+    Color? white,
     Color? brown,
   }) =>
       ThemeColors(
@@ -83,6 +88,7 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
         brown: brown ?? this.brown,
         red: red ?? this.red,
         yellow: yellow ?? this.yellow,
+        white: white ?? this.white,
         green: green ?? this.green,
         primaryText: primaryText ?? this.primaryText,
         secondaryText: secondaryText ?? this.secondaryText,
@@ -99,6 +105,7 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
       blueLight: Color.lerp(blueLight, other.blueLight, t)!,
       brown: Color.lerp(brown, other.brown, t)!,
       red: Color.lerp(red, other.red, t)!,
+      white: Color.lerp(red, other.white, t)!,
       primaryText: Color.lerp(primaryText, other.primaryText, t)!,
       secondaryText: Color.lerp(secondaryText, other.secondaryText, t)!,
       green: Color.lerp(green, other.green, t)!,

@@ -5,11 +5,15 @@ import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bott
 import 'package:fairtech_mobile/src/features/drawer/presentation/custom_drawer.dart';
 import 'package:fairtech_mobile/src/features/drawer/widgets/language_bottom_widget.dart';
 import 'package:fairtech_mobile/src/features/main/menu/home/presentation/pages/home_page.dart';
+import 'package:fairtech_mobile/src/features/main/menu/profile/data/local_data.dart';
 import 'package:fairtech_mobile/src/features/main/menu/profile/presentation/pages/presentation.dart';
+import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/bloc/star_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/pages/star_page.dart';
+import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/widgets/bottom_filter_region.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/widgets/choose_option_widget.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/widgets/custom_bottom_bar.dart';
+import 'package:fairtech_mobile/src/features/pdf/data/models/order_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,9 +23,11 @@ import '../../menu/services/presentation/pages/services_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({
-    super.key,
+    super.key, this.orderItem,
   });
 
+
+  final OrderItem? orderItem;
   @override
   Widget build(BuildContext context) =>
       BlocSelector<MainBloc, MainState, BottomMenu>(
@@ -29,9 +35,7 @@ class MainPage extends StatelessWidget {
         builder: (_, bottomMenu) => WillPopScope(
           onWillPop: () async {
             if (bottomMenu.index != 0) {
-              context
-                  .read<MainBloc>()
-                  .add(MainEventChanged(BottomMenu.values[0]));
+              context.read<MainBloc>().add(MainEventChanged(BottomMenu.values[0]));
               return false;
             }
             return true;
@@ -52,17 +56,42 @@ class MainPage extends StatelessWidget {
                   onPressed: () => Scaffold.of(ctx).openDrawer(),),
               ),
               centerTitle: true,
+              actions: bottomMenu.index == 4? [
+                Builder(
+                  builder: (builderContext) {
+                    return IconButton(onPressed: (){
+                      List<String> items  = [];
+                      LocalData.orderItems.forEach((element) {
+                        items.add(element.hududlar);
+                      });
+                      customModalBottomSheet(
+                        context: context,
+                        builder: (_, controller) =>
+                            BlocProvider.value(
+                              value: builderContext.read<StarBloc>(),
+                              child: BottomFilterRegion(
+                                items: items,
+                                checkboxValue1: true,
+                                checkboxValue2: true,
+                                checkboxValue3: true,
+                              ),
+                            ),
+                      );
+                    }, icon: const Icon(Icons.filter_alt_rounded));
+                  }
+                )
+              ]: null,
             ),
             body: IndexedStack(
               index: bottomMenu.index,
               children: [
                 const HomePage(),
                 Scaffold(
-                  body: Container(child: Center(child: Text('Second page')),),
+                  body: Container(child: const Center(child: Text('Second page')),),
                 ),
                 const ServicesPage(),
                 const ProfilePage(),
-                const StarPage()
+                StarPage(orderItem: orderItem,)
               ],
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,

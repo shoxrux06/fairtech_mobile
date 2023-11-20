@@ -34,8 +34,10 @@ class OrderItem {
     required this.xaridlarniOrganishHajmigaNisbatanBerilganBall,
     required this.xaridlarniOrganishNatijasidaKamchiliklarAniqlanganlikUchunBerilganBall,
   });
-//
-// factory OrderItem.fromJson(Map<String, dynamic> json) => OrderItem(
-//       id: json["id"],
-//     );
+
+
+  @override
+  String toString() {
+    return 'OrderItem{id: $id, hududlar: $hududlar, jamiTrade: $jamiTrade, etenderTrade: $etenderTrade, tenderMcTrade: $tenderMcTrade, xtXaridTrade: $xtXaridTrade, topshiriqAsosidaTrade: $topshiriqAsosidaTrade, organishFoizi: $organishFoizi, kamchilikAniqlanganTrades: $kamchilikAniqlanganTrades, organilganXaridlargaNisbatanFoiz: $organilganXaridlargaNisbatanFoiz, organilmayQolganTrades: $organilmayQolganTrades, jamiOrganilganTradeNumbers: $jamiOrganilganTradeNumbers, kpiTizimBoyichaToplanganJamiBallar: $kpiTizimBoyichaToplanganJamiBallar, topshiriqAsosidaBerilganBall: $topshiriqAsosidaBerilganBall, xaridlarniOrganishHajmigaNisbatanBerilganBall: $xaridlarniOrganishHajmigaNisbatanBerilganBall, xaridlarniOrganishNatijasidaKamchiliklarAniqlanganlikUchunBerilganBall: $xaridlarniOrganishNatijasidaKamchiliklarAniqlanganlikUchunBerilganBall}';
+  }
 }

@@ -7,6 +7,8 @@ import 'package:fairtech_mobile/src/features/drawer/appeals/domain/repository/ap
 import 'package:fairtech_mobile/src/features/main/menu/services/data/repository/services_repository_impl.dart';
 import 'package:fairtech_mobile/src/features/main/menu/services/domain/repository/services_repository.dart';
 import 'package:fairtech_mobile/src/features/main/menu/services/presentation/bloc/services_bloc.dart';
+import 'package:fairtech_mobile/src/features/main/menu/star/data/repository.dart';
+import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/bloc/star_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/repositories/pharm_info_repository_impl.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
@@ -21,17 +23,20 @@ setUpDependencies() {
   sl.registerLazySingleton<AppealsRepository>(() => AppealsRepositoryImpl());
   sl.registerLazySingleton<ServicesRepository>(() => ServicesRepositoryImpl());
   sl.registerLazySingleton<PharmInfoRepository>(() => PharmInfoRepositoryImpl());
+  sl.registerLazySingleton<StarRepository>(() => StarRepository());
 
   mainFeature();
   servicesFeature();
   signInFeature();
   pharmInfoFeature();
+  filterFeature();
 }
 
 final signInRepository = sl.get<SignInRepository>();
 final appealsRepository = sl.get<AppealsRepository>();
 final servicesRepository = sl.get<ServicesRepository>();
 final pharmInfoRepository = sl.get<PharmInfoRepository>();
+final stareRepository = sl.get<StarRepository>();
 
 
 
@@ -53,4 +58,9 @@ void signInFeature() {
 void pharmInfoFeature() {
   /// main
   sl.registerLazySingleton(() => PharmInfoBloc(pharmInfoRepository));
+}
+
+void filterFeature() {
+  /// main
+  sl.registerLazySingleton(() => StarBloc(stareRepository));
 }

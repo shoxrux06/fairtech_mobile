@@ -16,6 +16,7 @@ import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pag
 import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/scanner_result_page.dart';
 import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/widgets/tn_ved_code_response_widget.dart';
 import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/tnved_code_page.dart';
+import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/bloc/star_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/pages/main_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/settings/presentation/pages/settings_page.dart';
@@ -61,21 +62,27 @@ class AppGoRouter {
       GoRoute(
         name: Routes.main,
         path: Routes.main,
-        pageBuilder: (_, state) => CustomTransitionPage(
-          transitionDuration: const Duration(milliseconds: 1200),
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
-              BlocProvider<ServicesBloc>(create: (_) => sl<ServicesBloc>()),
-              BlocProvider<SignInBloc>(create: (_) => sl<SignInBloc>()),
-            ],
-            child: const MainPage(),
-          ),
-          transitionsBuilder: (_, animation, __, child) => FadeTransition(
-            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-            child: child,
-          ),
-        ),
+        pageBuilder: (_, state) {
+          dynamic extra;
+          if(state.extra != null){
+            extra = state.extra as Map;
+          }
+          return CustomTransitionPage(
+            transitionDuration: const Duration(milliseconds: 1200),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
+                BlocProvider<ServicesBloc>(create: (_) => sl<ServicesBloc>()),
+                BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
+              ],
+              child:  const MainPage(),
+            ),
+            transitionsBuilder: (_, animation, __, child) => FadeTransition(
+              opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+              child: child,
+            ),
+          );
+        }
       ),
       GoRoute(
         name: Routes.authOneId,
@@ -101,6 +108,7 @@ class AppGoRouter {
               providers: [
                 BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
                 BlocProvider<SignInBloc>(create: (_) => sl<SignInBloc>()),
+                BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
               ],
               child: const SignInPage()),
           transitionsBuilder: (_, animation, __, child) => FadeTransition(

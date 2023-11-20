@@ -18,8 +18,7 @@ class LocalData {
       kpiTizimBoyichaToplanganJamiBallar: 55,
       topshiriqAsosidaBerilganBall: 1,
       xaridlarniOrganishHajmigaNisbatanBerilganBall: 2,
-      xaridlarniOrganishNatijasidaKamchiliklarAniqlanganlikUchunBerilganBall:
-      5,
+      xaridlarniOrganishNatijasidaKamchiliklarAniqlanganlikUchunBerilganBall: 5,
     ),
     OrderItem(
       id: 1,

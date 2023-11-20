@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDownFormField extends StatefulWidget {
-  CustomDropDownFormField({super.key,required this.value,required this.hintText, required this.items});
+  CustomDropDownFormField({super.key,required this.value,required this.hintText, required this.items, required this.onChanged});
 
   String? value;
   String? hintText;
   final List<String> items;
+  final Function(String?)? onChanged;
 
   @override
   State<CustomDropDownFormField> createState() => _CustomDropDownFormFieldState();
@@ -74,11 +75,8 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
               ),
             );
           }).toList(),
-          onChanged: (String? val) {
-            setState(() {
-              widget.value = val;
-            });
-          }),
+          onChanged: widget.onChanged
+      ),
     );
   }
 }

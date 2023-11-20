@@ -18,7 +18,7 @@ void main() async {
     ModelBinding(
         initialModel: AppOptions(
           themeMode: LocalStorage.instance.themeMode,
-          locale: Locale('en')
+          locale: const Locale('en')
         ),
         child:const MyApp()
     ),
@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final token = LocalStorage.instance.getToken();
-    print('Token <<$token>>');
     return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
