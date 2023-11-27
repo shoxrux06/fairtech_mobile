@@ -13,12 +13,14 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PdfPreviewPage(
-        invoice: Invoice(
-          dateTime: DateTime.now(),
-          id: 1,
-          orderItems: LocalData.orderItems
+    return SafeArea(
+      child: Scaffold(
+        body: PdfPreviewPage(
+          invoice: Invoice(
+            dateTime: DateTime.now(),
+            id: 1,
+            orderItems: LocalData.orderItems
+          ),
         ),
       ),
     );

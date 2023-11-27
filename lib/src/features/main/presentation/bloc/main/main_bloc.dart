@@ -27,14 +27,10 @@ enum BottomMenu {
   home,
   star,
   services,
-  favourites,
-  more,
 }
 
 enum BottomMenuTitle {
   home,
   star,
   services,
-  favourites,
-  more,
 }

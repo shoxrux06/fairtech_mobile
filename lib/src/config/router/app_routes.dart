@@ -1,4 +1,3 @@
-import 'package:fairtech_mobile/main.dart';
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/auth_confirmed_page.dart';
@@ -11,17 +10,18 @@ import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/ap
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/create_appeals_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/presentation/help_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/personal_information/presentation/pages/personal_inforamtion_page.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/presentation/bloc/services_bloc.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/qr_code_screen_page.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/scanner_result_page.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/widgets/tn_ved_code_response_widget.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/presentation/pages/tnved_code_page.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/bloc/star_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/pages/main_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/settings/presentation/pages/settings_page.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/pages/pharrm_info_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/choose_option_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_tnved_code_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/qr_code_screen_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/scanner_result_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/shtrix_code_page.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +72,7 @@ class AppGoRouter {
             child: MultiBlocProvider(
               providers: [
                 BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
-                BlocProvider<ServicesBloc>(create: (_) => sl<ServicesBloc>()),
+                BlocProvider<ProductInfoBloc>(create: (_) => sl<ProductInfoBloc>()),
                 BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
               ],
               child:  const MainPage(),
@@ -239,7 +239,7 @@ class AppGoRouter {
         pageBuilder: (_, state) => CustomTransitionPage(
           transitionDuration: const Duration(milliseconds: 1200),
           child: BlocProvider(
-            create: (_) => ServicesBloc(servicesRepository),
+            create: (_) => ProductInfoBloc(servicesRepository),
             child: const QrCodeScreenPage(),
           ),
           transitionsBuilder: (_, animation, __, child) => FadeTransition(
@@ -254,8 +254,8 @@ class AppGoRouter {
         pageBuilder: (_, state) => CustomTransitionPage(
           transitionDuration: const Duration(milliseconds: 1200),
           child: BlocProvider(
-            create: (_) => ServicesBloc(servicesRepository),
-            child: TnVedCodePage(),
+            create: (_) => ProductInfoBloc(servicesRepository),
+            child: ProductTnVedCodePage(),
           ),
           transitionsBuilder: (_, animation, __, child) => FadeTransition(
             opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
@@ -291,6 +291,34 @@ class AppGoRouter {
                 create: (_) => PharmInfoBloc(pharmInfoRepository),
                 child:  const PharmInfoPage(),
               ),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.chooseOption,
+          path: Routes.chooseOption,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: const ChooseOptionPage(),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.shtrixCode,
+          path: Routes.shtrixCode,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: const ShtrixCodePage(),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
                 CurveTween(curve: Curves.easeInOutCirc).animate(animation),

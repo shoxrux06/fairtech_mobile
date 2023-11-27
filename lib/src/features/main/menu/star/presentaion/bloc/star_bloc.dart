@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/data/repository.dart';
 import 'package:fairtech_mobile/src/features/pdf/data/models/order_item.dart';

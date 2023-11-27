@@ -3,7 +3,7 @@ part of 'star_bloc.dart';
 @immutable
 abstract class StarEvent {}
 
-class SubmitFilterEvent extends StarEvent{
+class SubmitFilterEvent extends StarEvent {
   final bool filter1;
   final bool filter2;
   final bool filter3;

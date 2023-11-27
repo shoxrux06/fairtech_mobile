@@ -1,6 +1,6 @@
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/data/models/product_info_response.dart';
+import 'package:fairtech_mobile/src/features/product_info/data/models/product_info_response.dart';
 import 'package:flutter/material.dart';
 
 

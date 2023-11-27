@@ -4,15 +4,15 @@ import 'package:fairtech_mobile/src/features/auth/sign_in/domain/repository/sign
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/repository/appeals_repository_impl.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/repository/appeals_repository.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/data/repository/services_repository_impl.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/domain/repository/services_repository.dart';
-import 'package:fairtech_mobile/src/features/main/menu/services/presentation/bloc/services_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/data/repository.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/bloc/star_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/repositories/pharm_info_repository_impl.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
+import 'package:fairtech_mobile/src/features/product_info/data/repository/product_info_repository_impl.dart';
+import 'package:fairtech_mobile/src/features/product_info/domain/repository/product_info_repository.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final GetIt sl = GetIt.instance;
@@ -21,7 +21,7 @@ setUpDependencies() {
   sl.registerLazySingleton<HttpService>(() => HttpService());
   sl.registerLazySingleton<SignInRepository>(() => SignInRepositoryImpl());
   sl.registerLazySingleton<AppealsRepository>(() => AppealsRepositoryImpl());
-  sl.registerLazySingleton<ServicesRepository>(() => ServicesRepositoryImpl());
+  sl.registerLazySingleton<ProductInfoRepository>(() => ProductInfoRepositoryImpl());
   sl.registerLazySingleton<PharmInfoRepository>(() => PharmInfoRepositoryImpl());
   sl.registerLazySingleton<StarRepository>(() => StarRepository());
 
@@ -34,7 +34,7 @@ setUpDependencies() {
 
 final signInRepository = sl.get<SignInRepository>();
 final appealsRepository = sl.get<AppealsRepository>();
-final servicesRepository = sl.get<ServicesRepository>();
+final servicesRepository = sl.get<ProductInfoRepository>();
 final pharmInfoRepository = sl.get<PharmInfoRepository>();
 final stareRepository = sl.get<StarRepository>();
 
@@ -47,7 +47,7 @@ void mainFeature() {
 
 void servicesFeature() {
   /// main
-  sl.registerLazySingleton(() => ServicesBloc(servicesRepository));
+  sl.registerLazySingleton(() => ProductInfoBloc(servicesRepository));
 }
 
 void signInFeature() {

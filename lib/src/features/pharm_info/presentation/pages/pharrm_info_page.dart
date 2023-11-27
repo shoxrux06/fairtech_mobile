@@ -74,7 +74,7 @@ class _PharmInfoPageState extends State<PharmInfoPage>
             },
             icon: const Icon(Icons.arrow_back_ios),
           ),
-          title: Text('Pharm info'),
+          title: const Text('Monitoring'),
           actions: [
             Builder(
               builder: (ctx) => IconButton(

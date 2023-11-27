@@ -60,27 +60,8 @@ class CustomBottomBar extends StatelessWidget {
               onTap?.call(2);
             },
             isSelected: currentIndex == 2,
-            currentIndex: 2,
             label: '',
             // label: context.tr('services'),
-            icon: AppConstants.scannerSvg,
-          ),
-          BottomMenuItem(
-            onTap: () {
-              onTap?.call(3);
-            },
-            isSelected: currentIndex == 3,
-            label: '',
-            // label: context.tr('services'),
-            icon: AppConstants.educationSvg,
-          ),
-          BottomMenuItem(
-            onTap: () {
-              onTap?.call(4);
-            },
-            isSelected: currentIndex == 4,
-            label: '',
-            // label: context.tr('more'),
             icon: AppConstants.moreSvg,
           ),
         ],

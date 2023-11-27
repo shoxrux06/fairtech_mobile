@@ -12,6 +12,8 @@ sealed class Routes {
   static const String scannerResult = '/scanner_result';
   static const String tnVedCode = '/tn_ved_code';
   static const String pharmInfo = '/pharm_info';
+  static const String chooseOption = '/choose_option';
+  static const String shtrixCode = '/shtrix_code';
 
   /// auth
   static const String authOneId = '/auth_one_id';

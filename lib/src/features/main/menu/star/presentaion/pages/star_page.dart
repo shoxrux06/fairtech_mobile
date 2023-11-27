@@ -1,4 +1,3 @@
-import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
@@ -96,46 +95,48 @@ class _StarPageState extends State<StarPage> {
             ),
           );
         } else {
-          return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    titleText,
-                    style: context.textStyle.regularTitle2.copyWith(
-                      color: context.color?.primaryText,
+          return SafeArea(
+            child: Scaffold(
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      titleText,
+                      style: context.textStyle.regularTitle2.copyWith(
+                        color: context.color?.primaryText,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  AppUtils.kGap24,
-                  SizedBox(
-                    width: Responsive.width(50, context),
-                    child: Builder(
-                      builder: (builderContext) {
-                        return CustomButtonWithoutGradient(
-                          onTap: () {
-                            customModalBottomSheet(
-                              context: context,
-                              builder: (_, controller) =>
-                                  BlocProvider.value(
-                                    value: builderContext.read<StarBloc>(),
-                                    child: BottomFilterRegion(
-                                      items: items,
-                                      checkboxValue1: checkboxValue1,
-                                      checkboxValue2: checkboxValue2,
-                                      checkboxValue3: checkboxValue3,
+                    AppUtils.kGap24,
+                    SizedBox(
+                      width: Responsive.width(50, context),
+                      child: Builder(
+                        builder: (builderContext) {
+                          return CustomButtonWithoutGradient(
+                            onTap: () {
+                              customModalBottomSheet(
+                                context: context,
+                                builder: (_, controller) =>
+                                    BlocProvider.value(
+                                      value: builderContext.read<StarBloc>(),
+                                      child: BottomFilterRegion(
+                                        items: items,
+                                        checkboxValue1: checkboxValue1,
+                                        checkboxValue2: checkboxValue2,
+                                        checkboxValue3: checkboxValue3,
+                                      ),
                                     ),
-                                  ),
-                            );
-                          },
-                          text: 'Filter',
-                          textColor: context.color?.white,
-                        );
-                      }
-                    ),
-                  )
-                ],
+                              );
+                            },
+                            text: 'Filter',
+                            textColor: context.color?.white,
+                          );
+                        }
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           );

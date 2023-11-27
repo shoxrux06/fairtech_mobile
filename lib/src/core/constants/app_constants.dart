@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppConstants{
+class AppConstants {
   ///api
   static const baseUrl = 'https://app.fairtech.uz';
   static const redirect = '/api/v.1/product-auth/auth/oneid/redirectUri';
@@ -51,6 +51,19 @@ class AppConstants{
   static const String scannerSvg = 'assets/icons/scanner.svg';
   static const String foodSvg = 'assets/icons/food.svg';
   static const String ingredientSvg = 'assets/icons/ingredient.svg';
+
+  static const String productInfoSvg = 'assets/icons/product_info.svg';
+  static const String pharmInfoSvg = 'assets/icons/pharm_info.svg';
+  static const String fairPriceSvg = 'assets/icons/fair_price.svg';
+  static const String appealMonitoringSvg = 'assets/icons/appeal_monitoring.svg';
+  static const String appealCreateSvg = 'assets/icons/appeal_create.svg';
+  static const String complianceSvg = 'assets/icons/compliance.svg';
+  static const String tablesSvg = 'assets/icons/tables.svg';
+  static const String tnVedSvg = 'assets/icons/pi_tnved.svg';
+  static const String more3Svg = 'assets/icons/more_3.svg';
+  static const String barcodeSvg = 'assets/icons/pi_barcode.svg';
+  static const String scanSvg = 'assets/icons/pi_scan.svg';
+  static const String allSvg = 'assets/icons/pi_descAll.svg';
 
 
   ///png
