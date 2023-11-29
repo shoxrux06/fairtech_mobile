@@ -1,10 +1,8 @@
 import 'dart:typed_data';
-import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.dart';
 import 'package:fairtech_mobile/src/features/pdf/data/models/invoice.dart';
 import 'package:fairtech_mobile/src/features/pdf/presentation/pages/pdfexport.dart';
 import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
-import 'package:provider/provider.dart';
 
 class PdfPreviewPage extends StatefulWidget {
   final Invoice invoice;

@@ -15,38 +15,50 @@ class DisabledItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      splashColor:  context.theme.primaryColor.withOpacity(.2),
       child: Stack(
         children: [
-          Card(
-            child: Container(
-              height: Responsive.height(22, context),
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  SvgPicture.asset(icon, width: 44,height: 44),
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: context.textStyle.regularTitle2.copyWith(
-                      color: context.theme.primaryColor.withOpacity(0.5),
-                    ),
-                  ),
-                  Divider(
+          Container(
+            margin: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                      color: context.theme.primaryColor.withOpacity(.3),
+                      blurRadius: 6,
+                      spreadRadius: 1,
+                      offset: Offset(3, -3)
+                  )
+                ]
+            ),
+            height: Responsive.height(22, context),
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: [
+                SvgPicture.asset(icon, width: 44,height: 44,color: context.theme.primaryColor.withOpacity(0.3),),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: context.textStyle.regularTitle2.copyWith(
                     color: context.theme.primaryColor.withOpacity(0.5),
-                    height: 2,
                   ),
-                  Text(
-                    subTitle,
-                    textAlign: TextAlign.center,
-                    style: context.textStyle.regularTitle2.copyWith(
-                        color: context.theme.primaryColor.withOpacity(0.3),
-                        fontSize: 12
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 5,
+                ),
+                Divider(
+                  color: context.theme.primaryColor.withOpacity(0.3),
+                  height: 2,
+                ),
+                Text(
+                  subTitle,
+                  textAlign: TextAlign.center,
+                  style: context.textStyle.regularTitle2.copyWith(
+                      color: context.theme.primaryColor.withOpacity(0.3),
+                      fontSize: 12
                   ),
-                ],
-              ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 5,
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -54,12 +66,12 @@ class DisabledItem extends StatelessWidget {
             right: 8,
             child: Container(
               decoration: BoxDecoration(
-                  color: context.theme.primaryColor.withOpacity(.2),
+                  color: context.theme.primaryColor.withOpacity(.1),
                   borderRadius: BorderRadius.circular(32)
               ),
               padding: EdgeInsets.all(4),
-              child: const Center(
-                child: Icon(Icons.star, size: 16,),
+              child:  Center(
+                child: Icon(Icons.star, size: 16, color: context.theme.primaryColor.withOpacity(.3),),
               ),
             ),
           )

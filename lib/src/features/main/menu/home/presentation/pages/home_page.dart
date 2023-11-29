@@ -9,6 +9,8 @@ import 'package:fairtech_mobile/src/features/main/menu/home/presentation/widgets
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../widgets/custom_sliver_deligate.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key, this.password});
   final String? password;
@@ -22,16 +24,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       drawer: const CustomDrawer(),
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
             pinned: true,
-            delegate: AnimatedAppBar(expandedHeight: 200.0),
-          ),
-          const SliverPadding(
-            padding: EdgeInsets.only(top: 50),
+            floating: false,
+            delegate:CustomSliverDelegate(
+              expandedHeight: 160
+            )
           ),
           SliverFillRemaining(
             child: Padding(
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             onTap: () {
                               context.push(Routes.chooseOption);
                             },
-                            icon: AppConstants.pharmInfoSvg,
+                            icon: AppConstants.productInfoSvg,
                             title: 'Product Info',
                             subTitle: 'Tovar tog\'risidagi ma\'lumot',
                           ),

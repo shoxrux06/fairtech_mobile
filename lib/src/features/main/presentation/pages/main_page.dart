@@ -1,16 +1,10 @@
-import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
-import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
 import 'package:fairtech_mobile/src/features/drawer/presentation/custom_drawer.dart';
 import 'package:fairtech_mobile/src/features/main/menu/home/presentation/pages/home_page.dart';
-import 'package:fairtech_mobile/src/features/main/menu/profile/data/local_data.dart';
 import 'package:fairtech_mobile/src/features/main/menu/profile/presentation/pages/presentation.dart';
-import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/bloc/star_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/pages/star_page.dart';
-import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/widgets/bottom_filter_region.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/widgets/custom_bottom_bar.dart';
 import 'package:fairtech_mobile/src/features/pdf/data/models/order_item.dart';
-import 'package:fairtech_mobile/src/features/product_info/presentation/pages/services_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/router/app_routes.dart';
@@ -35,7 +29,7 @@ class MainPage extends StatelessWidget {
             return true;
           },
           child: Scaffold(
-            // key: scaffoldKey,
+            key: scaffoldKey,
             drawerEnableOpenDragGesture: false,
             drawer: const CustomDrawer(),
             // appBar: AppBar(
