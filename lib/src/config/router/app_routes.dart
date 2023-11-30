@@ -8,6 +8,7 @@ import 'package:fairtech_mobile/src/features/drawer/about_system/presentation/pa
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/appeals_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/create_appeals_page.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/select_from_map_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/presentation/help_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/personal_information/presentation/pages/personal_inforamtion_page.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/bloc/star_bloc.dart';
@@ -16,12 +17,14 @@ import 'package:fairtech_mobile/src/features/main/presentation/pages/main_page.d
 import 'package:fairtech_mobile/src/features/drawer/settings/presentation/pages/settings_page.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/pages/pharrm_info_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/data/models/product_info_response.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/choose_option_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_tnved_code_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/qr_code_screen_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/scanner_result_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/shtrix_code_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/tnved_product_detail_page.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -267,12 +270,15 @@ class AppGoRouter {
           name: Routes.scannerResult,
           path: Routes.scannerResult,
           pageBuilder: (_, state) {
-            final extra = state.extra as Map;
+            // final extra = state.extra as Map;
             return CustomTransitionPage(
               transitionDuration: const Duration(milliseconds: 1200),
-              child: ScannerResultPage(
-                code: extra['code'],
-                onClose: extra['closeScreen'],
+              child: BlocProvider(
+                create: (_) => AppealsBloc(appealsRepository),
+                child: const ScannerResultPage(
+                // code: extra['code'],
+                // onClose: extra['closeScreen'],
+              ),
               ),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
@@ -319,6 +325,37 @@ class AppGoRouter {
             return CustomTransitionPage(
               transitionDuration: const Duration(milliseconds: 1200),
               child: const ShtrixCodePage(),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.tnVedProductDetail,
+          path: Routes.tnVedProductDetail,
+          pageBuilder: (_, state) {
+            final good = state.extra as Good;
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: TnVedProductDetailPage(
+                good: good
+              ),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.selectFromMap,
+          path: Routes.selectFromMap,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: SelectFromMapPage(),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
                 CurveTween(curve: Curves.easeInOutCirc).animate(animation),

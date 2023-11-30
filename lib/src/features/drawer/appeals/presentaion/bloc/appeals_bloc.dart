@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_image_type_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/send_appeal_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/models/appeal_model.dart';
@@ -20,6 +21,7 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
   AppealsBloc(this.appealsRepository) : super(const AppealsState()) {
     on<GetProfileDataEvent>(_getProfileData);
     on<SendAppealEvent>(_sendAppealEvent);
+    on<GetImageTypeEvent>(_getImageType);
   }
 
   FutureOr<void> _getProfileData(
@@ -44,6 +46,19 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
     result.when(
       success: (data) {
         emit(state.copyWith(sendAppealResponse: data, appealIsSending: false));
+      },
+      failure: (failure) {
+        emit(state.copyWith(appealIsSending: false));
+      },
+    );
+  }
+
+  FutureOr<void> _getImageType(GetImageTypeEvent event, Emitter<AppealsState> emit,) async{
+    emit(state.copyWith(appealIsSending: true));
+    final result = await appealsRepository.getImageTypeList(event.context);
+    result.when(
+      success: (data) {
+        emit(state.copyWith(appealImageTypeResponse: data, appealIsSending: false));
       },
       failure: (failure) {
         emit(state.copyWith(appealIsSending: false));

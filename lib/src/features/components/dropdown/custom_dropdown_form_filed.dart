@@ -23,6 +23,7 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
           value: widget.value,
           icon: const Icon(Icons.arrow_drop_down),
           isDense: false,
+          isExpanded: true,
           itemHeight: 54,
           iconSize: 24,
           elevation: 16,
@@ -68,10 +69,12 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
           items: widget.items.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(
-                value,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+              child: Expanded(
+                child: Text(
+                  value,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             );
           }).toList(),

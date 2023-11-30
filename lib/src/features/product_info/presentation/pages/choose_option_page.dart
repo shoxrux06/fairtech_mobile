@@ -43,7 +43,7 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
                 Expanded(
                   child: item(
                     () {
-                      context.push(Routes.qrCode);
+                      context.push(Routes.scannerResult);
                     },
                     AppConstants.scanSvg,
                     'Mahsulotni skanerlash',
@@ -106,7 +106,7 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
                 AppUtils.kGap8,
                 Text(
                   infoText,
-                  style: context.textStyle.regularTitle1.copyWith(fontSize: 12, color: context.theme.primaryColor,),
+                  style: context.textStyle.regularTitle1.copyWith(fontSize: 14, color: context.theme.primaryColor,),
                   textAlign: TextAlign.center,
                 ),
               ],

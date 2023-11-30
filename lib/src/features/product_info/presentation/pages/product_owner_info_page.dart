@@ -20,42 +20,10 @@ class _ProductOwnerInfoPageState extends State<ProductOwnerInfoPage> {
       children: [
         AppUtils.kGap40,
         AppUtils.kGap40,
-        AppUtils.kGap12,
-        Container(
-          width: Responsive.width(100, context),
-          height: 0.1,
-          decoration: const BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black,
-                  spreadRadius: 0.05,
-                blurRadius: 1,
-                offset: Offset(0, 1)
-              )
-            ]
-          ),
-        ),
         customListTile(Icons.local_drink, 'nameOfTheOrganization', 'Coco cola LTD'),
         customListTile(Icons.local_drink, 'address', 'Uzbekistan, Tashkent'),
         customListTile(Icons.local_drink, 'STIR', '123456789t'),
         customListTile(Icons.local_drink, 'additionalInformation', 'Some info'),
-        AppUtils.kGap12,
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: Responsive.width(40, context),
-              child: CustomButtonWithoutGradient(
-                  onTap: (){
-                    context.push(Routes.createAppeals);
-                  },
-                  text: 'Murojaat yuborish',
-                  textColor: Colors.white,
-              ),
-            ),
-          ),
-        )
       ],
     );
   }

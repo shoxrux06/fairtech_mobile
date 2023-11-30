@@ -23,27 +23,10 @@ class _ProductInfoPageState extends State<ProductInfoPage> {
       children: [
         AppUtils.kGap40,
         AppUtils.kGap40,
-        AppUtils.kGap12,
-        Container(
-          width: Responsive.width(100, context),
-          height: 0.1,
-          decoration: const BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black,
-                    spreadRadius: 0.05,
-                    blurRadius: 1,
-                    offset: Offset(0, 1)
-                )
-              ]
-          ),
-        ),
-        AppUtils.kGap4,
         CachedNetworkImage(
           placeholder:(context,url) => Image.asset("assets/images/placeholder.jpg"),
           imageUrl: imgUrl,
         ),
-
         Expanded(
           child: SingleChildScrollView(
             child: Column(

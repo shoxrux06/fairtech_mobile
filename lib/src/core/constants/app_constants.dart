@@ -79,6 +79,7 @@ class AppConstants {
   static const String foodImg = 'assets/images/food.png';
   static const String ingredientImg = 'assets/images/ingredient.png';
   static const String sunImg = 'assets/images/sun.png';
+  static const String noImage = 'assets/images/no_image.png';
 
 
 }

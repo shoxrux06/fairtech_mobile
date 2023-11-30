@@ -1,13 +1,18 @@
 import 'dart:io';
+import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
+import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/components/input/custom_text_field.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/components/input/masked_text_controller.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
+import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button_without_gradient.dart';
+import 'package:fairtech_mobile/src/features/components/dropdown/custom_dropdown_form_filed.dart';
 import 'package:fairtech_mobile/src/features/components/loading_widgets/modal_progress_hud.dart';
 import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_image_type_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/models/appeal_model.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
@@ -31,6 +36,8 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   String? dropdownValueCategory;
   String? dropdownPersonType;
 
+  bool typeSelected = false;
+
   List<String> subCategoryList = [
     'Dori vositalari va tibbiyot buyumlarini belgilangan narxdan yuqori sotish',
     'Dori vositalari belgilangan narxdan yuqori sotish',
@@ -49,13 +56,24 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   bool isPhoneNumberEnabled = false;
   bool isAddressEnabled = false;
 
-  List<File?> selectedFileList = [];
-  List<String> selectedFileNameList = [];
+  List<File?> selectedFileList1 = [];
+  List<File?> selectedFileList2 = [];
+  List<File?> selectedFileList3 = [];
+  List<String> selectedFileNameList1 = [];
+  List<String> selectedFileNameList2 = [];
+  List<String> selectedFileNameList3 = [];
 
-  File? selectedfile;
+  List<int> imageIdList = [];
+
+  List<ListElement> list = [];
+
+
+  File? selectedfile1;
+  File? selectedfile2;
+  File? selectedfile3;
   String fileName = "";
 
-  selectFile() async {
+  selectFile1() async {
     // pick file from gallery
     String? filePath = await FilePicker.platform
         .pickFiles(type: FileType.any)
@@ -63,14 +81,47 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
 
     if (filePath != null) {
       setState(() {
-        selectedfile = File(filePath); // picked file
-        selectedFileList.add(selectedfile);
+        selectedfile1 = File(filePath); // picked file
+        selectedFileList1.add(selectedfile1);
         fileName = filePath.split('/').last;
-        selectedFileNameList.add(fileName);
-        print('File path <<${selectedfile?.path}>>');
+        selectedFileNameList1.add(fileName);
       });
     }
   }
+
+  selectFile2() async {
+    // pick file from gallery
+    String? filePath = await FilePicker.platform
+        .pickFiles(type: FileType.any)
+        .then((value) => value?.files.single.path);
+
+    if (filePath != null) {
+      setState(() {
+        selectedfile2 = File(filePath); // picked file
+        selectedFileList2.add(selectedfile2);
+        fileName = filePath.split('/').last;
+        selectedFileNameList2.add(fileName);
+      });
+    }
+  }
+
+  selectFile3() async {
+    // pick file from gallery
+    String? filePath = await FilePicker.platform
+        .pickFiles(type: FileType.any)
+        .then((value) => value?.files.single.path);
+
+    if (filePath != null) {
+      setState(() {
+        selectedfile3 = File(filePath); // picked file
+        selectedFileList3.add(selectedfile3);
+        fileName = filePath.split('/').last;
+        selectedFileNameList3.add(fileName);
+      });
+    }
+  }
+
+  bool isChecked = false;
 
   @override
   void initState() {
@@ -78,6 +129,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
     dropdownValueCategory = subCategoryList.first;
     dropdownPersonType = personTypeList.first;
     context.read<AppealsBloc>().add(GetProfileDataEvent(context: context));
+    context.read<AppealsBloc>().add(GetImageTypeEvent(context: context));
     super.initState();
   }
 
@@ -85,11 +137,14 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<AppealsBloc, AppealsState>(
       listener: (context, state) {
+        if(state.appealImageTypeResponse != null){
+          list.addAll(state.appealImageTypeResponse?.list ??[]);
+        }
         _phoneNumberController.text = '${state.profileDataResponse?.phoneNumber}';
         if (state.sendAppealResponse?.status == 0) {
           AppSnackBar.showSuccessSnackBar(context,'Success','${state.sendAppealResponse?.message}');
-          selectedFileList = [];
-          selectedFileNameList = [];
+          selectedFileList1 = [];
+          selectedFileNameList1 = [];
           setState(() {
             isPinflEnabled = false;
             isPhoneNumberEnabled = false;
@@ -100,7 +155,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
       },
       builder: (context, state) {
         if(state.profileDataResponse == null){
-          return Scaffold(
+          return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
@@ -389,20 +444,12 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                               style: context.textStyle.regularBody,
                             ),
                             AppUtils.kGap24,
-                            CustomButtonWithoutGradient(
-                              text: 'Fayl yuklash',
-                              onTap: (){
-                                selectFile();
-                              },
-                              textColor: Colors.white,
-                            ),
-                            AppUtils.kGap12,
-                            selectedFileNameList.isEmpty
+                            selectedFileNameList1.isEmpty
                                 ? Container()
                                 : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ...selectedFileNameList.map((item) => Container(
+                                ...selectedFileNameList1.map((item) => Container(
                                     margin: const EdgeInsets.symmetric(vertical: 4),
                                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[100]),
@@ -422,11 +469,145 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 ),)
                               ],
                             ),
+                            AppUtils.kGap12,
+                            Divider(
+                              color: Colors.black54,
+                              height: 2,
+                            ),
+                            selectedFileNameList2.isEmpty
+                                ? Container()
+                                : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ...selectedFileNameList2.map((item) => Container(
+                                    margin: const EdgeInsets.symmetric(vertical: 4),
+                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[100]),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(Icons.file_copy, color: Colors.redAccent),
+                                        const SizedBox(width: 12),
+                                        Flexible(
+                                          child: Text(
+                                            item,
+                                            style: context.textStyle.regularBody,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                ),)
+                              ],
+                            ),
+                            AppUtils.kGap12,
+                            Divider(
+                              color: Colors.black54,
+                              height: 2,
+                            ),
+                            selectedFileNameList3.isEmpty
+                                ? Container()
+                                : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ...selectedFileNameList3.map((item) => Container(
+                                    margin: const EdgeInsets.symmetric(vertical: 4),
+                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[100]),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(Icons.file_copy, color: Colors.redAccent),
+                                        const SizedBox(width: 12),
+                                        Flexible(
+                                          child: Text(
+                                            item,
+                                            style: context.textStyle.regularBody,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                ),)
+                              ],
+                            ),
+                            AppUtils.kGap24,
+                            CustomButtonWithoutGradient(
+                              onTap: (){
+                                customModalBottomSheet(
+                                    context: context, 
+                                    builder: (_, controller) {
+                                      List<String> items = [];
+                                      String value = '';
+                                      list.forEach((element) {
+                                        items.add(element.nameUz);
+                                      });
+                                      value = items.first;
+                                      print('items 555 $items');
+                                      return SizedBox(
+                                        width: Responsive.width(100, context),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            // mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                            Text('File turini tanlang'),
+                                            CustomDropDownFormField(value: items.first, hintText: 'Select type', items: items.toSet().toList(), onChanged: (val){
+                                              typeSelected = true;
+                                              list.forEach((element) {
+                                                if(element.nameUz == val){
+                                                  imageIdList.add(element.id);
+                                                }
+                                              });
+                                            }),
+                                            AppUtils.kGap24,
+                                            CustomButtonWithoutGradient(onTap: (){
+                                              if(typeSelected == false){
+                                                AppSnackBar.showWarningSnackBar(context, 'File Turini tanlang');
+                                              }else{
+                                                selectFile1();
+                                              }
+
+                                            }, text: 'Gallery'),
+                                            AppUtils.kGap24,
+                                            CustomButtonWithoutGradient(onTap: (){}, text: 'Camera'),
+                                              AppUtils.kGap24,
+                                              AppUtils.kGap24,
+                                              AppUtils.kGap24,
+                                            CustomButtonWithoutGradient(onTap: (){
+                                              context.pop();
+                                            }, text: 'Submit'),
+                                          ],),
+                                        ),
+                                      );
+                                    }
+                                );
+                              },
+                              text: 'File biriktirish',
+                              textColor: Colors.white,
+                            ),
+                            AppUtils.kGap12,
+                            CustomButtonWithoutGradient(
+                              onTap: () {
+                                context.push(Routes.selectFromMap);
+                              },
+                              text: 'Xaritadagi joylashgan joyi *',
+                              textColor: Colors.white,
+                            ),
                           ],
                         ),
                       ),
                     ),
                     const SizedBox(height: 10),
+                    CheckboxListTile(
+                      checkColor: Colors.white,
+                      value: isChecked,
+                      splashRadius: 12,
+                      title: Text('Huquqbuzarlik to\'g\'risida xabar uchun mukofotdan voz kechaman',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isChecked = value!;
+                        });
+                      },
+                    ),
                     AppUtils.kGap40,
                     Row(
                       children: [
@@ -457,7 +638,10 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                       appealSubtype: 'appealSubtype',
                                       appealDescription: _shortDescController.text.trim(),
                                       applierNumber: _phoneNumberController.text,
-                                      appealFileList: selectedFileList,
+                                      appealFileList: selectedFileList1,
+                                      documentTypeIds: imageIdList,
+                                      lang: '12.3434',
+                                      lat: '34.555'
                                     ),
                                   ),
                                 );

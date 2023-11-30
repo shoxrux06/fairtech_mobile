@@ -4,6 +4,7 @@ part of 'appeals_bloc.dart';
 class AppealsState with _$AppealsState{
   const factory AppealsState({
     ProfileDataResponse? profileDataResponse,
+    AppealImageTypeResponse? appealImageTypeResponse,
     SendAppealResponse? sendAppealResponse,
     @Default(false)bool appealIsSending,
     @Default(false)bool appealIsSent

@@ -1,5 +1,6 @@
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
+import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,6 +21,8 @@ class ActiveItem extends StatelessWidget {
       child: Stack(
         children: [
           Container(
+            height: Responsive.height(25, context),
+            width: Responsive.width(40, context),
             margin: EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -33,10 +36,10 @@ class ActiveItem extends StatelessWidget {
                 )
               ]
             ),
-            height: Responsive.height(22, context),
             padding: const EdgeInsets.all(8),
             child: Column(
               children: [
+                AppUtils.kGap24,
                 SvgPicture.asset(icon, width: 44,height: 44,color: context.theme.primaryColor,),
                 Text(
                   title,

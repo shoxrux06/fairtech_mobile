@@ -29,7 +29,7 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
     return BlocBuilder<ProductInfoBloc, ProductInfoState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: CustomAppBar(title: state.productInfoResponse != null?'Results': 'Send by TnVed code'),
+            appBar: CustomAppBar(title: state.productInfoResponse != null?'Natijalar': 'TnVed kod orqali yuborish'),
             body: ModalProgressHUD(
               inAsyncCall: state.isGettingProductData,
               child: state.productInfoResponse != null?
@@ -43,7 +43,7 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Enter the code'),
+                    const Text('TnVed kodni kiriting'),
                     AppUtils.kGap4,
                     CustomTextField(
                       keyboardType: TextInputType.number,

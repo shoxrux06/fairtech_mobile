@@ -1,24 +1,29 @@
+import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/create_appeals_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_info_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_owner_info_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ScannerResultPage extends StatefulWidget{
-  final String code;
-  final Function onClose;
+class ScannerResultPage extends StatefulWidget {
+  // final String code;
+  // final Function onClose;
 
   const ScannerResultPage({
     super.key,
-    required this.code,
-    required this.onClose,
+    // required this.code,
+    // required this.onClose,
   });
 
   @override
   State<ScannerResultPage> createState() => _ScannerResultPageState();
 }
 
-class _ScannerResultPageState extends State<ScannerResultPage> with SingleTickerProviderStateMixin {
+class _ScannerResultPageState extends State<ScannerResultPage>
+    with SingleTickerProviderStateMixin {
   final controller = PageController(initialPage: 0);
   final ScrollController _scrollController = ScrollController();
 
@@ -26,8 +31,9 @@ class _ScannerResultPageState extends State<ScannerResultPage> with SingleTicker
   int _selectedIndex = 0;
 
   final list = [
-    'Product info',
-    'Product owner info'
+    'Mahsulot',
+    'Ishlab chiqaruvchi',
+    'Murojaat yuborish'
   ];
 
   @override
@@ -51,42 +57,52 @@ class _ScannerResultPageState extends State<ScannerResultPage> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          PageView.builder(
-              controller: controller,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              itemCount: list.length,
-              itemBuilder: (context, index) {
-                switch (index) {
-                  case 0:
-                    return const ProductInfoPage();
-                  case 1:
-                    return const ProductOwnerInfoPage();
-                  default:
-                    return Container();
-                }
-              }),
-          Positioned(
-            top: 40,
-            left: 30,
-            right: 10,
-            child: SizedBox(
-              height: 44,
-              width: Responsive.width(100, context),
-              child: ListView(
-                controller:_scrollController,
-                scrollDirection: Axis.horizontal,
-                children: [..._buildIndicator()],
+    return BlocProvider(
+      create: (context) => AppealsBloc(appealsRepository),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            PageView.builder(
+                controller: controller,
+                onPageChanged: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  switch (index) {
+                    case 0:
+                      return const ProductInfoPage();
+                    case 1:
+                      return const ProductOwnerInfoPage();
+                    case 2:
+                      return const CreateAppealsPage();
+                    default:
+                      return Container();
+                  }
+                }),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: AppBar(
+                leadingWidth: 0,
+                automaticallyImplyLeading: false,
+                title: Container(
+                  color: Colors.white,
+                  height: 44,
+                  width: Responsive.width(100, context),
+                  child: ListView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    children: [..._buildIndicator()],
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -136,7 +152,8 @@ class _ScannerResultPageState extends State<ScannerResultPage> with SingleTicker
   Widget _indicatorsFalse(String text, int index) {
     return InkWell(
       onTap: () {
-        controller.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.linear);
+        controller.animateToPage(
+            index, duration: Duration(milliseconds: 300), curve: Curves.linear);
       },
       child: AnimatedContainer(
         duration: const Duration(microseconds: 300),

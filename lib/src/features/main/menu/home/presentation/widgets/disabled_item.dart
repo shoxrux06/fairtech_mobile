@@ -3,6 +3,8 @@ import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../../../core/utils/app_utils.dart';
+
 class DisabledItem extends StatelessWidget {
   const DisabledItem({super.key, required this.icon,required this.title, required this.subTitle, this.onTap});
 
@@ -15,11 +17,12 @@ class DisabledItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      splashColor:  context.theme.primaryColor.withOpacity(.2),
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.all(4),
+            height: Responsive.height(25, context),
+            width: Responsive.width(40, context),
+            margin: const EdgeInsets.all(4),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
@@ -32,10 +35,10 @@ class DisabledItem extends StatelessWidget {
                   )
                 ]
             ),
-            height: Responsive.height(22, context),
             padding: const EdgeInsets.all(8),
             child: Column(
               children: [
+                AppUtils.kGap24,
                 SvgPicture.asset(icon, width: 44,height: 44,color: context.theme.primaryColor.withOpacity(0.3),),
                 Text(
                   title,
@@ -69,7 +72,7 @@ class DisabledItem extends StatelessWidget {
                   color: context.theme.primaryColor.withOpacity(.1),
                   borderRadius: BorderRadius.circular(32)
               ),
-              padding: EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               child:  Center(
                 child: Icon(Icons.star, size: 16, color: context.theme.primaryColor.withOpacity(.3),),
               ),

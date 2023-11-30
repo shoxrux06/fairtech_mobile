@@ -18,3 +18,11 @@ class SendAppealEvent extends AppealsEvent {
     required this.appealModel,
   });
 }
+
+class GetImageTypeEvent extends AppealsEvent {
+  final BuildContext context;
+
+  GetImageTypeEvent({
+    required this.context,
+  });
+}

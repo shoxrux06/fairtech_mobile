@@ -104,7 +104,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                 ],
                 title: Opacity(
                     opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-                    child: Text("Fair tech",style: context.textStyle.largeTitle1.copyWith(color: Colors.white))
+                    child: Text("Fair tech",style: context.textStyle.largeTitle1.copyWith(color: Colors.white, fontSize: 18))
                 ),
               ),
             ),

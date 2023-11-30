@@ -81,7 +81,7 @@ class _ServicesPageState extends State<ServicesPage> {
                   },
                   child: Card(
                     child: Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                       ),
