@@ -10,27 +10,37 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class SelectFromMapPage extends StatefulWidget {
+  const SelectFromMapPage({super.key});
+
+
   @override
   _LocationChooserState createState() => _LocationChooserState();
 }
 
 class _LocationChooserState extends State<SelectFromMapPage> {
-  Completer<GoogleMapController> _controller = Completer();
-  static  LatLng _center = const LatLng(41.297441965444406, 69.24021454703133);
+  final Completer<GoogleMapController> _controller = Completer();
+  LatLng _center = LatLng(41.297441965444406, 69.24021454703133);
   final Set<Marker> _markers = {};
-  LatLng _lastMapPosition = _center;
+  late LatLng _lastMapPosition = _center;
   MapType _currentMapType = MapType.normal;
-  String _title = "";
-  String _detail = "";
+
+  String name = "";
+  String street = "";
+  String country = "";
+  String administrativeArea = "";
+  String locality = "";
+  String postalCode = "";
+  String subLocality = "";
+  String subThoroughfare = "";
 
   final panelController = PanelController();
 
-  late TextEditingController _lane1;
+  late TextEditingController textEditingController;
 
   @override
   void initState() {
     super.initState();
-    _lane1 = new TextEditingController();
+    textEditingController = TextEditingController();
   }
 
   @override
@@ -60,18 +70,26 @@ class _LocationChooserState extends State<SelectFromMapPage> {
               child: Column(
                 children: <Widget>[
                   _customButton(
-                    context,
-                      Icons.map, _onMapTypeButtonPressed),
+                      context,
+                      Icons.map,
+                      _onMapTypeButtonPressed
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
                   _customButton(
                       context,
-                      Icons.map_outlined, _onAddMarkerButtonPressed),
+                      Icons.map_outlined,
+                      _onAddMarkerButtonPressed
+                  ),
                   const SizedBox(
                     height: 5,
                   ),
-                  _customButton(context,Icons.maps_home_work_rounded, _getUserLocation),
+                  _customButton(
+                      context,
+                      Icons.maps_home_work_rounded,
+                      _getUserLocation
+                  ),
                 ],
               ),
             ),
@@ -80,66 +98,66 @@ class _LocationChooserState extends State<SelectFromMapPage> {
               minHeight: _height * 0.05,
               maxHeight: _height * 0.4,
               controller: panelController,
-              panel: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 4,
-                      width: _width * 0.2,
-                      color: context.theme.primaryColor,
+              panel: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 4,
+                    width: _width * 0.2,
+                    color: context.theme.primaryColor,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(12),
+                    color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text('$street $subLocality'),
+                        // Text('_detail: $_detail name:$name, country:$country, administrativeArea:$administrativeArea, postalCode:$postalCode, subLocality:$subLocality, subThoroughfare:$subThoroughfare'),
+                        TextField(
+                            maxLines: 2,
+                            controller: textEditingController,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(4)),
+                                  borderSide:
+                                  BorderSide(width: 1,  color: context.theme.primaryColor,),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(4)),
+                                  borderSide:
+                                  BorderSide(width: 1,  color: context.theme.primaryColor,),
+                                ),
+                                errorBorder:  OutlineInputBorder(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(4)),
+                                  borderSide:
+                                  BorderSide(width: 1, color:  context.theme.primaryColor,),
+                                ),
+                                errorStyle: TextStyle(
+                                    color: Colors.orange.withOpacity(0.5)),
+                                labelStyle: TextStyle(
+                                    color: Colors.black.withOpacity(1)),
+                                labelText: "Address"),
+                            cursorColor: Colors.black12
+                        ),
+                      ],
                     ),
-                    Container(
-                      margin: EdgeInsets.all(12),
-                      color: Colors.white,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          TextField(
-                              maxLines: 2,
-                              controller: _lane1,
-                              decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                    const BorderRadius.all(Radius.circular(4)),
-                                    borderSide:
-                                    BorderSide(width: 1,  color: context.theme.primaryColor,),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                    const BorderRadius.all(Radius.circular(4)),
-                                    borderSide:
-                                    BorderSide(width: 1,  color: context.theme.primaryColor,),
-                                  ),
-                                  errorBorder:  OutlineInputBorder(
-                                    borderRadius:
-                                    const BorderRadius.all(Radius.circular(4)),
-                                    borderSide:
-                                    BorderSide(width: 1, color:  context.theme.primaryColor,),
-                                  ),
-                                  errorStyle: TextStyle(
-                                      color: Colors.orange.withOpacity(0.5)),
-                                  labelStyle: TextStyle(
-                                      color: Colors.black.withOpacity(1)),
-                                  labelText: "Address"),
-                              cursorColor: Colors.black12
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width/2,
-                      height:48,
-                      child: CustomButtonWithoutGradient(onTap: (){
-                        context.pop({
-                          'coordinates': _center,
-                          'lane': _lane1.text,
-                        });
-                      },text: 'Save',),
-                    ),
-
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width/2,
+                    height:48,
+                    child: CustomButtonWithoutGradient(onTap: (){
+                      _getUserLocation();
+                      context.pop({
+                        'coordinates': _center,
+                        'lane': textEditingController.text,
+                      });
+                    },text: 'Save',),
+                  ),
+                ],
               ),
               body: null)
         ],
@@ -183,8 +201,9 @@ class _LocationChooserState extends State<SelectFromMapPage> {
       _markers.add(Marker(
           markerId: MarkerId(_lastMapPosition.toString()),
           position: _lastMapPosition,
-          infoWindow: InfoWindow(title: _title, snippet: _detail),
-          icon: BitmapDescriptor.defaultMarker));
+          infoWindow: InfoWindow(title: street, snippet: subLocality),
+          icon: BitmapDescriptor.defaultMarker
+      ));
     });
   }
 
@@ -197,7 +216,7 @@ class _LocationChooserState extends State<SelectFromMapPage> {
       _markers.add(Marker(
         markerId: MarkerId(point.toString()),
         position: point,
-        infoWindow: InfoWindow(title: _title, snippet: _detail),
+        infoWindow: InfoWindow(title: street, snippet: subLocality),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
       ));
     });
@@ -205,13 +224,19 @@ class _LocationChooserState extends State<SelectFromMapPage> {
 
   _getLocation(LatLng point) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(point.latitude, point.longitude);
-
+    for (var placemark in placemarks ) {
+      if(placemark.subLocality != '' || (placemark.street != 'Unnamed Road')){
+        setState(() {
+          street = placemark.street??'';
+          country = placemark.country ??'';
+          administrativeArea = placemark.administrativeArea ??'';
+          locality = placemark.locality ??'';
+          subLocality = placemark.subLocality ??'';
+          textEditingController.text = "$subLocality $street";
+        });
+      }
+    }
     _center = LatLng(point.latitude, point.longitude);
-    setState(() {
-      _title = placemarks.first.locality??'';
-      _detail ='${placemarks.first.street}';
-      _lane1.text = "$_title   $_detail";
-    });
   }
 
   _getUserLocation() async {
@@ -248,13 +273,10 @@ class _LocationChooserState extends State<SelectFromMapPage> {
       _markers.add(Marker(
         markerId: MarkerId(_center.toString()),
         position: _center,
-        infoWindow: InfoWindow(title: _title, snippet: _detail),
+        infoWindow: InfoWindow(title: subLocality, snippet: street),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
       ));
     });
-    var first = placemarks.first;
-    print("${first.name} : ${first.subAdministrativeArea}");
-
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
@@ -262,10 +284,17 @@ class _LocationChooserState extends State<SelectFromMapPage> {
       ),
     );
 
-    setState(() {
-      _title = first.locality??'';
-      _detail = first.street??'';
-      _lane1.text = "$_title   $_detail";
-    });
+    for (var placemark in placemarks) {
+      if(placemark.subLocality != ''){
+        setState(() {
+          street = placemark.street??'';
+          country = placemark.country ??'';
+          administrativeArea = placemark.administrativeArea ??'';
+          locality = placemark.locality ??'';
+          subLocality = placemark.subLocality ??'';
+          textEditingController.text = "$subLocality $street";
+        });
+      }
+    }
   }
 }

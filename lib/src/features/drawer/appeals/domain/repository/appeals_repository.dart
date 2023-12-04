@@ -10,4 +10,5 @@ abstract class AppealsRepository{
   Future<ApiResult<ProfileDataResponse>> getProfileData(BuildContext context);
   Future<ApiResult<SendAppealResponse>> sendAppeal(BuildContext context,AppealModel appealModel,);
   Future<ApiResult<AppealImageTypeResponse>> getImageTypeList(BuildContext context,);
+  Future<ApiResult<AppealImageTypeResponse>> getAppealTypeList(BuildContext context,);
 }

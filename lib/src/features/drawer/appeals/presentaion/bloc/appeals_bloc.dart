@@ -22,6 +22,7 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
     on<GetProfileDataEvent>(_getProfileData);
     on<SendAppealEvent>(_sendAppealEvent);
     on<GetImageTypeEvent>(_getImageType);
+    on<GetAppealTypeEvent>(_getAppealType);
   }
 
   FutureOr<void> _getProfileData(
@@ -59,6 +60,19 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
     result.when(
       success: (data) {
         emit(state.copyWith(appealImageTypeResponse: data, appealIsSending: false));
+      },
+      failure: (failure) {
+        emit(state.copyWith(appealIsSending: false));
+      },
+    );
+  }
+
+  FutureOr<void> _getAppealType(GetAppealTypeEvent event, Emitter<AppealsState> emit,) async{
+    emit(state.copyWith(appealIsSending: true));
+    final result = await appealsRepository.getAppealTypeList(event.context);
+    result.when(
+      success: (data) {
+        // emit(state.copyWith(appealImageTypeResponse: data, appealIsSending: false));
       },
       failure: (failure) {
         emit(state.copyWith(appealIsSending: false));

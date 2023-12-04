@@ -51,8 +51,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                 elevation: 0.0,
                 actions: [
                   Container(
-                    padding: EdgeInsets.only(top: 4, bottom: 4, right: 0, left: 12),
-                    margin: EdgeInsets.only(top: 4, bottom: 4, right: 0, left: 12),
+                    padding: const EdgeInsets.only(top: 4, bottom: 4, right: 0, left: 12),
+                    margin: const EdgeInsets.only(top: 4, bottom: 4, right: 0, left: 12),
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(24),

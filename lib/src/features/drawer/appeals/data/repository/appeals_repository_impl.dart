@@ -37,16 +37,18 @@ class AppealsRepositoryImpl implements AppealsRepository {
   Future<ApiResult<SendAppealResponse>> sendAppeal(BuildContext context,AppealModel appealModel) async {
     try {
       final formData = FormData.fromMap({
+        "sender": appealModel.sender,
         "applier_type" : appealModel.applierType,
         "applier_jshshir" : appealModel.applierJshshir,
         "applier_number" : appealModel.applierNumber,
         "applier_fullname" : appealModel.applierFullname,
         "applier_zipcode" : appealModel.applierZipcode,
         "applier_address" : appealModel.applierAddress,
+        "appealType_id": appealModel.appealTypeId,
         "appeal_type" : appealModel.appealType,
         "appeal_subtype" : appealModel.appealSubtype,
         "appeal_description" : appealModel.appealDescription,
-        "documentTypeIds" : appealModel.documentTypeIds,
+        "documentTypeIds" : appealModel.documentTypeIds.toSet().toList(),
         "lang" : appealModel.lat,
         "lat" : appealModel.lat,
         'appeal_file':  await Future.wait(
@@ -87,6 +89,28 @@ class AppealsRepositoryImpl implements AppealsRepository {
         }
       );
       print('getImageTypeList 444 $response');
+      return ApiResult.success(data:AppealImageTypeResponse.fromJson(response.data));
+    } catch (e) {
+      print('==> products failure: $e');
+      AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
+      return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<AppealImageTypeResponse>> getAppealTypeList(BuildContext context) async{
+    try {
+      final client = inject<HttpService>().client(requireAuth: true);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
+      HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      final response = await client.post(
+          '/api/v.1/appeal_types/list-search?keyword=',
+          data: {
+            'page': 0,
+            'itemsPerPage': 50,
+          }
+      );
+      print('getAppealTypeList 444 $response');
       return ApiResult.success(data:AppealImageTypeResponse.fromJson(response.data));
     } catch (e) {
       print('==> products failure: $e');

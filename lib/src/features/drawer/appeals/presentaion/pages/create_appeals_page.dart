@@ -20,6 +20,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CreateAppealsPage extends StatefulWidget {
   const CreateAppealsPage({super.key});
@@ -33,14 +34,15 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   final _pinflController = TextEditingController();
   final _fullNameController = TextEditingController();
   final _shortDescController = TextEditingController();
+  final _stirController = TextEditingController();
   String? dropdownValueCategory;
   String? dropdownPersonType;
 
   bool typeSelected = false;
 
   List<String> subCategoryList = [
-    'Dori vositalari va tibbiyot buyumlarini belgilangan narxdan yuqori sotish',
-    'Dori vositalari belgilangan narxdan yuqori sotish',
+    'Test',
+    'Test2',
   ];
 
   List<String> personTypeList = [
@@ -55,6 +57,8 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   bool isPinflEnabled = false;
   bool isPhoneNumberEnabled = false;
   bool isAddressEnabled = false;
+
+  String? dropDownValue;
 
   List<File?> selectedFileList1 = [];
   List<File?> selectedFileList2 = [];
@@ -75,6 +79,9 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
 
   selectFile1() async {
     // pick file from gallery
+    setState(() {
+      dropDownValue = null;
+    });
     String? filePath = await FilePicker.platform
         .pickFiles(type: FileType.any)
         .then((value) => value?.files.single.path);
@@ -86,6 +93,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
         fileName = filePath.split('/').last;
         selectedFileNameList1.add(fileName);
       });
+      typeSelected = false;
     }
   }
 
@@ -123,6 +131,8 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
 
   bool isChecked = false;
 
+  LatLng center = const LatLng(41.297441965444406, 69.24021454703133);
+  String fullAddress = 'Toshkent';
   @override
   void initState() {
     print('******* AppealsPage *******');
@@ -443,6 +453,13 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                               maxLines: 10,
                               style: context.textStyle.regularBody,
                             ),
+                            AppUtils.kGap12,
+                            Text('STIR',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                            CustomTextField(
+                              hintText: 'STIR ni kiriting',
+                              controller: _stirController,
+                              style: context.textStyle.regularBody,
+                            ),
                             AppUtils.kGap24,
                             selectedFileNameList1.isEmpty
                                 ? Container()
@@ -470,10 +487,6 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                               ],
                             ),
                             AppUtils.kGap12,
-                            Divider(
-                              color: Colors.black54,
-                              height: 2,
-                            ),
                             selectedFileNameList2.isEmpty
                                 ? Container()
                                 : Column(
@@ -500,10 +513,6 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                               ],
                             ),
                             AppUtils.kGap12,
-                            Divider(
-                              color: Colors.black54,
-                              height: 2,
-                            ),
                             selectedFileNameList3.isEmpty
                                 ? Container()
                                 : Column(
@@ -534,23 +543,22 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                               onTap: (){
                                 customModalBottomSheet(
                                     context: context, 
-                                    builder: (_, controller) {
+                                    builder: (ctx, controller) {
                                       List<String> items = [];
-                                      String value = '';
-                                      list.forEach((element) {
+                                      for (var element in list) {
                                         items.add(element.nameUz);
-                                      });
-                                      value = items.first;
-                                      print('items 555 $items');
+                                      }
                                       return SizedBox(
                                         width: Responsive.width(100, context),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
-                                            // mainAxisSize: MainAxisSize.min,
                                             children: [
                                             Text('File turini tanlang'),
-                                            CustomDropDownFormField(value: items.first, hintText: 'Select type', items: items.toSet().toList(), onChanged: (val){
+                                            CustomDropDownFormField(
+                                                value: dropDownValue,
+                                                hintText: 'Select type',
+                                                items: items.toSet().toList(), onChanged: (val){
                                               typeSelected = true;
                                               list.forEach((element) {
                                                 if(element.nameUz == val){
@@ -565,7 +573,6 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                               }else{
                                                 selectFile1();
                                               }
-
                                             }, text: 'Gallery'),
                                             AppUtils.kGap24,
                                             CustomButtonWithoutGradient(onTap: (){}, text: 'Camera'),
@@ -586,12 +593,23 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                             ),
                             AppUtils.kGap12,
                             CustomButtonWithoutGradient(
-                              onTap: () {
-                                context.push(Routes.selectFromMap);
+                              onTap: () async{
+                                // context.read<AppealsBloc>().add(GetAppealTypeEvent(context: context));
+                                dynamic result = await context.push(Routes.selectFromMap);
+
+                                print('result <<<$result >>>');
+                                if(result != null) {
+                                  center = result['coordinates'];
+                                  fullAddress = result['lane'];
+                                }
                               },
                               text: 'Xaritadagi joylashgan joyi *',
                               textColor: Colors.white,
                             ),
+                            AppUtils.kGap12,
+                            Text('${center.latitude} ${center.longitude}',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText, fontWeight: FontWeight.w400)),
+                            AppUtils.kGap8,
+                            Text('$fullAddress',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))
                           ],
                         ),
                       ),
@@ -629,19 +647,21 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                   SendAppealEvent(
                                     context: context,
                                     appealModel: AppealModel(
+                                      sender: 'app',
                                       applierType: dropdownPersonType ?? '',
                                       applierJshshir: state.profileDataResponse?.pinfl ?? '',
                                       applierFullname: '${state.profileDataResponse?.lastName} ${state.profileDataResponse?.firstName} ${state.profileDataResponse?.middleName}',
                                       applierZipcode: 100053,
                                       applierAddress: _addressController.text,
+                                      appealTypeId: 2,
                                       appealType: dropdownValueCategory,
                                       appealSubtype: 'appealSubtype',
                                       appealDescription: _shortDescController.text.trim(),
                                       applierNumber: _phoneNumberController.text,
                                       appealFileList: selectedFileList1,
-                                      documentTypeIds: imageIdList,
-                                      lang: '12.3434',
-                                      lat: '34.555'
+                                      documentTypeIds: imageIdList.toSet().toList(),
+                                      lang: '12.34343434',
+                                      lat: '34.45553566'
                                     ),
                                   ),
                                 );

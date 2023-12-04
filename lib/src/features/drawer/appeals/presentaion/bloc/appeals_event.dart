@@ -26,3 +26,12 @@ class GetImageTypeEvent extends AppealsEvent {
     required this.context,
   });
 }
+
+class GetAppealTypeEvent extends AppealsEvent {
+  final BuildContext context;
+
+  GetAppealTypeEvent({
+    required this.context,
+  });
+}
+
