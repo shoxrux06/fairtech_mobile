@@ -1,27 +1,23 @@
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
+import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
+import 'package:fairtech_mobile/src/features/appeal/presentation/pages/appeals_state_page.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/create_appeals_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_info_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_owner_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ScannerResultPage extends StatefulWidget {
-  // final String code;
-  // final Function onClose;
-
-  const ScannerResultPage({
-    super.key,
-    // required this.code,
-    // required this.onClose,
-  });
+class AppealPage extends StatefulWidget {
+  const AppealPage({super.key,});
 
   @override
-  State<ScannerResultPage> createState() => _ScannerResultPageState();
+  State<AppealPage> createState() => _AppealPageState();
 }
 
-class _ScannerResultPageState extends State<ScannerResultPage>
+class _AppealPageState extends State<AppealPage>
     with SingleTickerProviderStateMixin {
   final controller = PageController(initialPage: 0);
   final ScrollController _scrollController = ScrollController();
@@ -30,13 +26,12 @@ class _ScannerResultPageState extends State<ScannerResultPage>
   int _selectedIndex = 0;
 
   final list = [
-    'Mahsulot',
-    'Ishlab chiqaruvchi',
+    'Xabar',
+    'Holat',
   ];
 
   @override
   void initState() {
-    // TODO: implement initState
     controller.addListener(() {
       int newPage = controller.page!.round();
       if (newPage != _selectedIndex) {
@@ -58,7 +53,7 @@ class _ScannerResultPageState extends State<ScannerResultPage>
     return BlocProvider(
       create: (context) => AppealsBloc(appealsRepository),
       child: Scaffold(
-        appBar: CustomAppBar(title: 'Ma\'lumotlar'),
+        appBar: CustomAppBar(title: 'Murojaat'),
         body: Stack(
           children: [
             PageView.builder(
@@ -72,9 +67,9 @@ class _ScannerResultPageState extends State<ScannerResultPage>
                 itemBuilder: (context, index) {
                   switch (index) {
                     case 0:
-                      return const ProductInfoPage();
+                      return const CreateAppealsPage();
                     case 1:
-                      return const ProductOwnerInfoPage();
+                      return const AppealsStatePage();
                     default:
                       return Container();
                   }
@@ -87,22 +82,22 @@ class _ScannerResultPageState extends State<ScannerResultPage>
                 alignment: Alignment.center,
                 child: Container(
                     height: 54,
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  decoration: BoxDecoration(
-                    // color: Colors.black12,
-                    border: Border.all(
-                      color: Colors.black12,
-                      width: 1
+                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    decoration: BoxDecoration(
+                      // color: Colors.black12,
+                        border: Border.all(
+                            color: Colors.black12,
+                            width: 1
+                        ),
+                        borderRadius: BorderRadius.circular(12)
                     ),
-                    borderRadius: BorderRadius.circular(12)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ..._buildIndicator()
-                    ],
-                  )
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ..._buildIndicator()
+                      ],
+                    )
                 ),
               ),
             ),
@@ -139,7 +134,7 @@ class _ScannerResultPageState extends State<ScannerResultPage>
     return AnimatedContainer(
       duration: const Duration(microseconds: 300),
       margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 54, vertical: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: color,
@@ -162,7 +157,7 @@ class _ScannerResultPageState extends State<ScannerResultPage>
       },
       child: AnimatedContainer(
         duration: const Duration(microseconds: 300),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 54, vertical: 8),
         margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),

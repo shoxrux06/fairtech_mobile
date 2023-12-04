@@ -1,4 +1,5 @@
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
+import 'package:fairtech_mobile/src/features/appeal/presentation/pages/appeal_page.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/auth_confirmed_page.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/auth_oneid_page.dart';
@@ -364,6 +365,21 @@ class AppGoRouter {
               ),
             );
           }),
+      GoRoute(
+          name: Routes.mainAppeal,
+          path: Routes.mainAppeal,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: const AppealPage(),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+
     ],
   );
 }

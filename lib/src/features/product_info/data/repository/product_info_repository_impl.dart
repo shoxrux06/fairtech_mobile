@@ -20,7 +20,6 @@ class ProductInfoRepositoryImpl implements ProductInfoRepository{
       final response = await client.post('${AppConstants.getProductInfo}tnvedCode=$tnvedCode');
       return ApiResult.success(data:ProductInfoResponse.fromJson(response.data));
     } catch (e) {
-      print('==> products failure: $e');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }

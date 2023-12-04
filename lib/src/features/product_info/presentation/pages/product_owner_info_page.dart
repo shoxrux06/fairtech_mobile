@@ -20,10 +20,10 @@ class _ProductOwnerInfoPageState extends State<ProductOwnerInfoPage> {
       children: [
         AppUtils.kGap40,
         AppUtils.kGap40,
-        customListTile(Icons.local_drink, 'nameOfTheOrganization', 'Coco cola LTD'),
-        customListTile(Icons.local_drink, 'address', 'Uzbekistan, Tashkent'),
-        customListTile(Icons.local_drink, 'STIR', '123456789t'),
-        customListTile(Icons.local_drink, 'additionalInformation', 'Some info'),
+        customListTile(Icons.branding_watermark, 'nameOfTheOrganization', 'Coco cola LTD'),
+        customListTile(Icons.gps_fixed_rounded, 'address', 'Uzbekistan, Tashkent'),
+        customListTile(Icons.confirmation_number_sharp, 'STIR', '123456789'),
+        customListTile(Icons.info, 'additionalInformation', 'Some info'),
       ],
     );
   }

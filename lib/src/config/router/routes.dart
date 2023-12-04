@@ -16,6 +16,7 @@ sealed class Routes {
   static const String shtrixCode = '/shtrix_code';
   static const String tnVedProductDetail = '/tnVed_product_detail';
   static const String selectFromMap = '/select_from_map';
+  static const String mainAppeal = '/main_appeal';
 
   /// auth
   static const String authOneId = '/auth_one_id';

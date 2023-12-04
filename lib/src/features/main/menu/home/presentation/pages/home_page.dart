@@ -3,6 +3,7 @@ import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
+import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.dart';
 import 'package:fairtech_mobile/src/features/drawer/presentation/custom_drawer.dart';
 import 'package:fairtech_mobile/src/features/main/menu/home/presentation/widgets/active_item.dart';
 import 'package:fairtech_mobile/src/features/main/menu/home/presentation/widgets/animated_appbar.dart';
@@ -44,115 +45,132 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Sohalar',
+                      'Interaktiv xizmatlar',
                       style: context.textStyle.regularTitle2.copyWith(
                         color: context.theme.primaryColor,
                       ),
                     ),
                    SizedBox(
                      height: Responsive.height(25, context),
-                     child: SingleChildScrollView(
-                       scrollDirection: Axis.horizontal,
-                       child: Row(
-                         children: [
-                           ActiveItem(
-                             onTap: () {
-                               context.push(Routes.chooseOption);
+                     width: Responsive.width(100, context),
+                     child: Row(
+                       mainAxisSize: MainAxisSize.min,
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Expanded(
+                           child: ActiveItem(
+                             onTap: (){
+                               context.push(Routes.mainAppeal);
                              },
-                             icon: AppConstants.pharmInfoSvg,
-                             title: 'Product Info',
-                             subTitle: 'Tovar tog\'risidagi ma\'lumot',
+                             icon: AppConstants.appealCreateSvg,
+                             title: 'Murojaat',
+                             subTitle: 'Raqobat qo\'mitasiga murojaat yo\'llash',
                            ),
-                           ActiveItem(
-                             onTap: () {
-                               // context.push(Routes.pharmInfo);
+                         ),
+                         Expanded(
+                           child: ActiveItem(
+                             onTap: (){
+                               context.push(Routes.pharmInfo);
                              },
-                             icon: AppConstants.pharmInfoSvg,
-                             title: 'Pharm Info',
-                             subTitle: 'Dori vositalari tog\'risidagi ma\'lumot',
+                             icon: AppConstants.appealMonitoringSvg,
+                             title: 'Online kuzatuv',
+                             subTitle: 'Murojaat holatini kuzatish',
                            ),
-                           DisabledItem(
-                             icon: AppConstants.fairPriceSvg,
-                             title: 'Product Info',
-                             subTitle: 'Mahsulotlarning adolatli narxi',
-                           )
-                         ],
-                       ),
+                         ),
+                         // DisabledItem(
+                         //   onTap: (){
+                         //     AppSnackBar.showWarningSnackBar(context, 'Ushbu xizmat ishlab chiqish jarayonida');
+                         //   },
+                         //   icon: AppConstants.fairPriceSvg,
+                         //   title: 'Fair price',
+                         //   subTitle: 'Mahsulotlarning adolatli narxi',
+                         // )
+                       ],
                      ),
                    ),
                     AppUtils.kGap12,
-                    Text(
-                      'Interaktiv xizmatlar',
-                      style: context.textStyle.regularTitle2.copyWith(
-                        color: context.theme.primaryColor,
-                      ),
-                    ),
+                    // Text(
+                    //   'Interaktiv xizmatlar',
+                    //   style: context.textStyle.regularTitle2.copyWith(
+                    //     color: context.theme.primaryColor,
+                    //   ),
+                    // ),
                     SizedBox(
                       height: Responsive.height(25, context),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ActiveItem(
-                              onTap: (){
-                                context.push(Routes.pharmInfo);
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ActiveItem(
+                              onTap: () {
+                                context.push(Routes.chooseOption);
                               },
-                              icon: AppConstants.appealMonitoringSvg,
-                              title: 'Online kuzatuv',
-                              subTitle: 'Murojaat holatini kuzatish',
+                              icon: AppConstants.pharmInfoSvg,
+                              title: 'Product Info',
+                              subTitle: 'Tovar tog\'risidagi ma\'lumot',
                             ),
-                            const ActiveItem(
-                              icon: AppConstants.appealCreateSvg,
-                              title: 'Murojaat',
-                              subTitle: 'Raqobat qo\'mitasiga murojaat yo\'llash',
+                          ),
+                          Opacity(
+                            opacity: 0,
+                            child: Expanded(
+                              child: ActiveItem(
+                                onTap: (){
+                                  context.push(Routes.pharmInfo);
+                                },
+                                icon: AppConstants.appealMonitoringSvg,
+                                title: 'Online kuzatuv',
+                                subTitle: 'Murojaat holatini kuzatish',
+                              ),
                             ),
-                            const DisabledItem(
-                              icon: AppConstants.appealCreateSvg,
-                              title: 'Kompleyns',
-                              subTitle: 'Qo\'zg\'atilgan ishlarni kuzatish',
-                            )
-                          ],
-                        ),
+                          ),
+                          // DisabledItem(
+                          //   onTap: (){
+                          //     AppSnackBar.showWarningSnackBar(context, 'Ushbu xizmat ishlab chiqish jarayonida');
+                          //   },
+                          //   icon: AppConstants.appealCreateSvg,
+                          //   title: 'Kompleyns',
+                          //   subTitle: 'Qo\'zg\'atilgan ishlarni kuzatish',
+                          // )
+                        ],
                       ),
                     ),
-                    AppUtils.kGap12,
-                    Text(
-                      'Raqobat qo\'mitasi',
-                      style: context.textStyle.regularTitle2.copyWith(
-                        color: context.theme.primaryColor,
-                      ),
-                    ),
-                    SizedBox(
-                      height: Responsive.height(25, context),
-                      child: const SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ActiveItem(
-                              icon: AppConstants.appealCreateSvg,
-                              title: 'Hisobotlar',
-                              subTitle: 'Bajarilgan ishlar statistikasi',
-                            ),
-                            // Opacity(
-                            //   opacity: 0,
-                            //   child: ActiveItem(
-                            //     icon: '',
-                            //     title: 'Murojaat',
-                            //     subTitle: 'Raqobat qo\'mitasiga murojaat yo\'llash',
-                            //   ),
-                            // ),
-                            // Opacity(
-                            //   opacity: 0,
-                            //   child: DisabledItem(
-                            //     icon: '',
-                            //     title: 'Kompleyns',
-                            //     subTitle: 'Qo\'zg\'atilgan ishlarni kuzatish',
-                            //   ),
-                            // )
-                          ],
-                        ),
-                      ),
-                    ),
+                    // AppUtils.kGap12,
+                    // Text(
+                    //   'Raqobat qo\'mitasi',
+                    //   style: context.textStyle.regularTitle2.copyWith(
+                    //     color: context.theme.primaryColor,
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: Responsive.height(25, context),
+                    //   child: const SingleChildScrollView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     child: Row(
+                    //       children: [
+                    //         ActiveItem(
+                    //           icon: AppConstants.appealCreateSvg,
+                    //           title: 'Hisobotlar',
+                    //           subTitle: 'Bajarilgan ishlar statistikasi',
+                    //         ),
+                    //         // Opacity(
+                    //         //   opacity: 0,
+                    //         //   child: ActiveItem(
+                    //         //     icon: '',
+                    //         //     title: 'Murojaat',
+                    //         //     subTitle: 'Raqobat qo\'mitasiga murojaat yo\'llash',
+                    //         //   ),
+                    //         // ),
+                    //         // Opacity(
+                    //         //   opacity: 0,
+                    //         //   child: DisabledItem(
+                    //         //     icon: '',
+                    //         //     title: 'Kompleyns',
+                    //         //     subTitle: 'Qo\'zg\'atilgan ishlarni kuzatish',
+                    //         //   ),
+                    //         // )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

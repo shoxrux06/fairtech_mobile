@@ -65,20 +65,20 @@ class ActiveItem extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            top: 8,
-            right: 8,
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.theme.primaryColor.withOpacity(.2),
-                borderRadius: BorderRadius.circular(32)
-              ),
-              padding: EdgeInsets.all(4),
-              child: Center(
-                child: Icon(Icons.star, size: 16, color: context.theme.primaryColor.withOpacity(.8),),
-              ),
-            ),
-          )
+          // Positioned(
+          //   top: 8,
+          //   right: 8,
+          //   child: Container(
+          //     decoration: BoxDecoration(
+          //       color: context.theme.primaryColor.withOpacity(.2),
+          //       borderRadius: BorderRadius.circular(32)
+          //     ),
+          //     padding: EdgeInsets.all(4),
+          //     child: Center(
+          //       child: Icon(Icons.star, size: 16, color: context.theme.primaryColor.withOpacity(.8),),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

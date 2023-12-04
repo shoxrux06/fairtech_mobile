@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_image_type_response.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_type_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/send_appeal_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/models/appeal_model.dart';
@@ -72,7 +73,7 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
     final result = await appealsRepository.getAppealTypeList(event.context);
     result.when(
       success: (data) {
-        // emit(state.copyWith(appealImageTypeResponse: data, appealIsSending: false));
+        emit(state.copyWith(appealTypeResponse: data, appealIsSending: false));
       },
       failure: (failure) {
         emit(state.copyWith(appealIsSending: false));

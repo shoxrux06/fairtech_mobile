@@ -40,10 +40,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
 
   bool typeSelected = false;
 
-  List<String> subCategoryList = [
-    'Test',
-    'Test2',
-  ];
+  List<String> subCategoryList = [];
 
   List<String> personTypeList = [
     'Jismoniy shaxs',
@@ -131,15 +128,15 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
 
   bool isChecked = false;
 
-  LatLng center = const LatLng(41.297441965444406, 69.24021454703133);
-  String fullAddress = 'Toshkent';
+  LatLng? center;
+  String? fullAddress;
   @override
   void initState() {
     print('******* AppealsPage *******');
-    dropdownValueCategory = subCategoryList.first;
     dropdownPersonType = personTypeList.first;
     context.read<AppealsBloc>().add(GetProfileDataEvent(context: context));
     context.read<AppealsBloc>().add(GetImageTypeEvent(context: context));
+    context.read<AppealsBloc>().add(GetAppealTypeEvent(context: context));
     super.initState();
   }
 
@@ -149,6 +146,13 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
       listener: (context, state) {
         if(state.appealImageTypeResponse != null){
           list.addAll(state.appealImageTypeResponse?.list ??[]);
+        }
+        if(state.appealTypeResponse != null){
+          print('state.appealTypeResponse?.list ${state.appealTypeResponse?.list}');
+          state.appealTypeResponse?.list.forEach((element) {
+            subCategoryList.add(element.nameUz);
+          });
+          dropdownValueCategory = subCategoryList.first;
         }
         _phoneNumberController.text = '${state.profileDataResponse?.phoneNumber}';
         if (state.sendAppealResponse?.status == 0) {
@@ -170,7 +174,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
           );
         }
         return Scaffold(
-          appBar: CustomAppBar(title: 'Murojaat yaratish',),
+          // appBar: CustomAppBar(title: 'Murojaat yaratish',),
           body: ModalProgressHUD(
             inAsyncCall: state.appealIsSending,
             child: Padding(
@@ -179,6 +183,8 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    AppUtils.kGap40,
+                   AppUtils.kGap24,
                    Card(
                      color: Colors.white,
                      child: Padding(
@@ -348,7 +354,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                    keyboardType: TextInputType.multiline,
                                    enabled: isAddressEnabled,
                                    maxLines: 5,
-                                   style: context.textStyle.regularBody,
+                                   // style: context.textStyle.regularBody,
                                  ),
                                ),
                                IconButton(
@@ -359,7 +365,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                      },
                                    );
                                  },
-                                 icon: Icon(Icons.edit_rounded),
+                                 icon: const Icon(Icons.edit_rounded),
                                )
                              ],
                            ),
@@ -377,7 +383,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Murojaat mazmuni',style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+                            Text('Murojaat turi',style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
                             const SizedBox(
                               height: 12,
                             ),
@@ -387,7 +393,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 elevation: 16,
                                 isExpanded: true,
                                 isDense: false,
-                                itemHeight: 50,
+                                // itemHeight: 48,
                                 dropdownColor: Colors.white,
                                 style: context.textStyle.regularBody,
                                 decoration: InputDecoration(
@@ -427,15 +433,20 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                         color: context.theme.primaryColor, width: 1),
                                   ),
                                 ),
-                                items: subCategoryList
+                                items: subCategoryList.toSet().toList()
                                     .map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
-                                    child: Text(
-                                      value,
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                    child: ListTile(
+                                      contentPadding: EdgeInsets.all(0),
+                                      minVerticalPadding: 4,
+                                      title: Text(
+                                        value,
+                                        maxLines: 3,
+                                        // style: context.textStyle.regularBody,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )
                                   );
                                 }).toList(),
                                 onChanged: (String? value) {
@@ -447,7 +458,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                             Text('Qisqacha mazmuni',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
                             CustomTextField(
                               controller: _shortDescController,
-                              hintText: 'Enter short description',
+                              hintText: 'Qisqacha mazmunini kiriting',
                               keyboardType: TextInputType.multiline,
                               minLines: 5,
                               maxLines: 10,
@@ -457,10 +468,70 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                             Text('STIR',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
                             CustomTextField(
                               hintText: 'STIR ni kiriting',
+                              keyboardType: TextInputType.number,
                               controller: _stirController,
                               style: context.textStyle.regularBody,
                             ),
                             AppUtils.kGap24,
+                            CustomButtonWithoutGradient(
+                              onTap: (){
+                                customModalBottomSheet(
+                                    context: context, 
+                                    builder: (ctx, controller) {
+                                      List<String> items = [];
+                                      for (var element in list) {
+                                        items.add(element.nameUz);
+                                      }
+                                      return SizedBox(
+                                        width: Responsive.width(100, context),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                            const Text('File turini tanlang'),
+                                            CustomDropDownFormField(
+                                                value: dropDownValue,
+                                                hintText: 'Rasm turini tanlang',
+                                                items: items.toSet().toList(), onChanged: (val){
+                                              typeSelected = true;
+                                              list.forEach((element) {
+                                                if(element.nameUz == val){
+                                                  imageIdList.add(element.id);
+                                                }
+                                              });
+                                            }),
+                                            AppUtils.kGap24,
+                                            CustomButtonWithoutGradient(onTap: (){
+                                              if(typeSelected == false){
+                                                AppSnackBar.showWarningSnackBar(context, 'File Turini tanlang');
+                                              }else{
+                                                selectFile1();
+                                              }
+                                            }, text: 'File tanlash',
+                                            textColor: Colors.white,
+                                            ),
+                                            AppUtils.kGap24,
+                                            // CustomButtonWithoutGradient(onTap: (){}, text: 'Camera'),
+                                            //   AppUtils.kGap24,
+                                            //   AppUtils.kGap24,
+                                              AppUtils.kGap24,
+                                            CustomButtonWithoutGradient(onTap: (){
+                                              context.pop();
+                                            }, text: 'Submit',
+                                              textColor: Colors.white,
+                                            ),
+                                          ],),
+                                        ),
+                                      );
+                                    }
+                                );
+                              },
+                              text: 'Fayl biriktirish',
+                              textColor: Colors.white,
+                            ),
+                            AppUtils.kGap4,
                             selectedFileNameList1.isEmpty
                                 ? Container()
                                 : Column(
@@ -486,7 +557,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 ),)
                               ],
                             ),
-                            AppUtils.kGap12,
+                            selectedFileNameList2.isEmpty? Container():AppUtils.kGap12,
                             selectedFileNameList2.isEmpty
                                 ? Container()
                                 : Column(
@@ -512,7 +583,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 ),)
                               ],
                             ),
-                            AppUtils.kGap12,
+                            selectedFileNameList2.isEmpty? Container():AppUtils.kGap12,
                             selectedFileNameList3.isEmpty
                                 ? Container()
                                 : Column(
@@ -538,59 +609,6 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 ),)
                               ],
                             ),
-                            AppUtils.kGap24,
-                            CustomButtonWithoutGradient(
-                              onTap: (){
-                                customModalBottomSheet(
-                                    context: context, 
-                                    builder: (ctx, controller) {
-                                      List<String> items = [];
-                                      for (var element in list) {
-                                        items.add(element.nameUz);
-                                      }
-                                      return SizedBox(
-                                        width: Responsive.width(100, context),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            children: [
-                                            Text('File turini tanlang'),
-                                            CustomDropDownFormField(
-                                                value: dropDownValue,
-                                                hintText: 'Select type',
-                                                items: items.toSet().toList(), onChanged: (val){
-                                              typeSelected = true;
-                                              list.forEach((element) {
-                                                if(element.nameUz == val){
-                                                  imageIdList.add(element.id);
-                                                }
-                                              });
-                                            }),
-                                            AppUtils.kGap24,
-                                            CustomButtonWithoutGradient(onTap: (){
-                                              if(typeSelected == false){
-                                                AppSnackBar.showWarningSnackBar(context, 'File Turini tanlang');
-                                              }else{
-                                                selectFile1();
-                                              }
-                                            }, text: 'Gallery'),
-                                            AppUtils.kGap24,
-                                            CustomButtonWithoutGradient(onTap: (){}, text: 'Camera'),
-                                              AppUtils.kGap24,
-                                              AppUtils.kGap24,
-                                              AppUtils.kGap24,
-                                            CustomButtonWithoutGradient(onTap: (){
-                                              context.pop();
-                                            }, text: 'Submit'),
-                                          ],),
-                                        ),
-                                      );
-                                    }
-                                );
-                              },
-                              text: 'File biriktirish',
-                              textColor: Colors.white,
-                            ),
                             AppUtils.kGap12,
                             CustomButtonWithoutGradient(
                               onTap: () async{
@@ -599,17 +617,19 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
 
                                 print('result <<<$result >>>');
                                 if(result != null) {
-                                  center = result['coordinates'];
-                                  fullAddress = result['lane'];
+                                  setState(() {
+                                    center = result['coordinates'];
+                                    fullAddress = result['lane'];
+                                  });
                                 }
                               },
                               text: 'Xaritadagi joylashgan joyi *',
                               textColor: Colors.white,
                             ),
                             AppUtils.kGap12,
-                            Text('${center.latitude} ${center.longitude}',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText, fontWeight: FontWeight.w400)),
-                            AppUtils.kGap8,
-                            Text('$fullAddress',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))
+                            center == null? Container():Text('${center?.latitude} ${center?.longitude}',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText, fontWeight: FontWeight.w400)),
+                            center == null? Container():AppUtils.kGap8,
+                            center == null? Container():Text('$fullAddress',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))
                           ],
                         ),
                       ),
@@ -643,28 +663,37 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                         Expanded(
                             child: CustomButtonWithoutGradient(
                               onTap: () {
-                                context.read<AppealsBloc>().add(
-                                  SendAppealEvent(
-                                    context: context,
-                                    appealModel: AppealModel(
-                                      sender: 'app',
-                                      applierType: dropdownPersonType ?? '',
-                                      applierJshshir: state.profileDataResponse?.pinfl ?? '',
-                                      applierFullname: '${state.profileDataResponse?.lastName} ${state.profileDataResponse?.firstName} ${state.profileDataResponse?.middleName}',
-                                      applierZipcode: 100053,
-                                      applierAddress: _addressController.text,
-                                      appealTypeId: 2,
-                                      appealType: dropdownValueCategory,
-                                      appealSubtype: 'appealSubtype',
-                                      appealDescription: _shortDescController.text.trim(),
-                                      applierNumber: _phoneNumberController.text,
-                                      appealFileList: selectedFileList1,
-                                      documentTypeIds: imageIdList.toSet().toList(),
-                                      lang: '12.34343434',
-                                      lat: '34.45553566'
+                                if(selectedFileList1.isNotEmpty && _stirController.text.isNotEmpty &&
+                                    _shortDescController.text.isNotEmpty &&
+                                fullAddress != null
+                                ){
+                                  context.read<AppealsBloc>().add(
+                                    SendAppealEvent(
+                                      context: context,
+                                      appealModel: AppealModel(
+                                          sender: 'app',
+                                          applierType: dropdownPersonType ?? '',
+                                          applierJshshir: state.profileDataResponse?.pinfl ?? '',
+                                          applierFullname: '${state.profileDataResponse?.lastName} ${state.profileDataResponse?.firstName} ${state.profileDataResponse?.middleName}',
+                                          applierZipcode: 100053,
+                                          applierAddress: _addressController.text,
+                                          appealTypeId: 2,
+                                          appealType: dropdownValueCategory,
+                                          appealSubtype: 'appealSubtype',
+                                          appealDescription: _shortDescController.text.trim(),
+                                          applierNumber: _phoneNumberController.text,
+                                          appealFileList: selectedFileList1,
+                                          documentTypeIds: imageIdList.toSet().toList(),
+                                          lang: '12.34343434',
+                                          lat: '34.45553566',
+                                          orgTin: _stirController.text.toString().trim()
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                }else{
+                                  AppSnackBar.showWarningSnackBar(context, 'Iltimos barcha maydonlarni to\'ldiring');
+                                }
+
                               },
                               text: 'Yuborish',
                               textColor: Colors.white,

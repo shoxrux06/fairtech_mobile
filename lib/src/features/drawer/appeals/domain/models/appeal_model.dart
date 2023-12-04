@@ -16,6 +16,7 @@ class AppealModel {
   final List<int> documentTypeIds;
   final String lang;
   final String lat;
+  final String orgTin;
 
   AppealModel({
     required this.sender,
@@ -33,6 +34,7 @@ class AppealModel {
     required this.documentTypeIds,
     required this.lang,
     required this.lat,
+    required this.orgTin,
   });
 
   Map<String, dynamic> toJson() => {
@@ -50,5 +52,6 @@ class AppealModel {
         "appeal_file": appealFileList,
         "documentTypeIds": documentTypeIds,
         "lang": lang,
+        "org_tin": orgTin,
       };
 }
