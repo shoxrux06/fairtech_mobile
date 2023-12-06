@@ -115,10 +115,7 @@ class _QrCodeScreenPageState extends State<QrCodeScreenPage> {
                   right: 24,
                   child: CustomButtonWithoutGradient(
                       onTap:() {
-                        customModalBottomSheet<void>(
-                            context: context,
-                            builder: (_, controller) => const ShtrixCodePage()
-                        );
+                        context.push(Routes.shtrixCode);
                       },
                       text: 'Shtrix-kodini kiritish',
                       textColor: Colors.white,

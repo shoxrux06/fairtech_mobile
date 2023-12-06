@@ -17,13 +17,6 @@ class ProductTnVedCodePage extends StatefulWidget {
 
 class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
   final codeController = TextEditingController();
-
-  bool isScanCompleted = false;
-
-  void closeScreen() {
-    isScanCompleted = false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductInfoBloc, ProductInfoState>(
@@ -52,7 +45,7 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
                       hintText: '- - - - - - - - - -',
                       onFieldSubmitted: (value) {
                         context.read<ProductInfoBloc>().add(
-                          GetProductInfoEvent(
+                          GetProductInfoByTnVedEvent(
                               onSuccess: () {
                                 AppSnackBar.showSuccessSnackBar(context, 'Success','Results fetched successfully');
                               },
@@ -66,7 +59,7 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
                       suffixIcon: IconButton(
                           onPressed: () {
                             context.read<ProductInfoBloc>().add(
-                              GetProductInfoEvent(
+                              GetProductInfoByTnVedEvent(
                                 onSuccess: () {
                                   AppSnackBar.showSuccessSnackBar(context, 'Success','Results fetched successfully');
                                 },
@@ -77,7 +70,7 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
                               ),
                             );
                           },
-                          icon: const Icon(Icons.check)),
+                          icon: const Icon(Icons.search)),
                     ),
                   ],
                 ),

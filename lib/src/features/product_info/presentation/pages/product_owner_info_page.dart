@@ -20,10 +20,10 @@ class _ProductOwnerInfoPageState extends State<ProductOwnerInfoPage> {
       children: [
         AppUtils.kGap40,
         AppUtils.kGap40,
-        customListTile(Icons.branding_watermark, 'nameOfTheOrganization', 'Coco cola LTD'),
-        customListTile(Icons.gps_fixed_rounded, 'address', 'Uzbekistan, Tashkent'),
+        customListTile(Icons.branding_watermark, 'Korxona nomi', 'Coco cola LTD'),
+        customListTile(Icons.gps_fixed_rounded, 'Manzil', 'O\'zbekistan, Toshkent'),
         customListTile(Icons.confirmation_number_sharp, 'STIR', '123456789'),
-        customListTile(Icons.info, 'additionalInformation', 'Some info'),
+        customListTile(Icons.info, 'Qo\'shimcha ,ma\'lumotlar', 'Qo\'shimcha ,ma\'lumotlar'),
       ],
     );
   }
@@ -33,7 +33,7 @@ class _ProductOwnerInfoPageState extends State<ProductOwnerInfoPage> {
       children: [
         ListTile(
           leading: Icon(icon,color: context.theme.primaryColor),
-          title: Text(context.tr(title),style: context.textStyle.regularBody.copyWith(color: context.theme.primaryColor, fontSize: 14)),
+          title: Text(title,style: context.textStyle.regularBody.copyWith(color: context.theme.primaryColor, fontSize: 14)),
           subtitle: Text(subTitle,style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor),),
         ),
         const Divider(

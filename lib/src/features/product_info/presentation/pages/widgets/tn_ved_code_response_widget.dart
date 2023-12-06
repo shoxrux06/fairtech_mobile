@@ -19,6 +19,8 @@ class TnVedCodeResponseWidget extends StatefulWidget {
 }
 
 class _TnVedCodeResponseWidgetState extends State<TnVedCodeResponseWidget> {
+  bool isMoreClicked = false;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

@@ -16,7 +16,6 @@ class TnVedProductDetailPage extends StatefulWidget {
 }
 
 class _TnVedProductDetailPageState extends State<TnVedProductDetailPage> {
-  bool isMoreClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,54 +40,6 @@ class _TnVedProductDetailPageState extends State<TnVedProductDetailPage> {
               item(context, 'Brutto', widget.good.brutto.toString()),
               item(context, 'O\'lchov birligi', widget.good.addedUnitsMeasureName),
               item(context, 'Ishlab chiqarilgan mamlakat', widget.good.madeInCountryName),
-              isMoreClicked?Container():Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(onPressed: (){
-                  setState(() {
-                    isMoreClicked = !isMoreClicked;
-                  });
-                }, child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.keyboard_arrow_down),
-                    Text('Ko\'proq ma\'lumot',style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor, fontSize: 14)),
-                  ],
-                )),
-              ),
-              isMoreClicked? Column(
-                children: [
-                  item(context, 'TnVed kod', widget.good.tnCode),
-                  item(context, 'Tovar raqami', widget.good.numberCommodity),
-                  item(context, 'Qo\'shilgan birliklar o\'lchov nomi', widget.good.addedUnitsMeasureName),
-                  item(context, 'Qo\'shilgan birliklar o\'lchovi', widget.good.addedUnitsMeasure),
-                  item(context, 'Qo\'shilgan miqdor', widget.good.addedQuantity.toString()),
-                  item(context, 'Imtiyozlar miqdori 20', widget.good.amountBenefits20.toString()),
-                  item(context, 'Imtiyozlar miqdori 27', widget.good.amountBenefits27.toString()),
-                  item(context, 'Imtiyozlar miqdori 29', widget.good.amountBenefits29.toString()),
-                  item(context, 'Jami imtiyozlar', widget.good.totalBenefits.toString()),
-                  item(context, 'Mahsulot xarakteri ', widget.good.characteristicProduct.toString()),
-                  item(context, 'To\'lovlar miqdori 20', widget.good.amountPayments20.toString()),
-                  item(context, 'To\'lovlar miqdori 27', widget.good.amountPayments27.toString()),
-                  item(context, 'To\'lovlar miqdori 29', widget.good.amountPayments29.toString()),
-                  item(context, 'Jami to\'lovlar', widget.good.totalPayments.toString()),
-                  item(context, 'Hisob-faktura qiymati', widget.good.invoiceValue.toString()),
-                  item(context, 'Statistik qiymat', widget.good.statisticalValue.toString()),
-                ],
-              ): Container(),
-              isMoreClicked?Align(
-                alignment: Alignment.bottomRight,
-                child: TextButton(onPressed: (){
-                  setState(() {
-                    isMoreClicked = !isMoreClicked;
-                  });
-                }, child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.keyboard_arrow_up),
-                    Text('Berkitish',style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor, fontSize: 14)),
-                  ],
-                )),
-              ): Container(),
             ],
           ),
         ),

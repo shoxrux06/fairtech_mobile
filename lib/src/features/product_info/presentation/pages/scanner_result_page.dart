@@ -1,20 +1,23 @@
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
+import 'package:fairtech_mobile/src/features/components/loading_widgets/modal_progress_hud.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_info_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_owner_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ScannerResultPage extends StatefulWidget {
-  // final String code;
-  // final Function onClose;
+  final String code;
+  final Function onClose;
 
   const ScannerResultPage({
     super.key,
-    // required this.code,
-    // required this.onClose,
+    required this.code,
+    required this.onClose,
   });
 
   @override
@@ -36,7 +39,6 @@ class _ScannerResultPageState extends State<ScannerResultPage>
 
   @override
   void initState() {
-    // TODO: implement initState
     controller.addListener(() {
       int newPage = controller.page!.round();
       if (newPage != _selectedIndex) {
@@ -50,6 +52,7 @@ class _ScannerResultPageState extends State<ScannerResultPage>
         });
       }
     });
+    context.read<ProductInfoBloc>().add(GetProductInfoByScannerEvent(onSuccess: (){}, onError: (){}, lang: 'uz_latin', internationalCode: widget.code));
     super.initState();
   }
 
@@ -57,58 +60,73 @@ class _ScannerResultPageState extends State<ScannerResultPage>
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AppealsBloc(appealsRepository),
-      child: Scaffold(
-        appBar: CustomAppBar(title: 'Ma\'lumotlar'),
-        body: Stack(
-          children: [
-            PageView.builder(
-                controller: controller,
-                onPageChanged: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                itemCount: list.length,
-                itemBuilder: (context, index) {
-                  switch (index) {
-                    case 0:
-                      return const ProductInfoPage();
-                    case 1:
-                      return const ProductOwnerInfoPage();
-                    default:
-                      return Container();
-                  }
-                }),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                    height: 54,
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  decoration: BoxDecoration(
-                    // color: Colors.black12,
-                    border: Border.all(
-                      color: Colors.black12,
-                      width: 1
+      child: BlocConsumer<ProductInfoBloc,ProductInfoState>(
+        listener: (context,state){
+        },
+        builder: (context,state){
+          return ModalProgressHUD(
+            inAsyncCall: state.isGettingProductData,
+            child: Scaffold(
+              appBar: CustomAppBar(title: 'Ma\'lumotlar'),
+              body:(state.mxikAndShtrixCodeResponse?.data.mxikInfo == null
+                  && state.mxikAndShtrixCodeResponse?.data.markingInfo == null
+              )? const Column(
+                children: [
+                  Center(child: Text('Tanlangan mahsulot "Milliy tasnif" da ro\'yxatdan o\'tmagan'),)
+                ],
+              ): Stack(
+                children: [
+                  PageView.builder(
+                      controller: controller,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        switch (index) {
+                          case 0:
+                            return ProductInfoPage(mxikAndShtrixCodeResponse: state.mxikAndShtrixCodeResponse);
+                          case 1:
+                            return const ProductOwnerInfoPage();
+                          default:
+                            return Container();
+                        }
+                      }),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                          height: 54,
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                          decoration: BoxDecoration(
+                            // color: Colors.black12,
+                              border: Border.all(
+                                  color: Colors.black12,
+                                  width: 1
+                              ),
+                              borderRadius: BorderRadius.circular(12)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ..._buildIndicator()
+                            ],
+                          )
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(12)
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ..._buildIndicator()
-                    ],
-                  )
-                ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          );
+        },
+      )
     );
   }
 

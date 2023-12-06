@@ -21,6 +21,7 @@ import 'package:fairtech_mobile/src/features/pharm_info/presentation/pages/pharr
 import 'package:fairtech_mobile/src/features/product_info/data/models/product_info_response.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/choose_option_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/mxik_code_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_tnved_code_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/qr_code_screen_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/scanner_result_page.dart';
@@ -65,30 +66,31 @@ class AppGoRouter {
 
       /// main
       GoRoute(
-        name: Routes.main,
-        path: Routes.main,
-        pageBuilder: (_, state) {
-          dynamic extra;
-          if(state.extra != null){
-            extra = state.extra as Map;
-          }
-          return CustomTransitionPage(
-            transitionDuration: const Duration(milliseconds: 1200),
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
-                BlocProvider<ProductInfoBloc>(create: (_) => sl<ProductInfoBloc>()),
-                BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
-              ],
-              child:  const MainPage(),
-            ),
-            transitionsBuilder: (_, animation, __, child) => FadeTransition(
-              opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-              child: child,
-            ),
-          );
-        }
-      ),
+          name: Routes.main,
+          path: Routes.main,
+          pageBuilder: (_, state) {
+            dynamic extra;
+            if (state.extra != null) {
+              extra = state.extra as Map;
+            }
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
+                  BlocProvider<ProductInfoBloc>(
+                      create: (_) => sl<ProductInfoBloc>()),
+                  BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
+                ],
+                child: const MainPage(),
+              ),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
       GoRoute(
         name: Routes.authOneId,
         path: Routes.authOneId,
@@ -109,13 +111,11 @@ class AppGoRouter {
         path: Routes.signIn,
         pageBuilder: (_, state) => CustomTransitionPage(
           transitionDuration: const Duration(milliseconds: 1200),
-          child: MultiBlocProvider(
-              providers: [
-                BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
-                BlocProvider<SignInBloc>(create: (_) => sl<SignInBloc>()),
-                BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
-              ],
-              child: const SignInPage()),
+          child: MultiBlocProvider(providers: [
+            BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
+            BlocProvider<SignInBloc>(create: (_) => sl<SignInBloc>()),
+            BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
+          ], child: const SignInPage()),
           transitionsBuilder: (_, animation, __, child) => FadeTransition(
             opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
             child: child,
@@ -272,15 +272,20 @@ class AppGoRouter {
           name: Routes.scannerResult,
           path: Routes.scannerResult,
           pageBuilder: (_, state) {
-            // final extra = state.extra as Map;
+            final extra = state.extra as Map;
             return CustomTransitionPage(
               transitionDuration: const Duration(milliseconds: 1200),
-              child: BlocProvider(
-                create: (_) => AppealsBloc(appealsRepository),
-                child: const ScannerResultPage(
-                // code: extra['code'],
-                // onClose: extra['closeScreen'],
-              ),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider<AppealsBloc>(
+                      create: (_) => AppealsBloc(appealsRepository)),
+                  BlocProvider<ProductInfoBloc>(
+                      create: (_) => ProductInfoBloc(servicesRepository)),
+                ],
+                child: ScannerResultPage(
+                  code: extra['code'],
+                  onClose: extra['closeScreen'],
+                ),
               ),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
@@ -297,11 +302,11 @@ class AppGoRouter {
               transitionDuration: const Duration(milliseconds: 1200),
               child: BlocProvider(
                 create: (_) => PharmInfoBloc(pharmInfoRepository),
-                child:  const PharmInfoPage(),
+                child: const PharmInfoPage(),
               ),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
-                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );
@@ -315,25 +320,41 @@ class AppGoRouter {
               child: const ChooseOptionPage(),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
-                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );
           }),
       GoRoute(
-          name: Routes.shtrixCode,
-          path: Routes.shtrixCode,
-          pageBuilder: (_, state) {
-            return CustomTransitionPage(
-              transitionDuration: const Duration(milliseconds: 1200),
-              child: const ShtrixCodePage(),
-              transitionsBuilder: (_, animation, __, child) => FadeTransition(
-                opacity:
-                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-                child: child,
-              ),
-            );
-          }),
+        name: Routes.shtrixCode,
+        path: Routes.shtrixCode,
+        pageBuilder: (_, state) => CustomTransitionPage(
+          transitionDuration: const Duration(milliseconds: 1200),
+          child: BlocProvider(
+            create: (_) => ProductInfoBloc(servicesRepository),
+            child: const ShtrixCodePage(),
+          ),
+          transitionsBuilder: (_, animation, __, child) => FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+            child: child,
+          ),
+        ),
+      ),
+      GoRoute(
+        name: Routes.mxikCode,
+        path: Routes.mxikCode,
+        pageBuilder: (_, state) => CustomTransitionPage(
+          transitionDuration: const Duration(milliseconds: 1200),
+          child: BlocProvider(
+            create: (_) => ProductInfoBloc(servicesRepository),
+            child: const MxikCodePage(),
+          ),
+          transitionsBuilder: (_, animation, __, child) => FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+            child: child,
+          ),
+        ),
+      ),
       GoRoute(
           name: Routes.tnVedProductDetail,
           path: Routes.tnVedProductDetail,
@@ -341,12 +362,10 @@ class AppGoRouter {
             final good = state.extra as Good;
             return CustomTransitionPage(
               transitionDuration: const Duration(milliseconds: 1200),
-              child: TnVedProductDetailPage(
-                good: good
-              ),
+              child: TnVedProductDetailPage(good: good),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
-                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );
@@ -360,7 +379,7 @@ class AppGoRouter {
               child: SelectFromMapPage(),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
-                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );
@@ -374,12 +393,11 @@ class AppGoRouter {
               child: const AppealPage(),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
-                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );
           }),
-
     ],
   );
 }

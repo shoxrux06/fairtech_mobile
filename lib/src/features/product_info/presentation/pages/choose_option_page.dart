@@ -21,16 +21,18 @@ class ChooseOptionPage extends StatefulWidget {
 
 class _ChooseOptionPageState extends State<ChooseOptionPage> {
   String _scanBarCodeResult = '';
-  String infoText = '"Product Info" axborot tizimi bu - iste\'molchilarga mamlakat iste\'mol '
-      'bozorida muomalada bo\'lgan tovar (ish, xizmat)lar to\'g\'risida ma\'lumotlarni onlayn tarzda'
-      ' olish imkoniyatini beruvchi axborot tizimi "Product Info" axborot tizimi bu iste\'molchilarga mamlakat '
-      'iste\'mol bozorida muomalada bo\'lgan tovar (ish, xizmatlar to\'g\'risida ma\'lumotlarni onlayn tarzda olish'
-      ' imkoniyatini beruvchi axborot tizimi';
+  String infoText = '“Product Info” axborot tizimi - isteʼmolchilar mobil'
+      ' ilova orqali isteʼmol bozorida muomalada bo‘lgan tovar (ish, xizmat)lar'
+      ' to‘g‘risida maʼlumotlarni onlayn tarzda olish maqsadida ishlab chiqilgan.';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Product info'),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        context.push(Routes.qrCode);
+      },child: SvgPicture.asset(AppConstants.scannerSvg,color: Colors.white,)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -43,10 +45,10 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
                 Expanded(
                   child: item(
                     () {
-                      context.push(Routes.scannerResult);
+                      context.push(Routes.mxikCode);
                     },
                     AppConstants.scanSvg,
-                    'Mahsulotni skanerlash',
+                    'Mxik kod',
                   ),
                 ),
                 AppUtils.kGap8,
@@ -56,7 +58,7 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
                       context.push(Routes.shtrixCode);
                     },
                     AppConstants.barcodeSvg,
-                    'Mahsulot shtrix-kodini kiritish',
+                    'Mahsulot shtrix-kodi',
                   ),
                 ),
                 AppUtils.kGap8,
@@ -66,7 +68,7 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
                       context.push(Routes.tnVedCode);
                     },
                     AppConstants.tnVedSvg,
-                    'TIF-TN kodini kiritish',
+                    'TIF-TN kod',
                   ),
                 ),
                 AppUtils.kGap8,
@@ -76,7 +78,7 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
                       moreInfo();
                     },
                     AppConstants.more3Svg,
-                    'Qoshimcha imkoniyatlar',
+                    'Qoshimcha imkoniyat',
                   ),
                 ),
               ],

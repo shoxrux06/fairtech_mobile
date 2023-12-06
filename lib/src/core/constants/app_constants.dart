@@ -5,7 +5,8 @@ class AppConstants {
   static const baseUrl = 'https://app.fairtech.uz';
   static const redirect = '/api/v.1/product-auth/auth/oneid/redirectUri';
   static const editPassword = '/api/v.1/product-auth/edit-password?';
-  static const getProductInfo = '/api/v.1/bojxona/tnved-code?';
+  static const getProductInfoTnVed = '/api/v.1/bojxona/tnved-code?';
+  static const getProductInfoByScanner = '/api/v.1/soliq/getInfo?';
   static const getPharmInfo = '/api/v.1/pharm/searchOutside?';
   static const getRegionList = '/api/v.1/geographical-region/get-region-soatos';
   static const getProfileData = '/api/v.1/outer-cabinet/profile-data';
