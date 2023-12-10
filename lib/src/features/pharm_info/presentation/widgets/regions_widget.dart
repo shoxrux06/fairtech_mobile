@@ -1,4 +1,3 @@
-import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button_without_gradient.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
@@ -26,7 +25,7 @@ class _RegionsWidgetState extends State<RegionsWidget> {
     return BlocBuilder<PharmInfoBloc, PharmInfoState>(
       builder: (context, state) {
         if(state.getRegionListResponse == null){
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }else{

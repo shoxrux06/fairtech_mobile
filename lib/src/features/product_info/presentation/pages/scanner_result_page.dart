@@ -8,7 +8,6 @@ import 'package:fairtech_mobile/src/features/product_info/presentation/pages/pro
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_owner_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class ScannerResultPage extends StatefulWidget {
   final String code;

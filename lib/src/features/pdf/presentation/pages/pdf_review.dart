@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:fairtech_mobile/src/features/pdf/data/models/invoice.dart';
 import 'package:fairtech_mobile/src/features/pdf/presentation/pages/pdfexport.dart';
 import 'package:flutter/material.dart';
-import 'package:printing/printing.dart';
 
 class PdfPreviewPage extends StatefulWidget {
   final Invoice invoice;
@@ -57,20 +56,9 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
     print('Loading Widget --->${loadingWidget(context)}');
 
     return Scaffold(
-      body: InteractiveViewer(
-        panAxis: PanAxis.horizontal,
-        child: PdfPreview(
-          canChangePageFormat: false,
-          allowPrinting: false,
-          allowSharing: false,
-          canChangeOrientation: false,
-          loadingWidget: loadingWidget(context),
-          build: (_) async{
-            generatedFile = await makePdf(widget.invoice, languageCode);
-            return generatedFile;
-          },
-        ),
-      ),
+      body: Container(
+        child: Center(child: Text('Second page'),),
+      )
     );
   }
 }

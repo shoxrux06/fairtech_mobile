@@ -2,7 +2,7 @@ name: fairtech_mobile
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 1.0.2+3
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -57,6 +57,7 @@ dependencies:
   google_maps_flutter: ^2.5.0
   geolocator: ^10.1.0
   geocoding: ^2.1.1
+  change_app_package_name: ^1.1.0
 
 
 

@@ -232,7 +232,7 @@ class _RegionItemWidgetState extends State<RegionItemWidget> {
                       ),
                       Container(
                         decoration: BoxDecoration(color: Colors.grey.shade300),
-                        margin: EdgeInsets.all(4),
+                        margin: const EdgeInsets.all(4),
                         child: ListTile(
                           title: Text('O\'rganilgan xaridlarga nisbatan foizi',style: context.textStyle.regularBody,),
                           trailing: Text('2',style: context.textStyle.regularTitle2.copyWith(color: Colors.black54)),
@@ -268,7 +268,7 @@ class _RegionItemWidgetState extends State<RegionItemWidget> {
                     children: [
                       Container(
                         decoration: BoxDecoration(color: Colors.grey.shade300),
-                        margin: EdgeInsets.all(4),
+                        margin: const EdgeInsets.all(4),
                         child: ListTile(
                           title: Text('1000/02-17-son topshiriq asosida xaridlarni o\'rganish hajmiga nisbatan berilgan ball (eng yuqori ball - 3 ball',style: context.textStyle.regularBody,),
                           trailing: Text('2',style: context.textStyle.regularTitle2.copyWith(color: Colors.black54)),

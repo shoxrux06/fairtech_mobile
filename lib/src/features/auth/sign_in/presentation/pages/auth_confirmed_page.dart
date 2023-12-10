@@ -3,11 +3,9 @@ import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
-import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthConfirmedPage extends StatefulWidget {

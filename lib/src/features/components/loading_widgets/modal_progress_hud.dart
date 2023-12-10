@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'staggered_dots_wave.dart';
 
 class ModalProgressHUD extends StatelessWidget {
   const ModalProgressHUD({

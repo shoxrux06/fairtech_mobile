@@ -4,7 +4,6 @@ import 'package:fairtech_mobile/src/features/pdf/data/models/order_item.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
-import 'dart:math' as math;
 
 Future<Uint8List> makePdf(Invoice invoice, String languageCode) async {
   final loadFonts1 =
@@ -55,184 +54,184 @@ Future<Uint8List> makePdf(Invoice invoice, String languageCode) async {
   String xaridlarniOrganishNatijasidaKamchiliklarAniqlanganlikUchunBerilganBall =
       'Xaridlarni o\'rganish natijasida kamchiliklar aniqlanganlik uchun berilgan ball (eng yuqori ball - 5 ball)';
 
-  pdf.addPage(
-    Page(
-      margin: const EdgeInsets.only(right: 48, left: 48, top: 24),
-      pageFormat: PdfPageFormat.a4,
-      build: (context) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(12),
-                      // decoration: BoxDecoration(border: Border.all(color: PdfColor(0, 0, 0))),
-                      child: Row(children: [
-                        SizedBox(
-                          height: 44,
-                          width: 44,
-                          child: Image(imageLogo),
-                        ),
-                        SizedBox(width: 12),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'FAIR TECH',
-                                style: TextStyle(
-                                    fontSize: 5, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'YAGONA AXBOROT TIZIMI',
-                                style: TextStyle(
-                                    fontSize: 5, fontWeight: FontWeight.bold),
-                              ),
-                            ]
-                        ),
-                        SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            titleText,
-                            style: TextStyle(
-                                fontSize: 5, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                        )
-                      ]),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Column(children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(color: PdfColor.fromInt(0xfffbe9e7), border: Border.all(color: PdfColor(0, 0, 0))),
-                child: Text(
-                  etenderTrade,
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Table(
-                border: TableBorder.all(color: PdfColors.black),
-                children: [
-                  TableRow(
-                    children: [
-                      Padding(
-                        child: Text(
-                          'N',
-                          style: TextStyle(fontSize: 5, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.all(4),
-                      ),
-                      Padding(
-                        child: Text(
-                          hududlar,
-                          style: TextStyle(
-                              fontSize: 5, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.all(4),
-                      ),
-                      Padding(
-                        child: Text(
-                          jamiTrade,
-                          style: TextStyle(fontSize: 5, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: const EdgeInsets.all(4),
-                      ),
-                      Padding(
-                        child: Text(
-                          etenderTrade,
-                          style: TextStyle(fontSize: 5, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: const EdgeInsets.all(4),
-                      ),
-                      Padding(
-                        child: Text(
-                          tenderMcTrade,
-                          style: TextStyle(
-                              fontSize: 5, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.all(4),
-                      ),
-                      Padding(
-                        child: Text(
-                          xtXaridTrade,
-                          style: TextStyle(
-                              fontSize: 5, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.all(4),
-                      ),
-                      Padding(
-                        child: Text(
-                          _10000217topshiriqAsosidaTrade,
-                          style: TextStyle(
-                              fontSize: 5, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.all(4),
-                      ),
-                    ],
-                  ),
-                  ...firstPageProductList.map((orderItem) {
-                    int index = firstPageProductList.indexOf(orderItem);
-                    return TableRow(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      children: [
-                        Expanded(
-                          child: PaddedText("${index + 1}"),
-                          flex: 1,
-                        ),
-                        Expanded(
-                          child: PaddedText("${orderItem.hududlar}"),
-                          flex: 2,
-                        ),
-                        Expanded(
-                          child: PaddedText("${orderItem.jamiTrade}"),
-                          flex: 1,
-                        ),
-                        Expanded(
-                          child: PaddedText("${orderItem.etenderTrade}"),
-                          flex: 1,
-                        ),
-                        Expanded(
-                          child: PaddedText("${orderItem.tenderMcTrade}"),
-                          flex: 1,
-                        ),
-                        Expanded(
-                          child: PaddedText("${orderItem.xtXaridTrade}"),
-                          flex: 1,
-                        ),
-                        Expanded(
-                          child:
-                              PaddedText("${orderItem.topshiriqAsosidaTrade}"),
-                          flex: 1,
-                        ),
-                      ],
-                    );
-                  }),
-                ],
-              ),
-            ]),
-          ],
-        );
-      },
-    ),
-  );
+  // pdf.addPage(
+  //   Page(
+  //     margin: const EdgeInsets.only(right: 48, left: 48, top: 24),
+  //     pageFormat: PdfPageFormat.a4,
+  //     build: (context) {
+  //       return Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         children: [
+  //           Container(
+  //             child: Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               mainAxisAlignment: MainAxisAlignment.start,
+  //               children: [
+  //                 Expanded(
+  //                   child: Container(
+  //                     padding: EdgeInsets.all(12),
+  //                     // decoration: BoxDecoration(border: Border.all(color: PdfColor(0, 0, 0))),
+  //                     child: Row(children: [
+  //                       SizedBox(
+  //                         height: 44,
+  //                         width: 44,
+  //                         child: Image(imageLogo),
+  //                       ),
+  //                       SizedBox(width: 12),
+  //                       Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             Text(
+  //                               'FAIR TECH',
+  //                               style: TextStyle(
+  //                                   fontSize: 5, fontWeight: FontWeight.bold),
+  //                             ),
+  //                             Text(
+  //                               'YAGONA AXBOROT TIZIMI',
+  //                               style: TextStyle(
+  //                                   fontSize: 5, fontWeight: FontWeight.bold),
+  //                             ),
+  //                           ]
+  //                       ),
+  //                       SizedBox(width: 12),
+  //                       Expanded(
+  //                         child: Text(
+  //                           titleText,
+  //                           style: TextStyle(
+  //                               fontSize: 5, fontWeight: FontWeight.bold),
+  //                           textAlign: TextAlign.center,
+  //                         ),
+  //                       )
+  //                     ]),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //           Column(children: [
+  //             Container(
+  //               width: double.infinity,
+  //               padding: const EdgeInsets.all(4),
+  //               decoration: BoxDecoration(color: PdfColor.fromInt(0xfffbe9e7), border: Border.all(color: PdfColor(0, 0, 0))),
+  //               child: Text(
+  //                 etenderTrade,
+  //                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+  //                 textAlign: TextAlign.center,
+  //               ),
+  //             ),
+  //             Table(
+  //               border: TableBorder.all(color: PdfColors.black),
+  //               children: [
+  //                 TableRow(
+  //                   children: [
+  //                     Padding(
+  //                       child: Text(
+  //                         'N',
+  //                         style: TextStyle(fontSize: 5, fontWeight: FontWeight.bold),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       padding: EdgeInsets.all(4),
+  //                     ),
+  //                     Padding(
+  //                       child: Text(
+  //                         hududlar,
+  //                         style: TextStyle(
+  //                             fontSize: 5, fontWeight: FontWeight.bold),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       padding: EdgeInsets.all(4),
+  //                     ),
+  //                     Padding(
+  //                       child: Text(
+  //                         jamiTrade,
+  //                         style: TextStyle(fontSize: 5, fontWeight: FontWeight.bold),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       padding: const EdgeInsets.all(4),
+  //                     ),
+  //                     Padding(
+  //                       child: Text(
+  //                         etenderTrade,
+  //                         style: TextStyle(fontSize: 5, fontWeight: FontWeight.bold),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       padding: const EdgeInsets.all(4),
+  //                     ),
+  //                     Padding(
+  //                       child: Text(
+  //                         tenderMcTrade,
+  //                         style: TextStyle(
+  //                             fontSize: 5, fontWeight: FontWeight.bold),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       padding: EdgeInsets.all(4),
+  //                     ),
+  //                     Padding(
+  //                       child: Text(
+  //                         xtXaridTrade,
+  //                         style: TextStyle(
+  //                             fontSize: 5, fontWeight: FontWeight.bold),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       padding: EdgeInsets.all(4),
+  //                     ),
+  //                     Padding(
+  //                       child: Text(
+  //                         _10000217topshiriqAsosidaTrade,
+  //                         style: TextStyle(
+  //                             fontSize: 5, fontWeight: FontWeight.bold),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       padding: EdgeInsets.all(4),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 ...firstPageProductList.map((orderItem) {
+  //                   int index = firstPageProductList.indexOf(orderItem);
+  //                   return TableRow(
+  //                     verticalAlignment: TableCellVerticalAlignment.middle,
+  //                     children: [
+  //                       // Expanded(
+  //                       //   child: PaddedText("${index + 1}"),
+  //                       //   flex: 1,
+  //                       // ),
+  //                       Expanded(
+  //                         child: PaddedText("${orderItem.hududlar}"),
+  //                         flex: 2,
+  //                       ),
+  //                       Expanded(
+  //                         child: PaddedText("${orderItem.jamiTrade}"),
+  //                         flex: 1,
+  //                       ),
+  //                       Expanded(
+  //                         child: PaddedText("${orderItem.etenderTrade}"),
+  //                         flex: 1,
+  //                       ),
+  //                       Expanded(
+  //                         child: PaddedText("${orderItem.tenderMcTrade}"),
+  //                         flex: 1,
+  //                       ),
+  //                       Expanded(
+  //                         child: PaddedText("${orderItem.xtXaridTrade}"),
+  //                         flex: 1,
+  //                       ),
+  //                       Expanded(
+  //                         child:
+  //                             PaddedText("${orderItem.topshiriqAsosidaTrade}"),
+  //                         flex: 1,
+  //                       ),
+  //                     ],
+  //                   );
+  //                 }),
+  //               ],
+  //             ),
+  //           ]),
+  //         ],
+  //       );
+  //     },
+  //   ),
+  // );
 
   return pdf.save();
 }
@@ -268,7 +267,7 @@ Widget CustomTextDiscountTwo(
       padding: EdgeInsets.all(2),
       child: Text(text,
           textAlign: align,
-          style: TextStyle(fontSize: 4, color: PdfColor.fromInt(0xfff44336))),
+          style: const TextStyle(fontSize: 4, color: PdfColor.fromInt(0xfff44336))),
     );
 
 Widget CustomTextTwo(

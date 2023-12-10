@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/data/models/edit_password_response.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/data/models/one_id_auth_response.dart';

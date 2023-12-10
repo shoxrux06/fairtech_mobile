@@ -68,12 +68,10 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
           items: widget.items.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Expanded(
-                child: Text(
-                  value,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
+              child: Text(
+                value,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
             );
           }).toList(),

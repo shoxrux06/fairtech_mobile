@@ -149,7 +149,7 @@ class Good {
     madeInCountryName: json["made_in_countryName"] ??'',
     addedUnitsMeasure: json["added_units_measure"] ??'',
     addedUnitsMeasureName:json["added_units_measureName"] ??'',
-    documentLgot: List<DocumentLgot>.from(json["documentLgot"].map((x) => DocumentLgot.fromJson(x))) ??[],
+    documentLgot: List<DocumentLgot>.from(json["documentLgot"].map((x) => DocumentLgot.fromJson(x))),
   );
 
 }

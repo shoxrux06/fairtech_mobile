@@ -1,4 +1,3 @@
-import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
@@ -151,57 +150,52 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                   child: Center(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'Murojaatlar',
-                                style: context.textStyle.largeTitle2
-                                    .copyWith(color: context.theme.primaryColor),
-                              ),
-                              AppUtils.kGap4,
-                              Text(
-                                '15',
-                                style: context.textStyle.largeTitle1
-                                    .copyWith(color: context.theme.primaryColor),
-                              )
-                            ],
-                          ),
+                        Column(
+                          children: [
+                            Text(
+                              'Murojaatlar',
+                              style: context.textStyle.largeTitle2
+                                  .copyWith(color: context.theme.primaryColor),
+                            ),
+                            AppUtils.kGap4,
+                            Text(
+                              '15',
+                              style: context.textStyle.largeTitle1
+                                  .copyWith(color: context.theme.primaryColor),
+                            )
+                          ],
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'Ijobiy',
-                                style: context.textStyle.largeTitle2
-                                    .copyWith(color: context.theme.primaryColor),
-                              ),
-                              AppUtils.kGap4,
-                              Text(
-                                '21',
-                                style: context.textStyle.largeTitle1
-                                    .copyWith(color: Colors.green),
-                              )
-                            ],
-                          ),
+                        Column(
+                          children: [
+                            Text(
+                              'Ijobiy',
+                              style: context.textStyle.largeTitle2
+                                  .copyWith(color: context.theme.primaryColor),
+                            ),
+                            AppUtils.kGap4,
+                            Text(
+                              '21',
+                              style: context.textStyle.largeTitle1
+                                  .copyWith(color: Colors.green),
+                            )
+                          ],
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'Jarayonda',
-                                style: context.textStyle.largeTitle2
-                                    .copyWith(color: context.theme.primaryColor),
-                              ),
-                              AppUtils.kGap4,
-                              Text(
-                                '3',
-                                style: context.textStyle.largeTitle1
-                                    .copyWith(color: Colors.deepOrange),
-                              )
-                            ],
-                          ),
+                        Column(
+                          children: [
+                            Text(
+                              'Jarayonda',
+                              style: context.textStyle.largeTitle2
+                                  .copyWith(color: context.theme.primaryColor),
+                            ),
+                            AppUtils.kGap4,
+                            Text(
+                              '3',
+                              style: context.textStyle.largeTitle1
+                                  .copyWith(color: Colors.deepOrange),
+                            )
+                          ],
                         )
                       ],
                     ),

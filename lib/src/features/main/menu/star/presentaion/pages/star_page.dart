@@ -1,6 +1,7 @@
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
+import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
 import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button_without_gradient.dart';
 import 'package:fairtech_mobile/src/features/main/menu/profile/data/local_data.dart';
@@ -36,7 +37,6 @@ class _StarPageState extends State<StarPage> {
 
   @override
   void initState() {
-    print('INIT State ***********');
     regionValue = LocalData.orderItems.first.hududlar;
     for (var element in LocalData.orderItems) {
       items.add(element.hududlar);
@@ -51,52 +51,133 @@ class _StarPageState extends State<StarPage> {
         if (state.orderItem?.isNotEmpty ?? false) {
           OrderItem? orderItem;
           state.orderItem?.forEach((element) {
-            if(element.hududlar == state.value){
+            if (element.hududlar == state.value) {
               orderItem = element;
             }
           });
-          return SizedBox(
-            width: Responsive.width(100, context),
-            child: Card(
-              color: Colors.white,
-              elevation: 0.75,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(state.value,style: context.textStyle.largeTitle2),
-                    state.filter1?Row(
-                      children: [
-                        Expanded(child: Text('Jami o\'tkazilgan savdolar soni', style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))),
-                        AppUtils.kGap24,
-                        Text(orderItem?.jamiTrade.toString()??'',style: context.textStyle.regularTitle2.copyWith(color: Colors.black54)),
-                      ],
-                    ): Container(),
-                    AppUtils.kGap24,
-                    state.filter2?Row(
-                      children: [
-                        Expanded(child: Text('Jami o\'rganilgan savdolar soni', style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))),
-                        AppUtils.kGap24,
-                        Text(orderItem?.jamiOrganilganTradeNumbers.toString()??'',style: context.textStyle.regularTitle2.copyWith(color: Colors.black54)),
-                      ],
-                    ): Container(),
-                    AppUtils.kGap24,
-                    state.filter3?Row(
-                      children: [
-                        Expanded(child: Text('KPI-tizim bo\'yicha to\'plangan jami ballar', style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))),
-                        AppUtils.kGap24,
-                        Text(orderItem?.kpiTizimBoyichaToplanganJamiBallar.toString()??'',style: context.textStyle.regularTitle2.copyWith(color: Colors.black54)),
-                      ],
-                    ): Container(),
-                  ],
-                ),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'Monitoring',
+                style: context.textStyle.largeTitle2,
               ),
+              centerTitle: true,
+            ),
+            body: Column(
+              children: [
+                SizedBox(
+                  width: Responsive.width(100, context),
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 0.75,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(state.value, style: context.textStyle.largeTitle2),
+                          state.filter1
+                              ? Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                            'Jami o\'tkazilgan savdolar soni',
+                                            style: context.textStyle.regularTitle2
+                                                .copyWith(
+                                                    color: context
+                                                        .color?.primaryText))),
+                                    AppUtils.kGap24,
+                                    Text(orderItem?.jamiTrade.toString() ?? '',
+                                        style: context.textStyle.regularTitle2
+                                            .copyWith(color: Colors.black54)),
+                                  ],
+                                )
+                              : Container(),
+                          AppUtils.kGap24,
+                          state.filter2
+                              ? Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                            'Jami o\'rganilgan savdolar soni',
+                                            style: context.textStyle.regularTitle2
+                                                .copyWith(
+                                                    color: context
+                                                        .color?.primaryText))),
+                                    AppUtils.kGap24,
+                                    Text(
+                                        orderItem?.jamiOrganilganTradeNumbers
+                                                .toString() ??
+                                            '',
+                                        style: context.textStyle.regularTitle2
+                                            .copyWith(color: Colors.black54)),
+                                  ],
+                                )
+                              : Container(),
+                          AppUtils.kGap24,
+                          state.filter3
+                              ? Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                            'KPI-tizim bo\'yicha to\'plangan jami ballar',
+                                            style: context.textStyle.regularTitle2
+                                                .copyWith(
+                                                    color: context
+                                                        .color?.primaryText))),
+                                    AppUtils.kGap24,
+                                    Text(
+                                        orderItem
+                                                ?.kpiTizimBoyichaToplanganJamiBallar
+                                                .toString() ??
+                                            '',
+                                        style: context.textStyle.regularTitle2
+                                            .copyWith(color: Colors.black54)),
+                                  ],
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                AppUtils.kGap8,
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Builder(builder: (builderContext) {
+                    return CustomButtonWithoutGradient(
+                      onTap: () {
+                        customModalBottomSheet(
+                          context: context,
+                          builder: (_, controller) => BlocProvider.value(
+                            value: builderContext.read<StarBloc>(),
+                            child: BottomFilterRegion(
+                              items: items,
+                              checkboxValue1: checkboxValue1,
+                              checkboxValue2: checkboxValue2,
+                              checkboxValue3: checkboxValue3,
+                            ),
+                          ),
+                        );
+                      },
+                      text: 'Filter',
+                      textColor: context.color?.white,
+                    );
+                  }),
+                ),
+              ],
             ),
           );
         } else {
           return SafeArea(
             child: Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'Monitoring',
+                  style: context.textStyle.largeTitle2,
+                ),
+                centerTitle: true,
+              ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -111,29 +192,26 @@ class _StarPageState extends State<StarPage> {
                     AppUtils.kGap24,
                     SizedBox(
                       width: Responsive.width(50, context),
-                      child: Builder(
-                        builder: (builderContext) {
-                          return CustomButtonWithoutGradient(
-                            onTap: () {
-                              customModalBottomSheet(
-                                context: context,
-                                builder: (_, controller) =>
-                                    BlocProvider.value(
-                                      value: builderContext.read<StarBloc>(),
-                                      child: BottomFilterRegion(
-                                        items: items,
-                                        checkboxValue1: checkboxValue1,
-                                        checkboxValue2: checkboxValue2,
-                                        checkboxValue3: checkboxValue3,
-                                      ),
-                                    ),
-                              );
-                            },
-                            text: 'Filter',
-                            textColor: context.color?.white,
-                          );
-                        }
-                      ),
+                      child: Builder(builder: (builderContext) {
+                        return CustomButtonWithoutGradient(
+                          onTap: () {
+                            customModalBottomSheet(
+                              context: context,
+                              builder: (_, controller) => BlocProvider.value(
+                                value: builderContext.read<StarBloc>(),
+                                child: BottomFilterRegion(
+                                  items: items,
+                                  checkboxValue1: checkboxValue1,
+                                  checkboxValue2: checkboxValue2,
+                                  checkboxValue3: checkboxValue3,
+                                ),
+                              ),
+                            );
+                          },
+                          text: 'Filter',
+                          textColor: context.color?.white,
+                        );
+                      }),
                     )
                   ],
                 ),

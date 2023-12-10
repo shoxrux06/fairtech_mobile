@@ -1,12 +1,9 @@
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
-import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/features/appeal/presentation/pages/appeals_state_page.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/create_appeals_page.dart';
-import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_info_page.dart';
-import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_owner_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,11 +34,13 @@ class _AppealPageState extends State<AppealPage>
       if (newPage != _selectedIndex) {
         setState(() {
           _selectedIndex = newPage;
-          _scrollController.animateTo(
-            _selectedIndex * 250, // Adjust based on your item size
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-          );
+          if(_scrollController.hasClients){
+            _scrollController.animateTo(
+              _selectedIndex * 250, // Adjust based on your item size
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
         });
       }
     });

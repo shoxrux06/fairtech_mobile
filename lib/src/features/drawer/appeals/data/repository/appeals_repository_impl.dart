@@ -12,7 +12,6 @@ import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_t
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/send_appeal_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/models/appeal_model.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/repository/appeals_repository.dart';
-import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import '../models/profile_data_response.dart';
 

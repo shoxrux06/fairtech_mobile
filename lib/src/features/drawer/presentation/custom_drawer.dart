@@ -20,9 +20,9 @@ class CustomDrawer extends StatelessWidget {
     }
   }
 
-  void _logout() {
+  void _logout(BuildContext context) {
     showDialog(
-      context: scaffoldKey.currentContext!,
+      context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
           title: Text(ctx.tr('pleaseConfirm'), style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
@@ -38,8 +38,9 @@ class CustomDrawer extends StatelessWidget {
               onPressed: () {
                 LocalStorage.instance.deleteToken();
                 LocalStorage.instance.deletePinCode();
-                ctx.pop();
                 ctx.pushReplacement(Routes.signIn);
+                ctx.pop();
+
               },
               child: Text(ctx.tr('yes'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
             ),
@@ -173,7 +174,7 @@ class CustomDrawer extends StatelessWidget {
               style: context.textStyle.regularTitle1.copyWith(color: context.color?.red),
             ),
             onTap: () {
-              _logout();
+              _logout(context);
             },
           ),
           AppUtils.kGap24,

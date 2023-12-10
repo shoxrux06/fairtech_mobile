@@ -98,7 +98,7 @@ class CustomTextField extends StatelessWidget {
               height: 16 / 14,
               fontWeight: FontWeight.w400,
             ),
-        textInputAction: inputAction ?? TextInputAction.next,
+        textInputAction: inputAction,
         onChanged: onChanged,
         decoration: InputDecoration(
           fillColor: fillColor,

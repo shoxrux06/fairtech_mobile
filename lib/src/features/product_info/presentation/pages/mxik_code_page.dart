@@ -1,14 +1,10 @@
-import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/components/input/custom_text_field.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
 import 'package:fairtech_mobile/src/features/components/loading_widgets/modal_progress_hud.dart';
-import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
-import 'package:fairtech_mobile/src/features/product_info/presentation/pages/widgets/mxik_code_response_widget.dart';
-import 'package:fairtech_mobile/src/features/product_info/presentation/pages/widgets/tn_ved_code_response_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +42,7 @@ class _MxikCodePageState extends State<MxikCodePage> {
                 child: Column(
                   children: [
                     Image.network(
-                     '${(data?.markingInfo.catalogData.isNotEmpty??false)? data?.markingInfo.catalogData[0].productImageUrl:''}' ,
+                     '${(data?.markingInfo.catalogData.isNotEmpty??false)? data?.markingInfo.catalogData[0].productImageUrl:'https://storage.kun.uz/source/thumbnails/_medium/6/30l3u39OWfdYUrMPP6BgH6xPX4wo0fjW_medium.jpg'}' ,
                       width: Responsive.width(100, context),
                       height: Responsive.height(30, context),
                       fit: BoxFit.fill,
@@ -64,7 +60,7 @@ class _MxikCodePageState extends State<MxikCodePage> {
                       }, child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.keyboard_arrow_down),
+                          const Icon(Icons.keyboard_arrow_down),
                           Text('Ko\'proq ma\'lumot',style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor, fontSize: 14)),
                         ],
                       )),

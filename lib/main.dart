@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final token = LocalStorage.instance.getToken();
     return MaterialApp.router(
       title: 'Flutter Demo',

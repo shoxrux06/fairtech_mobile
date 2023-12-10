@@ -1,5 +1,4 @@
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
-import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

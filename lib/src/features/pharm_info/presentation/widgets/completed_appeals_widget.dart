@@ -23,7 +23,7 @@ class CompletedAppealsWidget extends StatelessWidget {
           );
         } else{
           return Center(
-            child: Text('Ma\'lumot topilmadi', style: context.textStyle.regularTitle2,),
+            child:  Text('Hech qanday ma\'lumot topilmadi',style:context.textStyle.regularTitle2.copyWith(color: Colors.black),),
           );
         }
       },

@@ -1,6 +1,3 @@
-import 'package:fairtech_mobile/src/features/main/menu/profile/data/local_data.dart';
-import 'package:fairtech_mobile/src/features/pdf/data/models/invoice.dart';
-import 'package:fairtech_mobile/src/features/pdf/presentation/pages/pdf_review.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,13 +12,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: PdfPreviewPage(
-          invoice: Invoice(
-            dateTime: DateTime.now(),
-            id: 1,
-            orderItems: LocalData.orderItems
-          ),
-        ),
+          body: Container(
+            child: Center(child: Text('Second page'),),
+          )
       ),
     );
   }

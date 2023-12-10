@@ -10,7 +10,6 @@ import '../../../../../app_options.dart';
 import '../../../../../config/router/app_routes.dart';
 import '../../../../components/bottom_sheet/custom_bottom_sheet.dart';
 import '../../../widgets/language_bottom_widget.dart';
-import '../../../widgets/profile_item_widget.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String mainRoutes = '/settings-page';

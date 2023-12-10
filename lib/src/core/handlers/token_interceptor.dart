@@ -12,7 +12,7 @@ class TokenInterceptor extends Interceptor {
       RequestOptions options,
       RequestInterceptorHandler handler,
       ) async {
-    final String token = LocalStorage.instance.getToken()??'';
+    final String token = LocalStorage.instance.getToken();
     print('token<$token>');
 
     if (token.isNotEmpty && requireAuth) {

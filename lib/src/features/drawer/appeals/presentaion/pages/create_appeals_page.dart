@@ -5,9 +5,7 @@ import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/components/input/custom_text_field.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/components/input/masked_text_controller.dart';
-import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
 import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
-import 'package:fairtech_mobile/src/features/components/buttons/custom_button.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button_without_gradient.dart';
 import 'package:fairtech_mobile/src/features/components/dropdown/custom_dropdown_form_filed.dart';
 import 'package:fairtech_mobile/src/features/components/loading_widgets/modal_progress_hud.dart';
@@ -15,7 +13,6 @@ import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.da
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_image_type_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/models/appeal_model.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
-import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

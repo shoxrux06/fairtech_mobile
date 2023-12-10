@@ -1,10 +1,8 @@
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
-import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button_without_gradient.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/qr_scanner_overlay.dart';
-import 'package:fairtech_mobile/src/features/product_info/presentation/pages/shtrix_code_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -67,7 +65,7 @@ class _QrCodeScreenPageState extends State<QrCodeScreenPage> {
                     child: ValueListenableBuilder(
                       valueListenable: cameraController.torchState,
                       builder: (context, state, child) {
-                        switch (state as TorchState) {
+                        switch (state) {
                           case TorchState.off:
                             return Image.asset(
                               AppConstants.sunImg,

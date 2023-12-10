@@ -4,8 +4,6 @@ import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
-import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
-import 'package:fairtech_mobile/src/features/product_info/presentation/pages/shtrix_code_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -158,7 +156,7 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
                 )
               ],
             ),
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: SvgPicture.asset(
               icon,
               width: 32,

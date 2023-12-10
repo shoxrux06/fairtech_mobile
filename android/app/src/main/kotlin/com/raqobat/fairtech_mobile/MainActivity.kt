@@ -1,4 +1,4 @@
-package com.example.fairtech_mobile
+package com.raqobat.fairtech_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
