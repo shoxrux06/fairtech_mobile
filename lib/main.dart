@@ -6,6 +6,7 @@ import 'package:fairtech_mobile/src/core/handlers/http_service.dart';
 import 'package:fairtech_mobile/src/core/l10n/AppLocalizations.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
@@ -14,14 +15,17 @@ void main() async {
   await LocalStorage.getInstance();
   setUpDependencies();
   HttpService().setCertificate();
-  runApp(
-    ModelBinding(
-        initialModel: AppOptions(
-          themeMode: LocalStorage.instance.themeMode,
-          locale: const Locale('en')
-        ),
-        child:const MyApp()
-    ),
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_){
+    runApp(
+      ModelBinding(
+          initialModel: AppOptions(
+              themeMode: LocalStorage.instance.themeMode,
+              locale: const Locale('en')
+          ),
+          child:const MyApp()
+      ),
+    );
+  }
   );
   FlutterNativeSplash.remove();
 }

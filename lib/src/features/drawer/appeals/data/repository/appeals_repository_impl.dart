@@ -51,6 +51,8 @@ class AppealsRepositoryImpl implements AppealsRepository {
         "documentTypeIds" : appealModel.documentTypeIds.toSet().toList(),
         "lang" : appealModel.lat,
         "lat" : appealModel.lat,
+        "physical_tin" : appealModel.physicalTin,
+        "checkbox": appealModel.checkbox,
         'appeal_file':  await Future.wait(
           appealModel.appealFileList.map((file) async {
             return await MultipartFile.fromFile(file?.path??'');

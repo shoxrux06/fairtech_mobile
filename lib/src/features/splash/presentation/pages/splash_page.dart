@@ -1,9 +1,12 @@
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
+import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
+import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/empty_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:go_router/go_router.dart';
 import '../../../components/loading_widgets/staggered_dots_wave.dart';
 import '../bloc/splash_bloc.dart';
@@ -51,7 +54,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
             //       },
             //     );
             //   } else {
-            //     Navigator.of(context).push(MaterialPageRoute(builder: (_) => EmptyPage()));
+            //     Navigator.of(context).push(MaterialPageRoute(builder: (_) => const EmptyPage()));
             //   }
             // } else {
             //   context.pushReplacement(Routes.signIn);

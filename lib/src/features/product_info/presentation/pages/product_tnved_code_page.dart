@@ -22,15 +22,11 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
     return BlocBuilder<ProductInfoBloc, ProductInfoState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: CustomAppBar(title: state.productInfoResponse != null?'Natijalar': 'TnVed kod orqali yuborish'),
+            appBar: CustomAppBar(title: state.productInfoResponse?.status == 1?'Natijalar': 'TnVed kod orqali yuborish'),
             body: ModalProgressHUD(
               inAsyncCall: state.isGettingProductData,
-              child: state.productInfoResponse != null?
+              child: (state.productInfoResponse?.status == 1)?
               TnVedCodeResponseWidget(productInfoResponse: state.productInfoResponse):
-              (state.productInfoResponse?.data.isEmpty?? false)?
-              const Center(
-                child: Text('No data'),
-              ):
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Column(
@@ -47,10 +43,14 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
                         context.read<ProductInfoBloc>().add(
                           GetProductInfoByTnVedEvent(
                               onSuccess: () {
-                                AppSnackBar.showSuccessSnackBar(context, 'Success','Results fetched successfully');
+                                if(state.productInfoResponse?.status == -1){
+                                  AppSnackBar.showErrorSnackBar(context, 'Xatolik yuz berdi','So\'rov notog\'ri yuborilgan');
+                                }else if(state.productInfoResponse?.status == 1){
+                                  AppSnackBar.showSuccessSnackBar(context, 'Muvaffaqiyatli yuklab olindi','Ma\'lumotlar muaffaqiyatli olib kelindi');
+                                }
                               },
                               onError: () {
-                                AppSnackBar.showErrorSnackBar(context, 'Error','Error');
+                                AppSnackBar.showErrorSnackBar(context,'Error', 'Error');
                               },
                               tnVedCode: value
                           ),
@@ -61,7 +61,11 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
                             context.read<ProductInfoBloc>().add(
                               GetProductInfoByTnVedEvent(
                                 onSuccess: () {
-                                  AppSnackBar.showSuccessSnackBar(context, 'Success','Results fetched successfully');
+                                  if(state.productInfoResponse?.status == -1){
+                                    AppSnackBar.showErrorSnackBar(context, 'Xatolik yuz berdi','So\'rov notog\'ri yuborilgan');
+                                  }else if(state.productInfoResponse?.status == 1){
+                                    AppSnackBar.showSuccessSnackBar(context, 'Muvaffaqiyatli yuklab olindi','Ma\'lumotlar muaffaqiyatli olib kelindi');
+                                  }
                                 },
                                 onError: () {
                                   AppSnackBar.showErrorSnackBar(context,'Error', 'Error');

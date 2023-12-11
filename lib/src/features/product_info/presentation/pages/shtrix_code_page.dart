@@ -32,8 +32,11 @@ class _ShtrixCodePageState extends State<ShtrixCodePage> {
           ),
           body: state.mxikAndShtrixCodeResponse != null
               ? Column(
+                  mainAxisAlignment: (state.mxikAndShtrixCodeResponse?.data.mxikInfo.internationalCode.isEmpty?? false)?MainAxisAlignment.center: MainAxisAlignment.start,
                   children: [
-                    MxikCodeResponseWidget(
+                    (state.mxikAndShtrixCodeResponse?.data.mxikInfo.internationalCode.isEmpty?? false)?Center(
+                      child:  Text('Hech qanday ma\'lumot topilmadi',style:context.textStyle.regularTitle2.copyWith(color: Colors.black),),
+                    ):MxikCodeResponseWidget(
                         mxikAndShtrixCodeResponse:
                             state.mxikAndShtrixCodeResponse)
                   ],

@@ -52,7 +52,7 @@ class ProductInfoRepositoryImpl implements ProductInfoRepository{
             (X509Certificate cert, String host, int port) => true;
       print('internationalCode <<<$mxikCode>>>');
       final response = await client.get('${AppConstants.getProductInfoByScanner}lang=$lang&international_code=&mxik_code=$mxikCode');
-      print('getProductInfoByScanner response <<$response>>');
+      print('getProductInfoByMxiCode response <<$response>>');
       return ApiResult.success(data:MxikAndShtrixCodeResponse.fromJson(response.data));
     } catch (e) {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));

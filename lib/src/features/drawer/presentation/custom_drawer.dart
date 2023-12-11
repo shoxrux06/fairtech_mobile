@@ -35,13 +35,7 @@ class CustomDrawer extends StatelessWidget {
               child: Text(ctx.tr('no'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.theme.primaryColor)),
             ),
             TextButton(
-              onPressed: () {
-                LocalStorage.instance.deleteToken();
-                LocalStorage.instance.deletePinCode();
-                ctx.pushReplacement(Routes.signIn);
-                ctx.pop();
-
-              },
+              onPressed: () => Navigator.pop(context, true),
               child: Text(ctx.tr('yes'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
             ),
           ],
@@ -49,6 +43,24 @@ class CustomDrawer extends StatelessWidget {
       },
     );
   }
+
+  Widget logoutDialog(BuildContext context){
+    return AlertDialog(
+      title: Text(context.tr('pleaseConfirm'), style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
+      content: Text(context.tr('doYouWantLogout'),style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+      actions: [
+        TextButton(
+          onPressed: () => context.pop(false),
+          child: Text(context.tr('no'),style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+        ),
+        TextButton(
+          onPressed: () => context.pop(true),
+          child: Text(context.tr('yes'),style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
+        ),
+      ],
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -173,9 +185,19 @@ class CustomDrawer extends StatelessWidget {
               context.tr('logout'),
               style: context.textStyle.regularTitle1.copyWith(color: context.color?.red),
             ),
-            onTap: () {
-              _logout(context);
-            },
+            onTap: () async {
+              bool? yes =
+                  await showDialog<bool>(context: context, builder: logoutDialog);
+              if (yes == true) {
+                print('&&&&&&&&&&&&&&&&');
+                LocalStorage.instance.deleteToken();
+                LocalStorage.instance.deletePinCode();
+                // Navigator.of(context).pushReplacementNamed(Routes.signIn);
+                context.pushReplacement(Routes.signIn);
+              } else {
+                Navigator.pop(context);
+              }
+              },
           ),
           AppUtils.kGap24,
           InkWell(
@@ -219,4 +241,6 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
   }
+
+
 }

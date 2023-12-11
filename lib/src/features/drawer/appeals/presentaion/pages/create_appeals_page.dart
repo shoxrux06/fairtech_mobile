@@ -126,6 +126,8 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   bool isChecked = false;
 
   LatLng? center;
+  String lang = '12.34343434';
+  String lat ='34.45553566';
   String? fullAddress;
   @override
   void initState() {
@@ -616,6 +618,8 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 if(result != null) {
                                   setState(() {
                                     center = result['coordinates'];
+                                    lang = center?.longitude.toString() ?? '12.34343434';
+                                    lat = center?.latitude.toString() ?? '34.45553566';
                                     fullAddress = result['lane'];
                                   });
                                 }
@@ -681,16 +685,17 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                           applierNumber: _phoneNumberController.text,
                                           appealFileList: selectedFileList1,
                                           documentTypeIds: imageIdList.toSet().toList(),
-                                          lang: '12.34343434',
-                                          lat: '34.45553566',
-                                          orgTin: _stirController.text.toString().trim()
+                                          lang: lang,
+                                          lat: lat,
+                                          orgTin: '',
+                                          physicalTin: _stirController.text.toString().trim(),
+                                          checkbox: isChecked
                                       ),
                                     ),
                                   );
                                 }else{
                                   AppSnackBar.showWarningSnackBar(context, 'Iltimos barcha maydonlarni to\'ldiring');
                                 }
-
                               },
                               text: 'Yuborish',
                               textColor: Colors.white,

@@ -17,6 +17,8 @@ class AppealModel {
   final String lang;
   final String lat;
   final String orgTin;
+  final String physicalTin;
+  final bool checkbox;
 
   AppealModel({
     required this.sender,
@@ -35,6 +37,8 @@ class AppealModel {
     required this.lang,
     required this.lat,
     required this.orgTin,
+    required this.physicalTin,
+    required this.checkbox,
   });
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +57,7 @@ class AppealModel {
         "documentTypeIds": documentTypeIds,
         "lang": lang,
         "org_tin": orgTin,
+        "physical_tin": orgTin,
+        "checkbox": checkbox,
       };
 }

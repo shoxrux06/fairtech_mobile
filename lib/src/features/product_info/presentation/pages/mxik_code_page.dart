@@ -38,7 +38,9 @@ class _MxikCodePageState extends State<MxikCodePage> {
             child: state.mxikCodeResponse != null?
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: SingleChildScrollView(
+              child: (state.mxikCodeResponse?.data.mxikCode.isEmpty?? false)? Center(
+                child:  Text('Hech qanday ma\'lumot topilmadi',style:context.textStyle.regularTitle2.copyWith(color: Colors.black),),
+              ):SingleChildScrollView(
                 child: Column(
                   children: [
                     Image.network(
@@ -85,7 +87,6 @@ class _MxikCodePageState extends State<MxikCodePage> {
                       )),
                     ): Container(),
                   ],
-
                 ),
               ),
             ):

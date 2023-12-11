@@ -30,7 +30,8 @@ class _EmptyPageState extends State<EmptyPage> {
       ),
       onConfirmed: (matchedText) {
         if (controller.confirmedInput == matchedText) {
-          // Navigator.of(context).pop();
+          print('************ Confirmed ************');
+          Navigator.of(context).pop();
           context.pushReplacement(Routes.main);
         }
       },

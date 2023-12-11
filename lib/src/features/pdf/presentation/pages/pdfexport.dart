@@ -7,9 +7,9 @@ import 'package:pdf/widgets.dart';
 
 Future<Uint8List> makePdf(Invoice invoice, String languageCode) async {
   final loadFonts1 =
-      await rootBundle.load("assets/fonts/Poppins/Poppins-Regular.ttf");
+      await rootBundle.load("assets/fonts/Montserrat/Montserrat-Regular.ttf");
   final loadFonts2 =
-      await rootBundle.load("assets/fonts/Poppins/Poppins-Italic.ttf");
+      await rootBundle.load("assets/fonts/Montserrat/Montserrat-Italic.ttf");
   final fontBase = Font.ttf(loadFonts1);
   final fontBold = Font.ttf(loadFonts2);
 

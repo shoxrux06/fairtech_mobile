@@ -62,7 +62,6 @@ class AppGoRouter {
           ),
         ),
       ),
-
       /// main
       GoRoute(
           name: Routes.main,
