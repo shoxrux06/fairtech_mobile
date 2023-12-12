@@ -1,5 +1,7 @@
+import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
+import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
 import 'package:fairtech_mobile/src/features/components/bottom_sheet/custom_bottom_sheet.dart';
@@ -10,6 +12,7 @@ import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/widgets/
 import 'package:fairtech_mobile/src/features/pdf/data/models/order_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class StarPage extends StatefulWidget {
   const StarPage({super.key, required this.orderItem});
@@ -42,6 +45,23 @@ class _StarPageState extends State<StarPage> {
       items.add(element.hududlar);
     }
     super.initState();
+  }
+
+  Widget logoutDialog(BuildContext context){
+    return AlertDialog(
+      title: Text(context.tr('pleaseConfirm'), style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
+      content: Text(context.tr('doYouWantLogout'),style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+      actions: [
+        TextButton(
+          onPressed: () => context.pop(false),
+          child: Text(context.tr('no'),style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+        ),
+        TextButton(
+          onPressed: () => context.pop(true),
+          child: Text(context.tr('yes'),style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
+        ),
+      ],
+    );
   }
 
   @override
@@ -212,7 +232,7 @@ class _StarPageState extends State<StarPage> {
                           textColor: context.color?.white,
                         );
                       }),
-                    )
+                    ),
                   ],
                 ),
               ),

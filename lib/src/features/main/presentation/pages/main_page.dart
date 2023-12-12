@@ -7,6 +7,7 @@ import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/pages/st
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/widgets/custom_bottom_bar.dart';
 import 'package:fairtech_mobile/src/features/pdf/data/models/order_item.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,18 +30,27 @@ class _MainPageState extends State<MainPage> {
 
   late List<Widget> pages = [
     const HomePage(),
-    const ProfilePage(),
     StarPage(
       orderItem: widget.orderItem,
     )
   ];
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<PharmInfoBloc>().add(GetAppealsCountEvent());
+    context.read<PharmInfoBloc>().add(GetProfileDataEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) =>
       WillPopScope(
         onWillPop: () async {
           if (currentIndex != 0) {
-            currentIndex = 0;
+            setState(() {
+              currentIndex = 0;
+            });
             return false;
           }
           return true;
@@ -71,21 +81,10 @@ class _MainPageState extends State<MainPage> {
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
-                    AppConstants.helpSvg,
-                    width: 24,
-                    height: 24,
-                    color: currentIndex == 1
-                        ? context.theme.primaryColor
-                        : Colors.black.withOpacity(0.5)
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
                     AppConstants.journalSvg,
                     width: 24,
                     height: 24,
-                    color: currentIndex == 2
+                    color: currentIndex == 1
                         ? context.theme.primaryColor
                         : Colors.black.withOpacity(0.5)
                 ),

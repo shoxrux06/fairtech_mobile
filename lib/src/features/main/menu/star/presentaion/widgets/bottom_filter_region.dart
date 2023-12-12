@@ -32,7 +32,7 @@ class _BottomFilterRegionState extends State<BottomFilterRegion> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
       child: Column(
         children: [
           CustomDropDownFormField(
@@ -54,7 +54,7 @@ class _BottomFilterRegionState extends State<BottomFilterRegion> {
                     widget.checkboxValue1 = value!;
                   });
                 },
-                title: const Text('Jami o\'tkazilgan savdolar soni'),
+                title: Text('Jami o\'tkazilgan savdolar soni',style: context.textStyle.regularBody,),
               ),
               const Divider(height: 0),
               CheckboxListTile(
@@ -64,7 +64,7 @@ class _BottomFilterRegionState extends State<BottomFilterRegion> {
                     widget.checkboxValue2 = value!;
                   });
                 },
-                title: const Text('Jami o\'rganilgan savdolar soni'),
+                title: Text('Jami o\'rganilgan savdolar soni', style: context.textStyle.regularBody,),
               ),
               const Divider(height: 0),
               CheckboxListTile(
@@ -74,8 +74,7 @@ class _BottomFilterRegionState extends State<BottomFilterRegion> {
                     widget.checkboxValue3 = val!;
                   });
                 },
-                title:
-                    const Text('KPI-tizim bo\'yicha to\'plangan jami ballar'),
+                title: Text('KPI-tizim bo\'yicha to\'plangan jami ballar',style: context.textStyle.regularBody,),
               ),
               const Divider(height: 0),
             ],

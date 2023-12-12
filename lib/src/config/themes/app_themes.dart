@@ -181,7 +181,7 @@ final ThemeData lightTheme = appTheme.copyWith(
       color: Colors.black,
       fontWeight: FontWeight.w400,
       fontSize: 34,
-      fontFamily: 'Montserrat'
+      fontFamily: 'OpenSans'
     ),
 
     /// text field title style

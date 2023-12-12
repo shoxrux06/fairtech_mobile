@@ -24,9 +24,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       body: BlocConsumer<SignInBloc, SignInState>(
         listener: (context, state) {
-          if (state.oneIdAuthResponse != null) {
-            context.pushReplacement(Routes.authConfirmed);
-          }
+
         },
         builder: (context, state) {
           return ModalProgressHUD(
@@ -84,7 +82,9 @@ class _SignInPageState extends State<SignInPage> {
       print('code  >> ${resultCode['code']}');
       print('state >> ${resultCode['state']}');
       if (mounted) {
-        context.read<SignInBloc>().add(GetOneIdDataEvent(context: context, resultCode: resultCode));
+        context.read<SignInBloc>().add(GetOneIdDataEvent(context: context, resultCode: resultCode, onSuccess: () {
+          context.pushReplacement(Routes.authConfirmed);
+        }, onError: () {  }));
       }
     }
   }

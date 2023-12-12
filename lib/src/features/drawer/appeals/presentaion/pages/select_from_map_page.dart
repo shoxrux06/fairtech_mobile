@@ -42,6 +42,9 @@ class _LocationChooserState extends State<SelectFromMapPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _getUserLocation();
+    });
     textEditingController = TextEditingController();
   }
 
@@ -64,32 +67,6 @@ class _LocationChooserState extends State<SelectFromMapPage> {
             mapType: _currentMapType,
             onCameraMove: _onCameraMove,
             onTap: _handleTap,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Column(
-                children: <Widget>[
-                  // _customButton(
-                  //     context,
-                  //     Icons.map,
-                  //     _onMapTypeButtonPressed
-                  // ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  // _customButton(
-                  //     context,
-                  //     Icons.map_outlined,
-                  //     _onAddMarkerButtonPressed
-                  // ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                ],
-              ),
-            ),
           ),
           Stack(
             children: [
@@ -154,15 +131,6 @@ class _LocationChooserState extends State<SelectFromMapPage> {
                             ),
                           ],
                         ),
-                        // Positioned(
-                        //   right: 12,
-                        //   top: 10,
-                        //   child: _customButton(
-                        //       context,
-                        //       Icons.gps_fixed_rounded,
-                        //       _getUserLocation
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -216,26 +184,6 @@ class _LocationChooserState extends State<SelectFromMapPage> {
       ),
     );
   }
-
-  // _onMapTypeButtonPressed() {
-  //   setState(() {
-  //     _currentMapType = _currentMapType == MapType.normal
-  //         ? MapType.satellite
-  //         : MapType.normal;
-  //   });
-  // }
-
-  // _onAddMarkerButtonPressed() {
-  //   _markers.clear();
-  //   setState(() {
-  //     _markers.add(Marker(
-  //         markerId: MarkerId(_lastMapPosition.toString()),
-  //         position: _lastMapPosition,
-  //         infoWindow: InfoWindow(title: street, snippet: subLocality),
-  //         icon: BitmapDescriptor.defaultMarker
-  //     ));
-  //   });
-  // }
 
   _handleTap(LatLng point) {
     print(' ***** Tapped ***** ');

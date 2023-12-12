@@ -8,7 +8,7 @@ class HelpPage extends StatelessWidget {
   const HelpPage({super.key});
 
   void _launchTelegram() async {
-    String url = "https://telegram.me/soliqnews";
+    String url = "https://t.me/RaqobatGovUz";
     print("launchingUrl: $url");
     if (await canLaunch(url)) {
       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
@@ -16,7 +16,7 @@ class HelpPage extends StatelessWidget {
   }
 
   _launchCaller() async {
-    const url = "tel:1190";
+    const url = "tel:1159";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -44,7 +44,7 @@ class HelpPage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('1190', style: context.textStyle.regularTitle1,),
+                      Text('1159', style: context.textStyle.regularTitle1,),
                       Text(
                         context.tr('supportCenter'),
                         style: context.textStyle.regularTitle1,

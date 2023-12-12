@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/get_region_list_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/pharm_info_response.dart';
@@ -63,6 +65,11 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     result.when(
       success: (data) {
         emit(state.copyWith(profileDataResponse: data));
+        LocalStorage.instance.setUserImageUrl(data.passportPhoto);
+        LocalStorage.instance.setUserId(int.tryParse(data.userId));
+        print('getFullNameName ${LocalStorage.instance.getFullNameName()}');
+        print('user photo ${data.passportPhoto.toString()}');
+        print('user id ${data.id.toString()}');
       },
       failure: (failure) {},
     );
@@ -76,6 +83,9 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     result.when(
       success: (data) {
         emit(state.copyWith(statusCountOutsideResponse: data));
+        LocalStorage.instance.setProcessAppealNumber(data.process);
+        LocalStorage.instance.setProcessAppealNumber(data.finished);
+        print('${data.sendToCourt}');
       },
       failure: (failure) {},
     );

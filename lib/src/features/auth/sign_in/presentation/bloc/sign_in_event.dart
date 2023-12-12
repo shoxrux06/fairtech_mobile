@@ -4,18 +4,24 @@ part of 'sign_in_bloc.dart';
 abstract class SignUpEvent {}
 
 class GetOneIdDataEvent extends SignUpEvent {
+  final Function() onSuccess;
+  final Function() onError;
   final BuildContext context;
   final dynamic resultCode;
 
-  GetOneIdDataEvent({required this.context,required this.resultCode});
+  GetOneIdDataEvent({
+    required this.onSuccess,
+    required this.onError,
+    required this.context,
+    required this.resultCode,
+  });
 }
 
-class PinCodeEvent extends SignUpEvent{
+class PinCodeEvent extends SignUpEvent {
   final String digit;
 
   PinCodeEvent({required this.digit});
 }
-
 
 class EditPasswordEvent extends SignUpEvent {
   final BuildContext context;

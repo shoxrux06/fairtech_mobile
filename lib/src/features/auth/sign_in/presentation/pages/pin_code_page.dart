@@ -49,7 +49,7 @@ class _PinCodePageState extends State<PinCodePage> {
                         onConfirmed: (matchedText) async {
                           if (controller.confirmedInput == matchedText) {
                             await LocalStorage.instance.setPinCode(controller.confirmedInput);
-                            Navigator.of(context).pop();
+                            context.pop();
                             context.pushReplacement(Routes.main);
                           }
                         },

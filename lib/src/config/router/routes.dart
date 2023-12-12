@@ -23,6 +23,7 @@ sealed class Routes {
   static const String authOneId = '/auth_one_id';
   static const String signIn = '/sign_in';
   static const String authConfirmed = '/auth-confirmed';
+  static const String emptyPage = '/empty_page';
   static const String setPinCode = '/set_pinCode';
 
   ///drawer

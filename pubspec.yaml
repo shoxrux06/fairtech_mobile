@@ -2,7 +2,7 @@ name: fairtech_mobile
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.2+3
+version: 1.0.4+5
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -79,9 +79,9 @@ flutter:
 
   # example:
   fonts:
-    - family: Montserrat
+    - family: OpenSans
       fonts:
-        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
-        - asset: assets/fonts/Montserrat/Montserrat-Italic.ttf
+        - asset: assets/fonts/OpenSans/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans/OpenSans-Italic.ttf
           style: italic
 

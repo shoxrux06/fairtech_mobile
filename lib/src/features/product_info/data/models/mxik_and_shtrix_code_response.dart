@@ -26,6 +26,11 @@ class MxikAndShtrixCodeResponse {
     records: json["records"],
     data: Data.fromJson(json["data"]),
   );
+
+  @override
+  String toString() {
+    return 'MxikAndShtrixCodeResponse{success: $success, reason: $reason, records: $records, data: $data}';
+  }
 }
 
 class Data {
@@ -47,6 +52,11 @@ class Data {
     markingInfo:json["marking_info"] != null? MarkingInfo.fromJson(json["marking_info"]):MarkingInfo.fromJson({}),
     cardInfo: json["card_info"],
   );
+
+  @override
+  String toString() {
+    return 'Data{mxikCode: $mxikCode, mxikInfo: $mxikInfo, markingInfo: $markingInfo, cardInfo: $cardInfo}';
+  }
 }
 
 class MarkingInfo {
@@ -68,6 +78,11 @@ class MarkingInfo {
     gtin: json["gtin"] ??'',
     catalogData: json["catalog_data"] != null?List<CatalogDatum>.from(json["catalog_data"].map((x) => CatalogDatum.fromJson(x))):[],
   );
+
+  @override
+  String toString() {
+    return 'MarkingInfo{id: $id, productName: $productName, gtin: $gtin, catalogData: $catalogData}';
+  }
 }
 
 class CatalogDatum {
@@ -92,6 +107,11 @@ class CatalogDatum {
     goodAttrs: json["good_attrs"] != null? List<GoodAttr>.from(json["good_attrs"].map((x) => GoodAttr.fromJson(x))):[],
     photoUrl: json["photo_url"] != null?List<String>.from(json["photo_url"].map((x) => x)):[],
   );
+
+  @override
+  String toString() {
+    return 'CatalogDatum{productImageUrl: $productImageUrl, brandName: $brandName, categories: $categories, goodAttrs: $goodAttrs, photoUrl: $photoUrl}';
+  }
 }
 
 class Category {
@@ -128,6 +148,11 @@ class GoodAttr {
     attrValueType: json["attr_value_type"] ??'',
     attrGroupName: json["attr_group_name"] ??'',
   );
+
+  @override
+  String toString() {
+    return 'GoodAttr{attrName: $attrName, attrValue: $attrValue, attrValueType: $attrValueType, attrGroupName: $attrGroupName}';
+  }
 }
 
 class MxikInfo {
@@ -164,6 +189,11 @@ class MxikInfo {
     attributeName: json["attribute_name"] ??'',
     packages:json["packages"]!= null? List<Package>.from(json["packages"].map((x) => Package.fromJson(x))):[],
   );
+
+  @override
+  String toString() {
+    return 'MxikInfo{groupName: $groupName, brandName: $brandName, mxikName: $mxikName, attributeName: $attributeName, packages: $packages}';
+  }
 }
 
 class Package {

@@ -1,3 +1,4 @@
+import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,7 +26,7 @@ class LanguageBottomWidget extends StatelessWidget {
             onChanged('ru');
             context.pop();
           },
-          title: const Text('RU'),
+          title: Text('RU', style: context.textStyle.largeTitle2,),
           trailing: Visibility(
             visible: AppOptions.of(context).locale.languageCode == 'ru',
             child: const Icon(Icons.check),
@@ -36,7 +37,7 @@ class LanguageBottomWidget extends StatelessWidget {
             onChanged('uz');
             context.pop();
           },
-          title: const Text('UZ'),
+          title: Text('UZ',style: context.textStyle.largeTitle2,),
           trailing: Visibility(
             visible: AppOptions.of(context).locale.languageCode == 'uz',
             child: const Icon(Icons.check),
@@ -49,7 +50,7 @@ class LanguageBottomWidget extends StatelessWidget {
               onChanged('en');
               context.pop();
             },
-            title: const Text('EN'),
+            title: Text('EN',style: context.textStyle.largeTitle2,),
             trailing: Visibility(
               visible: AppOptions.of(context).locale.languageCode == 'en',
               child: const Icon(Icons.check),

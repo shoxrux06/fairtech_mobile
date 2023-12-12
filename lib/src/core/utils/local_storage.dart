@@ -29,6 +29,12 @@ class LocalStorage{
     }
   }
 
+  Future<void> setUserImageUrl(String? imageUrl) async {
+    if (_preferences != null) {
+      await _preferences!.setString(AppConstants.keyUserImageUrl, imageUrl ?? '');
+    }
+  }
+
   String getToken() => _preferences?.getString(AppConstants.keyToken) ?? '';
 
   Future<void> setUserId(int? userId) async {
@@ -36,6 +42,19 @@ class LocalStorage{
       await _preferences!.setInt(AppConstants.keyUserId, userId ?? 0);
     }
   }
+
+  Future<void> setProcessAppealNumber(int? processNumber) async {
+    if (_preferences != null) {
+      await _preferences!.setInt(AppConstants.keyProcessNumber, processNumber ?? 0);
+    }
+  }
+
+  Future<void> setFinishedAppealNumber(int? finishedNumber) async {
+    if (_preferences != null) {
+      await _preferences!.setInt(AppConstants.keyFinishedNumber, finishedNumber ?? 0);
+    }
+  }
+
   Future<void> setUserName(String? username) async {
     if (_preferences != null) {
       await _preferences!.setString(AppConstants.keyUserName, username ?? '');
@@ -49,6 +68,7 @@ class LocalStorage{
   }
 
   String getFullNameName() => _preferences?.getString(AppConstants.keyFullName) ??'';
+  String getUserImageUrl() => _preferences?.getString(AppConstants.keyUserImageUrl) ??'';
 
   Future<void> setUserPhone(String? phone) async {
     if (_preferences != null) {
@@ -63,6 +83,10 @@ class LocalStorage{
   }
 
   int getUserId() => _preferences?.getInt(AppConstants.keyUserId) ??0;
+
+  int getProcessAppealNumber() => _preferences?.getInt(AppConstants.keyProcessNumber) ??0;
+
+  int getFinishedAppealNumber() => _preferences?.getInt(AppConstants.keyFinishedNumber) ??0;
 
   String getUserName() => _preferences?.getString(AppConstants.keyUserName) ??'';
 

@@ -30,13 +30,13 @@ class SignInBloc extends Bloc<SignUpEvent, SignInState> {
     final result = await signUpRepository.getOneIdData(event.context,event.resultCode);
     result.when(
       success: (data) async {
+        event.onSuccess();
         emit(state.copyWith(oneIdAuthResponse: data,oneIdAuthResponseIsNotNull: false));
         await LocalStorage.instance.setToken(data.token.toString());
         await LocalStorage.instance.setFullName('${data.firstName} ${data.lastName}');
-        await LocalStorage.instance.setUserId(data.id);
-        print('getFullNameName ${LocalStorage.instance.getFullNameName()}');
       },
       failure: (failure) {
+        event.onError();
         emit(state.copyWith(oneIdAuthResponseIsNotNull: false));
       },
     );

@@ -4,6 +4,7 @@ import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
+import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -73,10 +74,11 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
                 Expanded(
                   child: item(
                     () {
-                      moreInfo();
+                      // moreInfo();
+                      AppSnackBar.showWarningSnackBar(context, 'Tez kunda');
                     },
                     AppConstants.more3Svg,
-                    'Qoshimcha imkoniyat',
+                    'Qo\'shimcha imkoniyat',
                   ),
                 ),
               ],
@@ -123,8 +125,8 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
       context: scaffoldKey.currentContext!,
       builder: (BuildContext ctx) {
         return AlertDialog(
-          title: Text('Qoshimcha malumotlar', style: ctx.textStyle.regularTitle2.copyWith(color: ctx.theme.primaryColor)),
-          content: Text('Qoshimcha malumotlar',style: ctx.textStyle.regularTitle2),
+          title: Text('Qo\'shimcha ma\'lumotlar', style: ctx.textStyle.regularTitle2.copyWith(color: ctx.theme.primaryColor)),
+          content: Text('Qo\'shimcha ma\'lumotlar',style: ctx.textStyle.regularTitle2),
           actions: [
             TextButton(
               onPressed: () {

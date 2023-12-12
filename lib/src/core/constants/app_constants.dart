@@ -14,6 +14,7 @@ class AppConstants {
   AppConstants._();
   ///prefs
   static const String keyToken = 'keyToken';
+  static const String keyUserImageUrl = 'keyUserImageUrl';
   static const String keyLang = 'keyLang';
   static const String keyUserId = 'keyUserId';
   static const String keyUserName = 'keyUserName';
@@ -21,6 +22,8 @@ class AppConstants {
   static const String keyUserPhone = 'keyUserPhone';
   static const String keyThemMode = 'keyThemMode';
   static const String keyPinCode = 'keyPinCode';
+  static const String keyProcessNumber = 'keyProcessNumber';
+  static const String keyFinishedNumber = 'keyFinishedNumber';
 
   ///icons
   static const IconData home = Icons.home;

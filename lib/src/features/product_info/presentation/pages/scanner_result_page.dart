@@ -55,24 +55,25 @@ class _ScannerResultPageState extends State<ScannerResultPage>
     super.initState();
   }
 
+  bool isNothing = false;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AppealsBloc(appealsRepository),
       child: BlocConsumer<ProductInfoBloc,ProductInfoState>(
         listener: (context,state){
-        },
+          isNothing = state.mxikAndShtrixCodeResponse!.data.mxikInfo.internationalCode.isEmpty
+              && state.mxikAndShtrixCodeResponse!.data.mxikCode.isEmpty;
+          print('isNothing <<<<$isNothing>>>>>');
+          },
         builder: (context,state){
           return ModalProgressHUD(
             inAsyncCall: state.isGettingProductData,
             child: Scaffold(
               appBar: CustomAppBar(title: 'Ma\'lumotlar'),
-              body:(state.mxikAndShtrixCodeResponse?.data.mxikInfo == null
-                  && state.mxikAndShtrixCodeResponse?.data.markingInfo == null
-              )? const Column(
-                children: [
-                  Center(child: Text('Tanlangan mahsulot "Milliy tasnif" da ro\'yxatdan o\'tmagan'),)
-                ],
+              body:isNothing? Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Center(child: Text('Tanlangan mahsulot "Milliy tasnif" da ro\'yxatdan o\'tmagan',style:context.textStyle.regularTitle2.copyWith(color: Colors.black),textAlign: TextAlign.center,),),
               ): Stack(
                 children: [
                   PageView.builder(

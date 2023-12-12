@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
@@ -20,29 +22,6 @@ class CustomDrawer extends StatelessWidget {
     }
   }
 
-  void _logout(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext ctx) {
-        return AlertDialog(
-          title: Text(ctx.tr('pleaseConfirm'), style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
-          content: Text(ctx.tr('doYouWantLogout'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.theme.primaryColor)),
-          actions: [
-            TextButton(
-              onPressed: () {
-                ctx.pop();
-              },
-              child: Text(ctx.tr('no'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.theme.primaryColor)),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(ctx.tr('yes'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Widget logoutDialog(BuildContext context){
     return AlertDialog(
@@ -61,9 +40,11 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
+    String image = LocalStorage.instance.getUserImageUrl();
+
+    final memImage = const Base64Decoder().convert(image);
     return Drawer(
       backgroundColor: Colors.white,
       child: Column(
@@ -71,18 +52,27 @@ class CustomDrawer extends StatelessWidget {
           DrawerHeader(
             child: Column(
               children: [
-                Image.asset(
-                  AppConstants.profileImg,
-                  width: 80,
-                  height: 80,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(80),
+                  child:(LocalStorage.instance.getUserImageUrl().isEmpty)? Image.asset(
+                    AppConstants.userPng,
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.fill,
+                  ): Image.memory(
+                    memImage,
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 AppUtils.kGap4,
                 Text(
                   LocalStorage.instance.getFullNameName().isNotEmpty ? LocalStorage.instance.getFullNameName() : 'Quroqov Shoxrux',
-                  style: context.textStyle.largeTitle1,
+                  style: context.textStyle.largeTitle2,
                 ),
                 Text(
-                  'ID 1234567',
+                  'ID ${LocalStorage.instance.getUserId()}',
                     style: context.textStyle.regularTitle1.copyWith(color: Color(0xFF95969D), fontWeight: FontWeight.w400, fontSize: 12),
                 )
               ],
@@ -192,7 +182,6 @@ class CustomDrawer extends StatelessWidget {
                 print('&&&&&&&&&&&&&&&&');
                 LocalStorage.instance.deleteToken();
                 LocalStorage.instance.deletePinCode();
-                // Navigator.of(context).pushReplacementNamed(Routes.signIn);
                 context.pushReplacement(Routes.signIn);
               } else {
                 Navigator.pop(context);
@@ -241,6 +230,4 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
   }
-
-
 }

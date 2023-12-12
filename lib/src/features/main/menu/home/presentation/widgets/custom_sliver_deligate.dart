@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
@@ -23,6 +25,10 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     final cardTopPosition = expandedHeight / 1.2 - shrinkOffset;
     final proportion = 2 - (expandedHeight / appBarSize);
     final percent = proportion < 0 || proportion > 1 ? 0.0 : proportion;
+    String image = LocalStorage.instance.getUserImageUrl();
+
+    final memImage = const Base64Decoder().convert(image);
+
     print('shrinkOffset **********$shrinkOffset ************');
     return SizedBox(
       height: expandedHeight + expandedHeight / 2,
@@ -81,7 +87,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                               context.textStyle.largeTitle1.copyWith(fontSize: 10, color: context.theme.primaryColor),
                             ),
                             Text(
-                              'ID 1234567',
+                              'ID ${LocalStorage.instance.getUserId()}',
                               style: context.textStyle.regularTitle1.copyWith(
                                   color: context.theme.primaryColor,
                                   fontWeight: FontWeight.w500,
@@ -90,16 +96,25 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                           ],
                         ),
                         AppUtils.kGap8,
-                        Image.asset(
-                          AppConstants.profileImg,
-                          width: 44,
-                          height: 44,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: (LocalStorage.instance.getUserImageUrl().isEmpty)? Image.asset(
+                            AppConstants.userPng,
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.fill,
+                          ):Image.memory(
+                            memImage,
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                         AppUtils.kGap4,
                       ],
                     ),
                   ),
-                  SizedBox(width: 12,)
+                  const SizedBox(width: 12,)
                 ],
                 title: Opacity(
                     opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
@@ -161,7 +176,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                             ),
                             AppUtils.kGap4,
                             Text(
-                              '15',
+                              '${LocalStorage.instance.getProcessAppealNumber() + LocalStorage.instance.getFinishedAppealNumber()}',
                               style: context.textStyle.largeTitle1
                                   .copyWith(color: context.theme.primaryColor),
                             )
@@ -176,7 +191,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                             ),
                             AppUtils.kGap4,
                             Text(
-                              '21',
+                              '${LocalStorage.instance.getFinishedAppealNumber()}',
                               style: context.textStyle.largeTitle1
                                   .copyWith(color: Colors.green),
                             )
@@ -191,7 +206,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                             ),
                             AppUtils.kGap4,
                             Text(
-                              '3',
+                              '${LocalStorage.instance.getProcessAppealNumber()}',
                               style: context.textStyle.largeTitle1
                                   .copyWith(color: Colors.deepOrange),
                             )

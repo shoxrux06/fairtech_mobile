@@ -41,7 +41,6 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
 
   List<String> personTypeList = [
     'Jismoniy shaxs',
-    'Yuridik shaxs',
   ];
 
   final _phoneNumberController = MaskedTextController(
@@ -353,7 +352,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                    keyboardType: TextInputType.multiline,
                                    enabled: isAddressEnabled,
                                    maxLines: 5,
-                                   // style: context.textStyle.regularBody,
+                                   style: context.textStyle.regularBody,
                                  ),
                                ),
                                IconButton(
@@ -382,17 +381,13 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Murojaat turi',style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
-                            const SizedBox(
-                              height: 12,
-                            ),
+                            Text('Murojaat turi',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
                             DropdownButtonFormField(
                                 value: dropdownValueCategory,
                                 icon: const Icon(Icons.arrow_drop_down),
                                 elevation: 16,
                                 isExpanded: true,
                                 isDense: false,
-                                // itemHeight: 48,
                                 dropdownColor: Colors.white,
                                 style: context.textStyle.regularBody,
                                 decoration: InputDecoration(
@@ -442,7 +437,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                       title: Text(
                                         value,
                                         maxLines: 3,
-                                        // style: context.textStyle.regularBody,
+                                        style: context.textStyle.regularBody,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     )
@@ -484,12 +479,12 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                       return SizedBox(
                                         width: Responsive.width(100, context),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.only(top: 0, left: 12, right: 12, bottom: 24),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                            const Text('File turini tanlang'),
+                                            const Text('Fayl turini tanlang'),
                                             CustomDropDownFormField(
                                                 value: dropDownValue,
                                                 hintText: 'Rasm turini tanlang',
@@ -504,21 +499,18 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                             AppUtils.kGap24,
                                             CustomButtonWithoutGradient(onTap: (){
                                               if(typeSelected == false){
-                                                AppSnackBar.showWarningSnackBar(context, 'File Turini tanlang');
+                                                AppSnackBar.showWarningSnackBar(context, 'Fayl Turini tanlang');
                                               }else{
                                                 selectFile1();
                                               }
-                                            }, text: 'File tanlash',
+                                            }, text: 'Fayl tanlash',
                                             textColor: Colors.white,
                                             ),
                                             AppUtils.kGap24,
-                                            // CustomButtonWithoutGradient(onTap: (){}, text: 'Camera'),
-                                            //   AppUtils.kGap24,
-                                            //   AppUtils.kGap24,
                                               AppUtils.kGap24,
                                             CustomButtonWithoutGradient(onTap: (){
                                               context.pop();
-                                            }, text: 'Submit',
+                                            }, text: 'Yopish',
                                               textColor: Colors.white,
                                             ),
                                           ],),

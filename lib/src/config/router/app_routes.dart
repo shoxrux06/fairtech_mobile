@@ -3,6 +3,7 @@ import 'package:fairtech_mobile/src/features/appeal/presentation/pages/appeal_pa
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/auth_confirmed_page.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/auth_oneid_page.dart';
+import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/empty_page.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/pin_code_page.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/pages/sign_in_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/about_system/presentation/pages/about_system_page.dart';
@@ -62,6 +63,7 @@ class AppGoRouter {
           ),
         ),
       ),
+
       /// main
       GoRoute(
           name: Routes.main,
@@ -79,6 +81,8 @@ class AppGoRouter {
                   BlocProvider<ProductInfoBloc>(
                       create: (_) => sl<ProductInfoBloc>()),
                   BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
+                  BlocProvider<PharmInfoBloc>(
+                      create: (_) => PharmInfoBloc(pharmInfoRepository)),
                 ],
                 child: const MainPage(),
               ),
@@ -133,6 +137,18 @@ class AppGoRouter {
         ),
       ),
       GoRoute(
+        name: Routes.emptyPage,
+        path: Routes.emptyPage,
+        pageBuilder: (_, state) => CustomTransitionPage(
+          transitionDuration: const Duration(milliseconds: 1200),
+          child: const EmptyPage(),
+          transitionsBuilder: (_, animation, __, child) => FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+            child: child,
+          ),
+        ),
+      ),
+      GoRoute(
         name: Routes.settings,
         path: Routes.settings,
         pageBuilder: (_, state) => CustomTransitionPage(
@@ -164,7 +180,7 @@ class AppGoRouter {
               transitionDuration: const Duration(milliseconds: 1200),
               child: BlocProvider(
                 create: (_) => SignInBloc(signInRepository),
-                child: PinCodePage(),
+                child: const PinCodePage(),
               ),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
@@ -179,7 +195,10 @@ class AppGoRouter {
         pageBuilder: (_, state) {
           return CustomTransitionPage(
             transitionDuration: const Duration(milliseconds: 1200),
-            child: PersonalInformationPage(),
+            child: BlocProvider(
+              create: (_) => PharmInfoBloc(pharmInfoRepository),
+              child: PersonalInformationPage(),
+            ),
             transitionsBuilder: (_, animation, __, child) => FadeTransition(
               opacity:
                   CurveTween(curve: Curves.easeInOutCirc).animate(animation),
