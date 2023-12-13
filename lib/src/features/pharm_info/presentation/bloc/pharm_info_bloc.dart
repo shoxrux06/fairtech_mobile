@@ -5,6 +5,7 @@ import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/get_region_list_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/pharm_info_response.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/data/models/product_appeal_count_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/status_count_outside_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -82,9 +83,12 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     final result = await pharmInfoRepository.getAppealsCount();
     result.when(
       success: (data) {
-        emit(state.copyWith(statusCountOutsideResponse: data));
+        emit(state.copyWith(productAppealCountResponse: data));
+        LocalStorage.instance.setAllAppealNumber(data.created);
         LocalStorage.instance.setProcessAppealNumber(data.process);
-        LocalStorage.instance.setProcessAppealNumber(data.finished);
+        LocalStorage.instance.setFinishedAppealNumber(data.finished);
+        print('created -->${data.created}');
+        print('finished --> ${data.finished}');
         print('${data.sendToCourt}');
       },
       failure: (failure) {},

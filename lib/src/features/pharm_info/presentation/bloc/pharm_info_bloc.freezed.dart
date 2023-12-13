@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PharmInfoState {
   PharmInfoResponse? get pharmInfoResponse =>
       throw _privateConstructorUsedError;
+  ProductAppealCountResponse? get productAppealCountResponse =>
+      throw _privateConstructorUsedError;
   List<GetRegionListResponse?> get getRegionListResponse =>
       throw _privateConstructorUsedError;
   ProfileDataResponse? get profileDataResponse =>
@@ -40,6 +42,7 @@ abstract class $PharmInfoStateCopyWith<$Res> {
   @useResult
   $Res call(
       {PharmInfoResponse? pharmInfoResponse,
+      ProductAppealCountResponse? productAppealCountResponse,
       List<GetRegionListResponse?> getRegionListResponse,
       ProfileDataResponse? profileDataResponse,
       StatusCountOutsideResponse? statusCountOutsideResponse,
@@ -60,6 +63,7 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
   @override
   $Res call({
     Object? pharmInfoResponse = freezed,
+    Object? productAppealCountResponse = freezed,
     Object? getRegionListResponse = null,
     Object? profileDataResponse = freezed,
     Object? statusCountOutsideResponse = freezed,
@@ -70,6 +74,10 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
           ? _value.pharmInfoResponse
           : pharmInfoResponse // ignore: cast_nullable_to_non_nullable
               as PharmInfoResponse?,
+      productAppealCountResponse: freezed == productAppealCountResponse
+          ? _value.productAppealCountResponse
+          : productAppealCountResponse // ignore: cast_nullable_to_non_nullable
+              as ProductAppealCountResponse?,
       getRegionListResponse: null == getRegionListResponse
           ? _value.getRegionListResponse
           : getRegionListResponse // ignore: cast_nullable_to_non_nullable
@@ -101,6 +109,7 @@ abstract class _$$InitialImplCopyWith<$Res>
   @useResult
   $Res call(
       {PharmInfoResponse? pharmInfoResponse,
+      ProductAppealCountResponse? productAppealCountResponse,
       List<GetRegionListResponse?> getRegionListResponse,
       ProfileDataResponse? profileDataResponse,
       StatusCountOutsideResponse? statusCountOutsideResponse,
@@ -119,6 +128,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? pharmInfoResponse = freezed,
+    Object? productAppealCountResponse = freezed,
     Object? getRegionListResponse = null,
     Object? profileDataResponse = freezed,
     Object? statusCountOutsideResponse = freezed,
@@ -129,6 +139,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.pharmInfoResponse
           : pharmInfoResponse // ignore: cast_nullable_to_non_nullable
               as PharmInfoResponse?,
+      productAppealCountResponse: freezed == productAppealCountResponse
+          ? _value.productAppealCountResponse
+          : productAppealCountResponse // ignore: cast_nullable_to_non_nullable
+              as ProductAppealCountResponse?,
       getRegionListResponse: null == getRegionListResponse
           ? _value._getRegionListResponse
           : getRegionListResponse // ignore: cast_nullable_to_non_nullable
@@ -155,6 +169,7 @@ class __$$InitialImplCopyWithImpl<$Res>
 class _$InitialImpl implements Initial {
   const _$InitialImpl(
       {this.pharmInfoResponse,
+      this.productAppealCountResponse,
       final List<GetRegionListResponse?> getRegionListResponse = const [],
       this.profileDataResponse,
       this.statusCountOutsideResponse,
@@ -163,6 +178,8 @@ class _$InitialImpl implements Initial {
 
   @override
   final PharmInfoResponse? pharmInfoResponse;
+  @override
+  final ProductAppealCountResponse? productAppealCountResponse;
   final List<GetRegionListResponse?> _getRegionListResponse;
   @override
   @JsonKey()
@@ -183,7 +200,7 @@ class _$InitialImpl implements Initial {
 
   @override
   String toString() {
-    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse, isErrorOccurredWhileGettingPharmInfo: $isErrorOccurredWhileGettingPharmInfo)';
+    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, productAppealCountResponse: $productAppealCountResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse, isErrorOccurredWhileGettingPharmInfo: $isErrorOccurredWhileGettingPharmInfo)';
   }
 
   @override
@@ -193,6 +210,10 @@ class _$InitialImpl implements Initial {
             other is _$InitialImpl &&
             (identical(other.pharmInfoResponse, pharmInfoResponse) ||
                 other.pharmInfoResponse == pharmInfoResponse) &&
+            (identical(other.productAppealCountResponse,
+                    productAppealCountResponse) ||
+                other.productAppealCountResponse ==
+                    productAppealCountResponse) &&
             const DeepCollectionEquality()
                 .equals(other._getRegionListResponse, _getRegionListResponse) &&
             (identical(other.profileDataResponse, profileDataResponse) ||
@@ -211,6 +232,7 @@ class _$InitialImpl implements Initial {
   int get hashCode => Object.hash(
       runtimeType,
       pharmInfoResponse,
+      productAppealCountResponse,
       const DeepCollectionEquality().hash(_getRegionListResponse),
       profileDataResponse,
       statusCountOutsideResponse,
@@ -226,6 +248,7 @@ class _$InitialImpl implements Initial {
 abstract class Initial implements PharmInfoState {
   const factory Initial(
       {final PharmInfoResponse? pharmInfoResponse,
+      final ProductAppealCountResponse? productAppealCountResponse,
       final List<GetRegionListResponse?> getRegionListResponse,
       final ProfileDataResponse? profileDataResponse,
       final StatusCountOutsideResponse? statusCountOutsideResponse,
@@ -233,6 +256,8 @@ abstract class Initial implements PharmInfoState {
 
   @override
   PharmInfoResponse? get pharmInfoResponse;
+  @override
+  ProductAppealCountResponse? get productAppealCountResponse;
   @override
   List<GetRegionListResponse?> get getRegionListResponse;
   @override

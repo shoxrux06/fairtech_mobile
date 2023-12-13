@@ -29,6 +29,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
 
     final memImage = const Base64Decoder().convert(image);
 
+    print('rtrtr getAllAppealNumber${LocalStorage.instance.getAllAppealNumber()}');
+
     print('shrinkOffset **********$shrinkOffset ************');
     return SizedBox(
       height: expandedHeight + expandedHeight / 2,
@@ -176,9 +178,23 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                             ),
                             AppUtils.kGap4,
                             Text(
-                              '${LocalStorage.instance.getProcessAppealNumber() + LocalStorage.instance.getFinishedAppealNumber()}',
+                              '${LocalStorage.instance.getAllAppealNumber()}',
                               style: context.textStyle.largeTitle1
                                   .copyWith(color: context.theme.primaryColor),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Jarayonda',
+                              style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor),
+                            ),
+                            AppUtils.kGap4,
+                            Text(
+                              '${LocalStorage.instance.getProcessAppealNumber()}',
+                              style: context.textStyle.largeTitle1
+                                  .copyWith(color: Colors.deepOrange),
                             )
                           ],
                         ),
@@ -197,21 +213,6 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                             )
                           ],
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              'Jarayonda',
-                              style: context.textStyle.largeTitle2
-                                  .copyWith(color: context.theme.primaryColor),
-                            ),
-                            AppUtils.kGap4,
-                            Text(
-                              '${LocalStorage.instance.getProcessAppealNumber()}',
-                              style: context.textStyle.largeTitle1
-                                  .copyWith(color: Colors.deepOrange),
-                            )
-                          ],
-                        )
                       ],
                     ),
                   ),

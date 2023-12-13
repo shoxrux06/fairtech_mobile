@@ -12,14 +12,17 @@ class ProductOwnerInfoPage extends StatefulWidget {
 class _ProductOwnerInfoPageState extends State<ProductOwnerInfoPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         AppUtils.kGap40,
         AppUtils.kGap40,
-        customListTile(Icons.branding_watermark, 'Korxona nomi', 'Coco cola LTD'),
-        customListTile(Icons.gps_fixed_rounded, 'Manzil', 'O\'zbekistan, Toshkent'),
-        customListTile(Icons.confirmation_number_sharp, 'STIR', '123456789'),
-        customListTile(Icons.info, 'Qo\'shimcha ,ma\'lumotlar', 'Qo\'shimcha ,ma\'lumotlar'),
+        Center(
+          child: Text('Ishlab chiqaruvchi haqida ma\'lumot topilmadi')
+        )
+        // customListTile(Icons.branding_watermark, 'Korxona nomi', 'Coco cola LTD'),
+        // customListTile(Icons.gps_fixed_rounded, 'Manzil', 'O\'zbekistan, Toshkent'),
+        // customListTile(Icons.confirmation_number_sharp, 'STIR', '123456789'),
+        // customListTile(Icons.info, 'Qo\'shimcha ,ma\'lumotlar', 'Qo\'shimcha ,ma\'lumotlar'),
       ],
     );
   }

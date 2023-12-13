@@ -62,8 +62,8 @@ class _ScannerResultPageState extends State<ScannerResultPage>
       create: (context) => AppealsBloc(appealsRepository),
       child: BlocConsumer<ProductInfoBloc,ProductInfoState>(
         listener: (context,state){
-          isNothing = state.mxikAndShtrixCodeResponse!.data.mxikInfo.internationalCode.isEmpty
-              && state.mxikAndShtrixCodeResponse!.data.mxikCode.isEmpty;
+          isNothing = (state.mxikAndShtrixCodeResponse?.data.mxikInfo.internationalCode.isEmpty?? false)
+              && (state.mxikAndShtrixCodeResponse?.data.mxikCode.isEmpty ?? false);
           print('isNothing <<<<$isNothing>>>>>');
           },
         builder: (context,state){

@@ -10,7 +10,8 @@ class AppConstants {
   static const getPharmInfo = '/api/v.1/pharm/searchOutside?';
   static const getRegionList = '/api/v.1/geographical-region/get-region-soatos';
   static const getProfileData = '/api/v.1/outer-cabinet/profile-data';
-  static const getAppealsCount = '/api/v.1/pharm/status-count-outside';
+  // static const getAppealsCount = '/api/v.1/pharm/status-count-outside';
+  static const getAppealsCount = '/api/v.1/outer-cabinet/get/status-count';
   AppConstants._();
   ///prefs
   static const String keyToken = 'keyToken';
@@ -22,6 +23,7 @@ class AppConstants {
   static const String keyUserPhone = 'keyUserPhone';
   static const String keyThemMode = 'keyThemMode';
   static const String keyPinCode = 'keyPinCode';
+  static const String keyAllNumber = 'keyAllNumber';
   static const String keyProcessNumber = 'keyProcessNumber';
   static const String keyFinishedNumber = 'keyFinishedNumber';
 

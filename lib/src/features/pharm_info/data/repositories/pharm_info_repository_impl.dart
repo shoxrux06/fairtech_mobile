@@ -9,6 +9,7 @@ import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.da
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/get_region_list_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/pharm_info_response.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/data/models/product_appeal_count_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/status_count_outside_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -74,17 +75,18 @@ class PharmInfoRepositoryImpl implements PharmInfoRepository {
   }
 
   @override
-  Future<ApiResult<StatusCountOutsideResponse>> getAppealsCount() async{
+  Future<ApiResult<ProductAppealCountResponse>> getAppealsCount() async{
     try {
       final client = inject<HttpService>().client(requireAuth: true);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
       HttpClient()
         ..badCertificateCallback =
             (X509Certificate cert, String host, int port) => true;
-      final response = await client.get(
+      final response = await client.post(
         AppConstants.getAppealsCount,
       );
-      return ApiResult.success(data: StatusCountOutsideResponse.fromJson(response.data));
+      print('^^^^^response -->$response^^^^^');
+      return ApiResult.success(data: ProductAppealCountResponse.fromJson(response.data));
     } catch (e) {
       print('==> failure: $e');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));

@@ -4,6 +4,7 @@ part of 'pharm_info_bloc.dart';
 class PharmInfoState with _$PharmInfoState{
   const factory PharmInfoState({
     PharmInfoResponse? pharmInfoResponse,
+    ProductAppealCountResponse? productAppealCountResponse,
     @Default([])List<GetRegionListResponse?> getRegionListResponse,
     ProfileDataResponse? profileDataResponse,
     StatusCountOutsideResponse? statusCountOutsideResponse,

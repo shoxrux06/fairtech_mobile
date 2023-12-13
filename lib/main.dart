@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
     // ignore: unused_local_variable
     final token = LocalStorage.instance.getToken();
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'Fair tech',
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: scaffoldMessengerKey,
 

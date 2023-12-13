@@ -23,9 +23,11 @@ import 'package:fairtech_mobile/src/features/product_info/data/models/product_in
 import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/choose_option_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/mxik_code_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_or_service_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_tnved_code_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/qr_code_screen_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/scanner_result_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/service_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/shtrix_code_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/tnved_product_detail_page.dart';
 import 'package:fairtech_mobile/src/features/splash/presentation/bloc/splash_bloc.dart';
@@ -63,7 +65,6 @@ class AppGoRouter {
           ),
         ),
       ),
-
       /// main
       GoRoute(
           name: Routes.main,
@@ -411,6 +412,34 @@ class AppGoRouter {
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
                     CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.productOrService,
+          path: Routes.productOrService,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: const ProductOrServicePage(),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.service,
+          path: Routes.service,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: const ServicePage(),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity:
+                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );

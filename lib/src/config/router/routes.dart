@@ -18,6 +18,8 @@ sealed class Routes {
   static const String tnVedProductDetail = '/tnVed_product_detail';
   static const String selectFromMap = '/select_from_map';
   static const String mainAppeal = '/main_appeal';
+  static const String productOrService = '/product_or_service';
+  static const String service = '/service';
 
   /// auth
   static const String authOneId = '/auth_one_id';

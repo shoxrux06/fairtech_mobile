@@ -43,6 +43,12 @@ class LocalStorage{
     }
   }
 
+  Future<void> setAllAppealNumber(int? processNumber) async {
+    if (_preferences != null) {
+      await _preferences!.setInt(AppConstants.keyAllNumber, processNumber ?? 0);
+    }
+  }
+
   Future<void> setProcessAppealNumber(int? processNumber) async {
     if (_preferences != null) {
       await _preferences!.setInt(AppConstants.keyProcessNumber, processNumber ?? 0);
@@ -83,6 +89,8 @@ class LocalStorage{
   }
 
   int getUserId() => _preferences?.getInt(AppConstants.keyUserId) ??0;
+
+  int getAllAppealNumber() => _preferences?.getInt(AppConstants.keyAllNumber) ??0;
 
   int getProcessAppealNumber() => _preferences?.getInt(AppConstants.keyProcessNumber) ??0;
 

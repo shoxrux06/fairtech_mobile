@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         children: [
                           ActiveItem(
                             onTap: () {
-                              context.push(Routes.chooseOption);
+                              context.push(Routes.productOrService);
                             },
                             icon: AppConstants.pharmInfoSvg,
                             title: 'Product Info',

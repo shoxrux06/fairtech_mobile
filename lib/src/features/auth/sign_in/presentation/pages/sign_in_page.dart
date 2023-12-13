@@ -63,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
                     onTap: () {
                       getCode(context);
                     },
-                    child: CustomButton(text: context.tr('signUp'),),
+                    child: CustomButton(text: 'Ro\'yxatdan o\'tish',),
                   ),
                 ],
               ),
