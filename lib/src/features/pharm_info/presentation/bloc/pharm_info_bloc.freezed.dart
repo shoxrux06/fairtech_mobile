@@ -20,6 +20,10 @@ mixin _$PharmInfoState {
       throw _privateConstructorUsedError;
   ProductAppealCountResponse? get productAppealCountResponse =>
       throw _privateConstructorUsedError;
+  OneIdAuthResponse? get oneIdAuthResponse =>
+      throw _privateConstructorUsedError;
+  ProductAppealListResponse? get productAppealListResponse =>
+      throw _privateConstructorUsedError;
   List<GetRegionListResponse?> get getRegionListResponse =>
       throw _privateConstructorUsedError;
   ProfileDataResponse? get profileDataResponse =>
@@ -43,6 +47,8 @@ abstract class $PharmInfoStateCopyWith<$Res> {
   $Res call(
       {PharmInfoResponse? pharmInfoResponse,
       ProductAppealCountResponse? productAppealCountResponse,
+      OneIdAuthResponse? oneIdAuthResponse,
+      ProductAppealListResponse? productAppealListResponse,
       List<GetRegionListResponse?> getRegionListResponse,
       ProfileDataResponse? profileDataResponse,
       StatusCountOutsideResponse? statusCountOutsideResponse,
@@ -64,6 +70,8 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
   $Res call({
     Object? pharmInfoResponse = freezed,
     Object? productAppealCountResponse = freezed,
+    Object? oneIdAuthResponse = freezed,
+    Object? productAppealListResponse = freezed,
     Object? getRegionListResponse = null,
     Object? profileDataResponse = freezed,
     Object? statusCountOutsideResponse = freezed,
@@ -78,6 +86,14 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
           ? _value.productAppealCountResponse
           : productAppealCountResponse // ignore: cast_nullable_to_non_nullable
               as ProductAppealCountResponse?,
+      oneIdAuthResponse: freezed == oneIdAuthResponse
+          ? _value.oneIdAuthResponse
+          : oneIdAuthResponse // ignore: cast_nullable_to_non_nullable
+              as OneIdAuthResponse?,
+      productAppealListResponse: freezed == productAppealListResponse
+          ? _value.productAppealListResponse
+          : productAppealListResponse // ignore: cast_nullable_to_non_nullable
+              as ProductAppealListResponse?,
       getRegionListResponse: null == getRegionListResponse
           ? _value.getRegionListResponse
           : getRegionListResponse // ignore: cast_nullable_to_non_nullable
@@ -110,6 +126,8 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {PharmInfoResponse? pharmInfoResponse,
       ProductAppealCountResponse? productAppealCountResponse,
+      OneIdAuthResponse? oneIdAuthResponse,
+      ProductAppealListResponse? productAppealListResponse,
       List<GetRegionListResponse?> getRegionListResponse,
       ProfileDataResponse? profileDataResponse,
       StatusCountOutsideResponse? statusCountOutsideResponse,
@@ -129,6 +147,8 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? pharmInfoResponse = freezed,
     Object? productAppealCountResponse = freezed,
+    Object? oneIdAuthResponse = freezed,
+    Object? productAppealListResponse = freezed,
     Object? getRegionListResponse = null,
     Object? profileDataResponse = freezed,
     Object? statusCountOutsideResponse = freezed,
@@ -143,6 +163,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.productAppealCountResponse
           : productAppealCountResponse // ignore: cast_nullable_to_non_nullable
               as ProductAppealCountResponse?,
+      oneIdAuthResponse: freezed == oneIdAuthResponse
+          ? _value.oneIdAuthResponse
+          : oneIdAuthResponse // ignore: cast_nullable_to_non_nullable
+              as OneIdAuthResponse?,
+      productAppealListResponse: freezed == productAppealListResponse
+          ? _value.productAppealListResponse
+          : productAppealListResponse // ignore: cast_nullable_to_non_nullable
+              as ProductAppealListResponse?,
       getRegionListResponse: null == getRegionListResponse
           ? _value._getRegionListResponse
           : getRegionListResponse // ignore: cast_nullable_to_non_nullable
@@ -170,6 +198,8 @@ class _$InitialImpl implements Initial {
   const _$InitialImpl(
       {this.pharmInfoResponse,
       this.productAppealCountResponse,
+      this.oneIdAuthResponse,
+      this.productAppealListResponse,
       final List<GetRegionListResponse?> getRegionListResponse = const [],
       this.profileDataResponse,
       this.statusCountOutsideResponse,
@@ -180,6 +210,10 @@ class _$InitialImpl implements Initial {
   final PharmInfoResponse? pharmInfoResponse;
   @override
   final ProductAppealCountResponse? productAppealCountResponse;
+  @override
+  final OneIdAuthResponse? oneIdAuthResponse;
+  @override
+  final ProductAppealListResponse? productAppealListResponse;
   final List<GetRegionListResponse?> _getRegionListResponse;
   @override
   @JsonKey()
@@ -200,7 +234,7 @@ class _$InitialImpl implements Initial {
 
   @override
   String toString() {
-    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, productAppealCountResponse: $productAppealCountResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse, isErrorOccurredWhileGettingPharmInfo: $isErrorOccurredWhileGettingPharmInfo)';
+    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, productAppealCountResponse: $productAppealCountResponse, oneIdAuthResponse: $oneIdAuthResponse, productAppealListResponse: $productAppealListResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse, isErrorOccurredWhileGettingPharmInfo: $isErrorOccurredWhileGettingPharmInfo)';
   }
 
   @override
@@ -214,6 +248,11 @@ class _$InitialImpl implements Initial {
                     productAppealCountResponse) ||
                 other.productAppealCountResponse ==
                     productAppealCountResponse) &&
+            (identical(other.oneIdAuthResponse, oneIdAuthResponse) ||
+                other.oneIdAuthResponse == oneIdAuthResponse) &&
+            (identical(other.productAppealListResponse,
+                    productAppealListResponse) ||
+                other.productAppealListResponse == productAppealListResponse) &&
             const DeepCollectionEquality()
                 .equals(other._getRegionListResponse, _getRegionListResponse) &&
             (identical(other.profileDataResponse, profileDataResponse) ||
@@ -233,6 +272,8 @@ class _$InitialImpl implements Initial {
       runtimeType,
       pharmInfoResponse,
       productAppealCountResponse,
+      oneIdAuthResponse,
+      productAppealListResponse,
       const DeepCollectionEquality().hash(_getRegionListResponse),
       profileDataResponse,
       statusCountOutsideResponse,
@@ -249,6 +290,8 @@ abstract class Initial implements PharmInfoState {
   const factory Initial(
       {final PharmInfoResponse? pharmInfoResponse,
       final ProductAppealCountResponse? productAppealCountResponse,
+      final OneIdAuthResponse? oneIdAuthResponse,
+      final ProductAppealListResponse? productAppealListResponse,
       final List<GetRegionListResponse?> getRegionListResponse,
       final ProfileDataResponse? profileDataResponse,
       final StatusCountOutsideResponse? statusCountOutsideResponse,
@@ -258,6 +301,10 @@ abstract class Initial implements PharmInfoState {
   PharmInfoResponse? get pharmInfoResponse;
   @override
   ProductAppealCountResponse? get productAppealCountResponse;
+  @override
+  OneIdAuthResponse? get oneIdAuthResponse;
+  @override
+  ProductAppealListResponse? get productAppealListResponse;
   @override
   List<GetRegionListResponse?> get getRegionListResponse;
   @override

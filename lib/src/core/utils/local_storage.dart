@@ -73,6 +73,12 @@ class LocalStorage{
     }
   }
 
+  Future<void> setUserPassword(String? userPassword) async {
+    if (_preferences != null) {
+      await _preferences!.setString(AppConstants.keyUserPassword, userPassword ?? '');
+    }
+  }
+
   String getFullNameName() => _preferences?.getString(AppConstants.keyFullName) ??'';
   String getUserImageUrl() => _preferences?.getString(AppConstants.keyUserImageUrl) ??'';
 
@@ -98,6 +104,8 @@ class LocalStorage{
 
   String getUserName() => _preferences?.getString(AppConstants.keyUserName) ??'';
 
+  String getUserPassword() => _preferences?.getString(AppConstants.keyUserPassword) ??'';
+
   String getPinCode() => _preferences?.getString(AppConstants.keyPinCode) ??'';
 
   String getUserPhone() => _preferences?.getString(AppConstants.keyUserPhone) ??'';
@@ -106,6 +114,8 @@ class LocalStorage{
 
   void deleteUserId() => _preferences?.remove(AppConstants.keyUserId);
   void deleteUsername() => _preferences?.remove(AppConstants.keyUserName);
+  void deleteFullName() => _preferences?.remove(AppConstants.keyFullName);
+  void deleteUserPassword() => _preferences?.remove(AppConstants.keyUserPassword);
   void deleteUserPhone() => _preferences?.remove(AppConstants.keyUserPhone);
   void deletePinCode() => _preferences?.remove(AppConstants.keyPinCode);
 

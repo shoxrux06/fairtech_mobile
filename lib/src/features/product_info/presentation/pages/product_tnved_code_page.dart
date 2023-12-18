@@ -1,3 +1,4 @@
+import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/components/input/custom_text_field.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
@@ -17,71 +18,93 @@ class ProductTnVedCodePage extends StatefulWidget {
 
 class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
   final codeController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductInfoBloc, ProductInfoState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: CustomAppBar(title: state.productInfoResponse?.status == 1?'Natijalar': 'TnVed kod orqali yuborish'),
-            body: ModalProgressHUD(
-              inAsyncCall: state.isGettingProductData,
-              child: (state.productInfoResponse?.status == 1)?
-              TnVedCodeResponseWidget(productInfoResponse: state.productInfoResponse):
-              Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('TnVed kodni kiriting'),
-                    AppUtils.kGap4,
-                    CustomTextField(
-                      keyboardType: TextInputType.number,
-                      inputAction: TextInputAction.done,
-                      controller: codeController,
-                      hintText: '- - - - - - - - - -',
-                      onFieldSubmitted: (value) {
-                        context.read<ProductInfoBloc>().add(
-                          GetProductInfoByTnVedEvent(
-                              onSuccess: () {
-                                if(state.productInfoResponse?.status == -1){
-                                  AppSnackBar.showErrorSnackBar(context, 'Xatolik yuz berdi','So\'rov notog\'ri yuborilgan');
-                                }else if(state.productInfoResponse?.status == 1){
-                                  AppSnackBar.showSuccessSnackBar(context, 'Muvaffaqiyatli yuklab olindi','Ma\'lumotlar muaffaqiyatli olib kelindi');
+      builder: (context, state) {
+        return Scaffold(
+          appBar: CustomAppBar(
+              title: (state.productInfoResponse?.status == 1 || state.productInfoResponse?.status == 0 || state.productInfoResponse == null)
+                  ? 'Natijalar'
+                  : 'TnVed kod orqali yuborish'),
+          body: ModalProgressHUD(
+            inAsyncCall: state.isGettingProductData,
+            child: (state.productInfoResponse?.status == 1)
+                ? TnVedCodeResponseWidget(
+                    productInfoResponse: state.productInfoResponse)
+                : (state.productInfoResponse?.status == 0)
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            'Tanlangan mahsulot "Milliy tasnif" da ro\'yxatdan o\'tmagan',
+                            style: context.textStyle.regularTitle2
+                                .copyWith(color: Colors.black),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('TnVed kodni kiriting'),
+                            AppUtils.kGap4,
+                            CustomTextField(
+                              keyboardType: TextInputType.number,
+                              inputAction: TextInputAction.done,
+                              controller: codeController,
+                              hintText: '- - - - - - - - - -',
+                              onFieldSubmitted: (value) {
+                                if (value.length == 10) {
+                                  context.read<ProductInfoBloc>().add(
+                                        GetProductInfoByTnVedEvent(
+                                            context: context,
+                                            onSuccess: () {},
+                                            onError: () {
+                                              AppSnackBar.showErrorSnackBar(
+                                                  context,
+                                                  'Xatolik yuz berdi',
+                                                  'Server xatoligi yoki noto\'g\'ri so\'rov');
+                                            },
+                                            tnVedCode: value),
+                                      );
+                                } else {
+                                  AppSnackBar.showWarningSnackBar(context,
+                                      'TnVed kod noto\'g\'ri kiritilgan');
                                 }
                               },
-                              onError: () {
-                                AppSnackBar.showErrorSnackBar(context,'Error', 'Error');
-                              },
-                              tnVedCode: value
-                          ),
-                        );
-                      },
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            context.read<ProductInfoBloc>().add(
-                              GetProductInfoByTnVedEvent(
-                                onSuccess: () {
-                                  if(state.productInfoResponse?.status == -1){
-                                    AppSnackBar.showErrorSnackBar(context, 'Xatolik yuz berdi','So\'rov notog\'ri yuborilgan');
-                                  }else if(state.productInfoResponse?.status == 1){
-                                    AppSnackBar.showSuccessSnackBar(context, 'Muvaffaqiyatli yuklab olindi','Ma\'lumotlar muaffaqiyatli olib kelindi');
-                                  }
-                                },
-                                onError: () {
-                                  AppSnackBar.showErrorSnackBar(context,'Error', 'Error');
-                                },
-                                tnVedCode: codeController.text,
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.search)),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    if (codeController.text.length == 10) {
+                                      context.read<ProductInfoBloc>().add(
+                                            GetProductInfoByTnVedEvent(
+                                              context: context,
+                                              onSuccess: () {},
+                                              onError: () {
+                                                AppSnackBar.showErrorSnackBar(
+                                                    context,
+                                                    'Xatolik yuz berdi',
+                                                    'Server xatoligi yoki noto\'g\'ri so\'rov');
+                                              },
+                                              tnVedCode: codeController.text,
+                                            ),
+                                          );
+                                    } else {
+                                      AppSnackBar.showWarningSnackBar(context,
+                                          'TnVed kod noto\'g\'ri kiritilgan');
+                                    }
+                                  },
+                                  icon: const Icon(Icons.search)),
+                            ),
+                          ],
+                        ),
+                      ),
+          ),
+        );
+      },
+    );
   }
 }

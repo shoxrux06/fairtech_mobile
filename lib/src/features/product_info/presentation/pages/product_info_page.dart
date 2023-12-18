@@ -1,7 +1,9 @@
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/features/product_info/data/models/mxik_and_shtrix_code_response.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductInfoPage extends StatefulWidget {
   const ProductInfoPage({super.key, required this.mxikAndShtrixCodeResponse});
@@ -12,93 +14,93 @@ class ProductInfoPage extends StatefulWidget {
 }
 
 class _ProductInfoPageState extends State<ProductInfoPage> {
-  String imgUrl =
-      'https://storage.kun.uz/source/7/kbM87woJPO9r4hxDNcirjUQeO-3ySJnJ.jpg';
-
   bool isMoreClicked = false;
+
+  List<Package>? packages = [];
+  MxikInfo? mxikInfo;
+  Data? data;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getInfo();
+    super.initState();
+  }
+
+  getInfo(){
+    data = widget.mxikAndShtrixCodeResponse?.data;
+    mxikInfo = widget.mxikAndShtrixCodeResponse?.data.mxikInfo;
+    if(mxikInfo?.packages.isNotEmpty?? false){
+      packages = mxikInfo?.packages;
+    }
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    final data = widget.mxikAndShtrixCodeResponse?.data;
-    final mxikInfo = widget.mxikAndShtrixCodeResponse?.data.mxikInfo;
-    final markingInfo = widget.mxikAndShtrixCodeResponse?.data.markingInfo;
-
-    print('mxikInfo **$mxikInfo**');
-    print('markingInfo **$markingInfo**');
-
     return Column(
       children: [
         AppUtils.kGap40,
         AppUtils.kGap40,
-        // CachedNetworkImage(
-        //   placeholder:(context,url) => Image.asset("assets/images/placeholder.jpg"),
-        //   imageUrl: markingInfo?.catalogData[0].productImageUrl??'',
-        // ),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                customListTile(Icons.local_drink, 'Tovar nomi', '${mxikInfo?.className}'),
-                customListTile(Icons.document_scanner, 'Shtrix-kodi', '${mxikInfo?.internationalCode}'),
-                customListTile(Icons.branding_watermark, 'Brend', '${mxikInfo?.brandName}'),
-                customListTile(Icons.confirmation_number_sharp, 'MXIK', '${data?.mxikCode}'),
-                // customListTile(Icons.confirmation_number_sharp, 'Paket kod', '${mxikInfo?.packages.isNotEmpty?mxikInfo?.packages[0].packageCode: ''}'),
-                customListTile(Icons.info, 'Tovar tavsifi', '${mxikInfo?.subPositionName}'),
+                customListTile(Icons.local_drink, 'Tovar nomi', mxikInfo?.className ?? '---'),
+                customListTile(Icons.document_scanner, 'Shtrix-kodi', mxikInfo?.internationalCode ?? '---'),
+                customListTile(Icons.branding_watermark, 'Brend', mxikInfo?.brandName ?? '---'),
+                customListTile(Icons.confirmation_number_sharp, 'MXIK', data?.mxikCode ?? '---'),
+                customListTile(Icons.info, 'Tovar tavsifi', mxikInfo?.subPositionName ?? '---'),
                 isMoreClicked?Container():Align(
                   alignment: Alignment.center,
                   child: TextButton(onPressed: (){
                     setState(() {
                       isMoreClicked = !isMoreClicked;
                     });
+                    context.read<ProductInfoBloc>().add(
+                        GetProductInfoByMxikCodeEvent(context: context,onSuccess: (){}, onError: (){}, lang: 'uz_latin', mxikCode: '${data?.mxikCode}')
+                    );
                   }, child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.keyboard_arrow_down),
-                      Text('More info',style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor, fontSize: 14)),
+                      Text('Ko\'proq ma\'lumot',style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor, fontSize: 14)),
                     ],
                   )),
                 ),
-                isMoreClicked? const Column(
+                AppUtils.kGap12,
+                isMoreClicked? Column(
                   children: [
-                    // customListTile(Icons.document_scanner, 'Paket nomi', '${mxikInfo?.packages[0].packageName}'),
-                    // customListTile(Icons.document_scanner, 'energyValue', '38'),
-                    // customListTile(Icons.date_range, 'bestBeforeDate', '6'),
-                    // customListTile(Icons.no_adult_content, 'isItFlavored', 'Нет'),
-                    // customListTile(Icons.ac_unit_outlined, 'recommendationsForUse', 'в холодном виде'),
-                    // customListTile(Icons.grade, 'minRelativeHumidity', '+5 C'),
-                    // customListTile(Icons.percent, 'maxTemperature', '70%'),
-                    // customListTile(Icons.no_adult_content, 'containsGMOs', 'Нет'),
-                    // customListTile(Icons.height, 'height', '17'),
-                    // customListTile(Icons.deblur, 'depth', '6.2'),
-                    // customListTile(Icons.width_full, 'width', '6.2'),
-                    // customListTile(Icons.grid_on_sharp, 'grossWeight', '60.43'),
-                    // customListTile(Icons.restore_from_trash_rounded, 'tradeNameProduct', 'Пиво светлое фильтрованное ASIA STANDARD 4% 0.45л'),
-                    // customListTile(Icons.compare, 'compound', 'солод, хмель, вода.'),
-                    // customListTile(Icons.barcode_reader, 'typeOfPackaging', 'Баночка'),
-                    // customListTile(Icons.pan_tool_alt, 'packagingMaterial', 'Алюминий'),
-                    // customListTile(Icons.face, 'precautionaryMeasures', 'Алкоголь противопоказан лицам, не достигшим 21 года, беременным и кормящим женщинам, лицам с заболеваниями центральной нервной системы, почек, печени и органов пищеварения'),
-                    // customListTile(Icons.ac_unit_outlined, 'standardNumber', '31711-2012'),
-                    // customListTile(Icons.countertops, 'countryOfOrigin', 'Узбекистан'),
-                    // customListTile(Icons.percent, 'maxRelativeHumidity', '75%'),
-                    // customListTile(Icons.dark_mode, 'specialStorageConditions', 'в тени'),
-                    // customListTile(Icons.no_adult_content, 'marketCirculationSign', 'Нет'),
-                    // customListTile(Icons.map, 'netMeasure', '0.45'),
-                    // customListTile(Icons.line_axis, 'processingMethod', 'Пастеризованное'),
-                    // customListTile(Icons.ac_unit_outlined, 'companyName', 'PULSAR GROUP BREWERY" MAS‘ULIYATI CHEKLANGAN JAMIYATI'),
-                    // customListTile(Icons.insert_drive_file_sharp, 'taxID', '302798310'),
-                    // customListTile(Icons.preview_sharp, 'GCPrefix', '302798310'),
-                    // customListTile(Icons.ac_unit_outlined, 'numberOfTheDocumentConfirmingCompliance', 'UZ.SMT.01.331.2464995'),
-                    // customListTile(Icons.date_range, 'documentIssueDate', '08.08.2019'),
-                    // customListTile(Icons.date_range, 'documentValidityPeriod', '08.08.2019'),
-                    // customListTile(Icons.ac_unit_outlined, 'markOfConformity', 'O`z DSt'),
-                    // customListTile(Icons.ac_unit_outlined, 'closureType', 'O`z DSt'),
-                    // customListTile(Icons.date_range, 'closureMaterial', 'O`z DSt'),
-                    // customListTile(Icons.date_range, 'typeOfAlcoholicProducts', 'Пиво'),
-                    // customListTile(Icons.date_range, 'typeOfOutput', 'Светлое'),
-                    // customListTile(Icons.filter_alt_rounded, 'isUnfiltered', 'Нет'),
-                    // customListTile(Icons.ac_unit_outlined, 'initialWortExtractivity', '10 %'),
-                    // customListTile(Icons.no_drinks, 'alcoholCategory', 'Пивоваренный продукт'),
+                    Text('Biriktirilgan o\'lchov birliklari',style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+                    AppUtils.kGap24,
+                    ...?packages?.map((pack) => Container(
+                      padding: EdgeInsets.all(12),
+                      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.grey.shade100,
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(child: Text('O\'lchov birligi',style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor))),
+                              const SizedBox(width: 12,),
+                              Expanded(child: Text(pack.packageName ?? '---',style: context.textStyle.regularBody.copyWith(color: context.theme.primaryColor), maxLines: 20,overflow: TextOverflow.ellipsis,))
+                            ],
+                          ),
+                          AppUtils.kGap8,
+                          Row(
+                            children: [
+                              Expanded(child: Text('Kod',style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor))),
+                              const SizedBox(width: 12,),
+                              Expanded(child: Text('${pack.packageCode ?? '---'}',style: context.textStyle.regularBody.copyWith(color: context.theme.primaryColor), maxLines: 20,overflow: TextOverflow.ellipsis,))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ))
                   ],
                 ): Container(),
                 isMoreClicked?Align(
@@ -111,7 +113,7 @@ class _ProductInfoPageState extends State<ProductInfoPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(Icons.keyboard_arrow_up),
-                      Text('Less info',style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor, fontSize: 14)),
+                      Text('Berkitish',style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor, fontSize: 14)),
                     ],
                   )),
                 ): Container(),

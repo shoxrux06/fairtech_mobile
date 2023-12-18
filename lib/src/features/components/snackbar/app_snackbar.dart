@@ -68,7 +68,7 @@ class AppSnackBar {
           desc,
           style: TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
         ),
-      )..show(context);
+      ).show(context);
     });
   }
 

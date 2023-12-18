@@ -25,9 +25,9 @@ mixin _$ProductInfoState {
   bool get isGettingProductData => throw _privateConstructorUsedError;
   bool get isGettingProductDataByScanner => throw _privateConstructorUsedError;
   bool get isGettingProductDataByMxikCode => throw _privateConstructorUsedError;
-  bool get isGotProductData => throw _privateConstructorUsedError;
-  bool get isGotProductDataByScanner => throw _privateConstructorUsedError;
-  bool get isGotProductDataByMxikCode => throw _privateConstructorUsedError;
+  bool get isSuccessProductData => throw _privateConstructorUsedError;
+  bool get isSuccessProductDataByScanner => throw _privateConstructorUsedError;
+  bool get isSuccessProductDataByMxikCode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductInfoStateCopyWith<ProductInfoState> get copyWith =>
@@ -47,9 +47,9 @@ abstract class $ProductInfoStateCopyWith<$Res> {
       bool isGettingProductData,
       bool isGettingProductDataByScanner,
       bool isGettingProductDataByMxikCode,
-      bool isGotProductData,
-      bool isGotProductDataByScanner,
-      bool isGotProductDataByMxikCode});
+      bool isSuccessProductData,
+      bool isSuccessProductDataByScanner,
+      bool isSuccessProductDataByMxikCode});
 }
 
 /// @nodoc
@@ -71,9 +71,9 @@ class _$ProductInfoStateCopyWithImpl<$Res, $Val extends ProductInfoState>
     Object? isGettingProductData = null,
     Object? isGettingProductDataByScanner = null,
     Object? isGettingProductDataByMxikCode = null,
-    Object? isGotProductData = null,
-    Object? isGotProductDataByScanner = null,
-    Object? isGotProductDataByMxikCode = null,
+    Object? isSuccessProductData = null,
+    Object? isSuccessProductDataByScanner = null,
+    Object? isSuccessProductDataByMxikCode = null,
   }) {
     return _then(_value.copyWith(
       productInfoResponse: freezed == productInfoResponse
@@ -100,17 +100,17 @@ class _$ProductInfoStateCopyWithImpl<$Res, $Val extends ProductInfoState>
           ? _value.isGettingProductDataByMxikCode
           : isGettingProductDataByMxikCode // ignore: cast_nullable_to_non_nullable
               as bool,
-      isGotProductData: null == isGotProductData
-          ? _value.isGotProductData
-          : isGotProductData // ignore: cast_nullable_to_non_nullable
+      isSuccessProductData: null == isSuccessProductData
+          ? _value.isSuccessProductData
+          : isSuccessProductData // ignore: cast_nullable_to_non_nullable
               as bool,
-      isGotProductDataByScanner: null == isGotProductDataByScanner
-          ? _value.isGotProductDataByScanner
-          : isGotProductDataByScanner // ignore: cast_nullable_to_non_nullable
+      isSuccessProductDataByScanner: null == isSuccessProductDataByScanner
+          ? _value.isSuccessProductDataByScanner
+          : isSuccessProductDataByScanner // ignore: cast_nullable_to_non_nullable
               as bool,
-      isGotProductDataByMxikCode: null == isGotProductDataByMxikCode
-          ? _value.isGotProductDataByMxikCode
-          : isGotProductDataByMxikCode // ignore: cast_nullable_to_non_nullable
+      isSuccessProductDataByMxikCode: null == isSuccessProductDataByMxikCode
+          ? _value.isSuccessProductDataByMxikCode
+          : isSuccessProductDataByMxikCode // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -131,9 +131,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool isGettingProductData,
       bool isGettingProductDataByScanner,
       bool isGettingProductDataByMxikCode,
-      bool isGotProductData,
-      bool isGotProductDataByScanner,
-      bool isGotProductDataByMxikCode});
+      bool isSuccessProductData,
+      bool isSuccessProductDataByScanner,
+      bool isSuccessProductDataByMxikCode});
 }
 
 /// @nodoc
@@ -153,9 +153,9 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? isGettingProductData = null,
     Object? isGettingProductDataByScanner = null,
     Object? isGettingProductDataByMxikCode = null,
-    Object? isGotProductData = null,
-    Object? isGotProductDataByScanner = null,
-    Object? isGotProductDataByMxikCode = null,
+    Object? isSuccessProductData = null,
+    Object? isSuccessProductDataByScanner = null,
+    Object? isSuccessProductDataByMxikCode = null,
   }) {
     return _then(_$InitialImpl(
       productInfoResponse: freezed == productInfoResponse
@@ -182,17 +182,17 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isGettingProductDataByMxikCode
           : isGettingProductDataByMxikCode // ignore: cast_nullable_to_non_nullable
               as bool,
-      isGotProductData: null == isGotProductData
-          ? _value.isGotProductData
-          : isGotProductData // ignore: cast_nullable_to_non_nullable
+      isSuccessProductData: null == isSuccessProductData
+          ? _value.isSuccessProductData
+          : isSuccessProductData // ignore: cast_nullable_to_non_nullable
               as bool,
-      isGotProductDataByScanner: null == isGotProductDataByScanner
-          ? _value.isGotProductDataByScanner
-          : isGotProductDataByScanner // ignore: cast_nullable_to_non_nullable
+      isSuccessProductDataByScanner: null == isSuccessProductDataByScanner
+          ? _value.isSuccessProductDataByScanner
+          : isSuccessProductDataByScanner // ignore: cast_nullable_to_non_nullable
               as bool,
-      isGotProductDataByMxikCode: null == isGotProductDataByMxikCode
-          ? _value.isGotProductDataByMxikCode
-          : isGotProductDataByMxikCode // ignore: cast_nullable_to_non_nullable
+      isSuccessProductDataByMxikCode: null == isSuccessProductDataByMxikCode
+          ? _value.isSuccessProductDataByMxikCode
+          : isSuccessProductDataByMxikCode // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -208,9 +208,9 @@ class _$InitialImpl implements Initial {
       this.isGettingProductData = false,
       this.isGettingProductDataByScanner = false,
       this.isGettingProductDataByMxikCode = false,
-      this.isGotProductData = false,
-      this.isGotProductDataByScanner = false,
-      this.isGotProductDataByMxikCode = false});
+      this.isSuccessProductData = false,
+      this.isSuccessProductDataByScanner = false,
+      this.isSuccessProductDataByMxikCode = false});
 
   @override
   final ProductInfoResponse? productInfoResponse;
@@ -229,17 +229,17 @@ class _$InitialImpl implements Initial {
   final bool isGettingProductDataByMxikCode;
   @override
   @JsonKey()
-  final bool isGotProductData;
+  final bool isSuccessProductData;
   @override
   @JsonKey()
-  final bool isGotProductDataByScanner;
+  final bool isSuccessProductDataByScanner;
   @override
   @JsonKey()
-  final bool isGotProductDataByMxikCode;
+  final bool isSuccessProductDataByMxikCode;
 
   @override
   String toString() {
-    return 'ProductInfoState(productInfoResponse: $productInfoResponse, mxikAndShtrixCodeResponse: $mxikAndShtrixCodeResponse, mxikCodeResponse: $mxikCodeResponse, isGettingProductData: $isGettingProductData, isGettingProductDataByScanner: $isGettingProductDataByScanner, isGettingProductDataByMxikCode: $isGettingProductDataByMxikCode, isGotProductData: $isGotProductData, isGotProductDataByScanner: $isGotProductDataByScanner, isGotProductDataByMxikCode: $isGotProductDataByMxikCode)';
+    return 'ProductInfoState(productInfoResponse: $productInfoResponse, mxikAndShtrixCodeResponse: $mxikAndShtrixCodeResponse, mxikCodeResponse: $mxikCodeResponse, isGettingProductData: $isGettingProductData, isGettingProductDataByScanner: $isGettingProductDataByScanner, isGettingProductDataByMxikCode: $isGettingProductDataByMxikCode, isSuccessProductData: $isSuccessProductData, isSuccessProductDataByScanner: $isSuccessProductDataByScanner, isSuccessProductDataByMxikCode: $isSuccessProductDataByMxikCode)';
   }
 
   @override
@@ -264,15 +264,16 @@ class _$InitialImpl implements Initial {
                     isGettingProductDataByMxikCode) ||
                 other.isGettingProductDataByMxikCode ==
                     isGettingProductDataByMxikCode) &&
-            (identical(other.isGotProductData, isGotProductData) ||
-                other.isGotProductData == isGotProductData) &&
-            (identical(other.isGotProductDataByScanner,
-                    isGotProductDataByScanner) ||
-                other.isGotProductDataByScanner == isGotProductDataByScanner) &&
-            (identical(other.isGotProductDataByMxikCode,
-                    isGotProductDataByMxikCode) ||
-                other.isGotProductDataByMxikCode ==
-                    isGotProductDataByMxikCode));
+            (identical(other.isSuccessProductData, isSuccessProductData) ||
+                other.isSuccessProductData == isSuccessProductData) &&
+            (identical(other.isSuccessProductDataByScanner,
+                    isSuccessProductDataByScanner) ||
+                other.isSuccessProductDataByScanner ==
+                    isSuccessProductDataByScanner) &&
+            (identical(other.isSuccessProductDataByMxikCode,
+                    isSuccessProductDataByMxikCode) ||
+                other.isSuccessProductDataByMxikCode ==
+                    isSuccessProductDataByMxikCode));
   }
 
   @override
@@ -284,9 +285,9 @@ class _$InitialImpl implements Initial {
       isGettingProductData,
       isGettingProductDataByScanner,
       isGettingProductDataByMxikCode,
-      isGotProductData,
-      isGotProductDataByScanner,
-      isGotProductDataByMxikCode);
+      isSuccessProductData,
+      isSuccessProductDataByScanner,
+      isSuccessProductDataByMxikCode);
 
   @JsonKey(ignore: true)
   @override
@@ -303,9 +304,9 @@ abstract class Initial implements ProductInfoState {
       final bool isGettingProductData,
       final bool isGettingProductDataByScanner,
       final bool isGettingProductDataByMxikCode,
-      final bool isGotProductData,
-      final bool isGotProductDataByScanner,
-      final bool isGotProductDataByMxikCode}) = _$InitialImpl;
+      final bool isSuccessProductData,
+      final bool isSuccessProductDataByScanner,
+      final bool isSuccessProductDataByMxikCode}) = _$InitialImpl;
 
   @override
   ProductInfoResponse? get productInfoResponse;
@@ -320,11 +321,11 @@ abstract class Initial implements ProductInfoState {
   @override
   bool get isGettingProductDataByMxikCode;
   @override
-  bool get isGotProductData;
+  bool get isSuccessProductData;
   @override
-  bool get isGotProductDataByScanner;
+  bool get isSuccessProductDataByScanner;
   @override
-  bool get isGotProductDataByMxikCode;
+  bool get isSuccessProductDataByMxikCode;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

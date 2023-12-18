@@ -44,7 +44,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   AppUtils.kGap40,
                   Text(
-                    context.tr('fairTechSignUpText'),
+                    '\“FAIR TECH\” YaAT kirish uchun oneID orqali ro‘yxatdan o‘ting!',
                     style: TextStyle(
                       color: context.theme.primaryColor,
                       fontSize: 24,

@@ -27,7 +27,7 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Product info'),
+      appBar: CustomAppBar(title: 'Tovar (mahsulot)'),
       floatingActionButton: FloatingActionButton(onPressed: (){
         context.push(Routes.qrCode);
       },child: SvgPicture.asset(AppConstants.scannerSvg,color: Colors.white,)),

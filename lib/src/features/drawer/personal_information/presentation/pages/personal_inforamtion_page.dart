@@ -22,7 +22,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<PharmInfoBloc>().add(GetProfileDataEvent());
+    context.read<PharmInfoBloc>().add(GetProfileDataPharmEvent(context: context));
     super.initState();
   }
 

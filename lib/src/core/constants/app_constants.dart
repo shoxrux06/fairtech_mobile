@@ -4,7 +4,9 @@ class AppConstants {
   ///api
   static const baseUrl = 'https://app.fairtech.uz';
   static const redirect = '/api/v.1/product-auth/auth/oneid/redirectUri';
+  static const updateToken = '/api/v.1/product-auth/auth-payload';
   static const editPassword = '/api/v.1/product-auth/edit-password?';
+  static const getProductAppealsList = '/api/v.1/outer-cabinet/list-search-status?';
   static const getProductInfoTnVed = '/api/v.1/bojxona/tnved-code?';
   static const getProductInfoByScanner = '/api/v.1/soliq/getInfo?';
   static const getPharmInfo = '/api/v.1/pharm/searchOutside?';
@@ -19,6 +21,7 @@ class AppConstants {
   static const String keyLang = 'keyLang';
   static const String keyUserId = 'keyUserId';
   static const String keyUserName = 'keyUserName';
+  static const String keyUserPassword = 'keyUserPassword';
   static const String keyFullName = 'keyFullName';
   static const String keyUserPhone = 'keyUserPhone';
   static const String keyThemMode = 'keyThemMode';
@@ -70,6 +73,8 @@ class AppConstants {
   static const String barcodeSvg = 'assets/icons/pi_barcode.svg';
   static const String scanSvg = 'assets/icons/pi_scan.svg';
   static const String allSvg = 'assets/icons/pi_descAll.svg';
+  static const String productNameSvg = 'assets/icons/pi_productName.svg';
+  static const String servicesSvg = 'assets/icons/pi_productLocation.svg';
 
 
   ///png
@@ -86,6 +91,7 @@ class AppConstants {
   static const String ingredientImg = 'assets/images/ingredient.png';
   static const String sunImg = 'assets/images/sun.png';
   static const String noImage = 'assets/images/no_image.png';
+  static const String noInternet = 'assets/images/noInternet.png';
 
 
 }

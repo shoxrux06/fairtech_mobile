@@ -14,17 +14,22 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await LocalStorage.getInstance();
   setUpDependencies();
-  HttpService().setCertificate();
+  // HttpService().setCertificate();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_){
     runApp(
       ModelBinding(
           initialModel: AppOptions(
               themeMode: LocalStorage.instance.themeMode,
-              locale: const Locale('en')
+              locale: const Locale('uz')
           ),
           child:const MyApp()
       ),
     );
+    final token = LocalStorage.instance.getToken();
+    final pincode = LocalStorage.instance.getPinCode();
+
+    print('pincode -->$pincode}');
+    print('token -->$token}');
   }
   );
   FlutterNativeSplash.remove();

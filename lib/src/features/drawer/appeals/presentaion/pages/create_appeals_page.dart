@@ -13,6 +13,7 @@ import 'package:fairtech_mobile/src/features/components/snackbar/app_snackbar.da
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_image_type_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/models/appeal_model.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +33,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   final _fullNameController = TextEditingController();
   final _shortDescController = TextEditingController();
   final _stirController = TextEditingController();
+  int? dropdownValueCategoryId;
   String? dropdownValueCategory;
   String? dropdownPersonType;
 
@@ -150,11 +152,12 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
           state.appealTypeResponse?.list.forEach((element) {
             subCategoryList.add(element.nameUz);
           });
-          dropdownValueCategory = subCategoryList.first;
+          // dropdownValueCategory = subCategoryList.first;
         }
         _phoneNumberController.text = '${state.profileDataResponse?.phoneNumber}';
         if (state.sendAppealResponse?.status == 0) {
-          AppSnackBar.showSuccessSnackBar(context,'Success','${state.sendAppealResponse?.message}');
+          AppSnackBar.showSuccessSnackBar(context,'Muaffaqiyatli yuborildi','${state.sendAppealResponse?.message}');
+          // context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'Created'));
           selectedFileList1 = [];
           selectedFileNameList1 = [];
           setState(() {
@@ -390,12 +393,16 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 isDense: false,
                                 dropdownColor: Colors.white,
                                 style: context.textStyle.regularBody,
+                                hint: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
+                                  child: Text('Murojaat turini tanlang'),
+                                ),
                                 decoration: InputDecoration(
                                   fillColor: context.theme.cardColor,
                                   filled: true,
-                                  hintText: 'Category',
-                                  hintStyle: context.textStyle.regularBody,
+                                  hintText: 'Murojaat turini tanlang',
                                   // prefixIcon: const Icon(Icons.not_listed_location_outlined),
+                                  hintStyle: context.textStyle.regularBody,
                                   border: OutlineInputBorder(
                                     borderRadius:
                                     const BorderRadius.all(Radius.circular(16)),
@@ -444,6 +451,11 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                   );
                                 }).toList(),
                                 onChanged: (String? value) {
+                                  state.appealTypeResponse?.list.forEach((element) {
+                                    if(value == element.nameUz){
+                                      dropdownValueCategoryId = element.id;
+                                    }
+                                  });
                                   setState(() {
                                     dropdownValueCategory = value!;
                                   });
@@ -656,9 +668,12 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                         Expanded(
                             child: CustomButtonWithoutGradient(
                               onTap: () {
-                                if(selectedFileList1.isNotEmpty && _stirController.text.isNotEmpty &&
+                                if(selectedFileList1.isNotEmpty &&
+                                    _stirController.text.isNotEmpty &&
+                                    _stirController.text.length == 9 &&
                                     _shortDescController.text.isNotEmpty &&
-                                fullAddress != null
+                                    dropdownValueCategory != null &&
+                                     fullAddress != null
                                 ){
                                   context.read<AppealsBloc>().add(
                                     SendAppealEvent(
@@ -670,7 +685,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                           applierFullname: '${state.profileDataResponse?.lastName} ${state.profileDataResponse?.firstName} ${state.profileDataResponse?.middleName}',
                                           applierZipcode: 100053,
                                           applierAddress: _addressController.text,
-                                          appealTypeId: 2,
+                                          appealTypeId: dropdownValueCategoryId ?? 0,
                                           appealType: dropdownValueCategory,
                                           appealSubtype: 'appealSubtype',
                                           appealDescription: _shortDescController.text.trim(),

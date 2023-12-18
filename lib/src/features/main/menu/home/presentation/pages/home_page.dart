@@ -2,10 +2,13 @@ import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
+import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/drawer/presentation/custom_drawer.dart';
 import 'package:fairtech_mobile/src/features/main/menu/home/presentation/widgets/active_item.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../widgets/custom_sliver_deligate.dart';
@@ -19,6 +22,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int selectedIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'Created'));
+    context.read<PharmInfoBloc>().add(UpdateUserTokenEvent(context: context, username: LocalStorage.instance.getUserName()));
+    print('bu yerga tushdi 55555');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

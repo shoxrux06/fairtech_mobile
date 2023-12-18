@@ -19,10 +19,14 @@ import 'package:fairtech_mobile/src/features/main/presentation/pages/main_page.d
 import 'package:fairtech_mobile/src/features/drawer/settings/presentation/pages/settings_page.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/pages/pharrm_info_page.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/widgets/all_appeals_widget.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/widgets/completed_appeals_widget.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/widgets/in_the_execution_process_appleas_widget.dart';
 import 'package:fairtech_mobile/src/features/product_info/data/models/product_info_response.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/choose_option_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/mxik_code_page.dart';
+import 'package:fairtech_mobile/src/features/product_info/presentation/pages/mxik_code_service.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_or_service_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_tnved_code_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/qr_code_screen_page.dart';
@@ -318,8 +322,11 @@ class AppGoRouter {
           pageBuilder: (_, state) {
             return CustomTransitionPage(
               transitionDuration: const Duration(milliseconds: 1200),
-              child: BlocProvider(
-                create: (_) => PharmInfoBloc(pharmInfoRepository),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (_) => PharmInfoBloc(pharmInfoRepository),),
+                  BlocProvider(create: (_) => AppealsBloc(appealsRepository),),
+                ],
                 child: const PharmInfoPage(),
               ),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
@@ -366,6 +373,21 @@ class AppGoRouter {
           child: BlocProvider(
             create: (_) => ProductInfoBloc(servicesRepository),
             child: const MxikCodePage(),
+          ),
+          transitionsBuilder: (_, animation, __, child) => FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+            child: child,
+          ),
+        ),
+      ),
+      GoRoute(
+        name: Routes.mxikCodeService,
+        path: Routes.mxikCodeService,
+        pageBuilder: (_, state) => CustomTransitionPage(
+          transitionDuration: const Duration(milliseconds: 1200),
+          child: BlocProvider(
+            create: (_) => ProductInfoBloc(servicesRepository),
+            child: const MxikCodePageService(),
           ),
           transitionsBuilder: (_, animation, __, child) => FadeTransition(
             opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
@@ -438,8 +460,51 @@ class AppGoRouter {
               transitionDuration: const Duration(milliseconds: 1200),
               child: const ServicePage(),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
-                opacity:
-                CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.allAppeals,
+          path: Routes.allAppeals,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: MultiBlocProvider(
+                  providers: [
+                    BlocProvider( create: (_) => PharmInfoBloc(pharmInfoRepository),),
+                    BlocProvider( create: (_) => AppealsBloc(appealsRepository),),
+                  ],
+                  child: const AllAppealsWidget()),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.completedAppeals,
+          path: Routes.completedAppeals,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: const CompletedAppealsWidget(),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                child: child,
+              ),
+            );
+          }),
+      GoRoute(
+          name: Routes.inProcessAppeals,
+          path: Routes.inProcessAppeals,
+          pageBuilder: (_, state) {
+            return CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 1200),
+              child: const InTheExecutionProcessAppealsWidget(),
+              transitionsBuilder: (_, animation, __, child) => FadeTransition(
+                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );

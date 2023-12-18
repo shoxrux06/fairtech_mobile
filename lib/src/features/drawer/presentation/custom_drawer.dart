@@ -179,9 +179,12 @@ class CustomDrawer extends StatelessWidget {
               bool? yes =
                   await showDialog<bool>(context: context, builder: logoutDialog);
               if (yes == true) {
-                print('&&&&&&&&&&&&&&&&');
                 LocalStorage.instance.deleteToken();
                 LocalStorage.instance.deletePinCode();
+                LocalStorage.instance.deleteFullName();
+                LocalStorage.instance.deleteUserPassword();
+                LocalStorage.instance.deleteUserId();
+                LocalStorage.instance.deleteUserPhone();
                 context.pushReplacement(Routes.signIn);
               } else {
                 Navigator.pop(context);
@@ -214,7 +217,7 @@ class CustomDrawer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset(AppConstants.webLabel),
-                    SizedBox(
+                    const SizedBox(
                       width: 12,
                     ),
                     Text(

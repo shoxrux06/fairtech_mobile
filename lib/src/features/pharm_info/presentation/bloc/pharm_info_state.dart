@@ -5,6 +5,8 @@ class PharmInfoState with _$PharmInfoState{
   const factory PharmInfoState({
     PharmInfoResponse? pharmInfoResponse,
     ProductAppealCountResponse? productAppealCountResponse,
+    OneIdAuthResponse? oneIdAuthResponse,
+    ProductAppealListResponse? productAppealListResponse,
     @Default([])List<GetRegionListResponse?> getRegionListResponse,
     ProfileDataResponse? profileDataResponse,
     StatusCountOutsideResponse? statusCountOutsideResponse,

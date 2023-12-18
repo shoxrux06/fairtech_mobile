@@ -19,7 +19,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
   @override
   Future<ApiResult<ProfileDataResponse>> getProfileData(BuildContext context) async {
     try {
-      final client = inject<HttpService>().client(requireAuth: true);
+      final client = inject<HttpService>().client(requireAuth: true, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
       HttpClient()
         ..badCertificateCallback =
@@ -59,7 +59,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
           }),
         )
       });
-      final client = inject<HttpService>().client(requireAuth: true);
+      final client = inject<HttpService>().client(requireAuth: true, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
       HttpClient()
         ..badCertificateCallback =
@@ -80,7 +80,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
   @override
   Future<ApiResult<AppealImageTypeResponse>> getImageTypeList(BuildContext context) async{
     try {
-      final client = inject<HttpService>().client(requireAuth: true);
+      final client = inject<HttpService>().client(requireAuth: true, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
       HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       final response = await client.post(
@@ -94,7 +94,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
       return ApiResult.success(data:AppealImageTypeResponse.fromJson(response.data));
     } catch (e) {
       print('==> products failure: $e');
-      AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
+        AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }
@@ -102,7 +102,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
   @override
   Future<ApiResult<AppealTypeResponse>> getAppealTypeList(BuildContext context) async{
     try {
-      final client = inject<HttpService>().client(requireAuth: true);
+      final client = inject<HttpService>().client(requireAuth: true, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
       HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       final response = await client.post(

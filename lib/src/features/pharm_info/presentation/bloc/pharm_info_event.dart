@@ -23,6 +23,36 @@ class GetPharmInfoEvent extends PharmInfoEvent {
   });
 }
 
-class GetRegionListEvent extends PharmInfoEvent {}
-class GetProfileDataEvent extends PharmInfoEvent {}
-class GetAppealsCountEvent extends PharmInfoEvent {}
+class GetRegionListEvent extends PharmInfoEvent {
+  final BuildContext context;
+
+  GetRegionListEvent(this.context);
+}
+
+class GetProfileDataPharmEvent extends PharmInfoEvent {
+  final BuildContext context;
+
+  GetProfileDataPharmEvent({required this.context});
+}
+
+class UpdateUserTokenEvent extends PharmInfoEvent {
+  final BuildContext context;
+  final String username;
+
+  UpdateUserTokenEvent({required this.context,required this.username});
+}
+
+class GetAppealsCountEvent extends PharmInfoEvent {
+  final BuildContext context;
+
+  GetAppealsCountEvent({required this.context});
+}
+
+
+class GetAppealsListEvent extends PharmInfoEvent {
+  final BuildContext context;
+  final String status;
+
+  GetAppealsListEvent({required this.context, required this.status});
+
+}

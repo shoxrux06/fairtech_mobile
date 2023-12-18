@@ -57,7 +57,7 @@ class _TnVedCodeResponseWidgetState extends State<TnVedCodeResponseWidget> {
                         const SizedBox(width: 12,),
                         Expanded(
                           flex: 2,
-                          child: Text('${productName?.substring(0, productName.indexOf('вес'))}', maxLines: 5,overflow: TextOverflow.ellipsis,style: context.textStyle.regularBody),
+                          child: Text('$productName', maxLines: 5,overflow: TextOverflow.ellipsis,style: context.textStyle.regularBody),
                         )
                       ],
                     ),

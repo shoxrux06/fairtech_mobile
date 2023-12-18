@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
+import 'package:fairtech_mobile/src/features/auth/sign_in/data/models/one_id_auth_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/get_region_list_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/pharm_info_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/product_appeal_count_response.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/data/models/product_appeal_list_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/status_count_outside_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,15 +26,18 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
   PharmInfoBloc(this.pharmInfoRepository) : super(PharmInfoState()) {
     on<GetPharmInfoEvent>(_onGetPharmInfo);
     on<GetRegionListEvent>(_onGetRegionList);
-    on<GetProfileDataEvent>(_onGetProfileData);
+    on<GetProfileDataPharmEvent>(_onGetProfileData);
+    on<UpdateUserTokenEvent>(_updateUserToken);
     on<GetAppealsCountEvent>(_onGetAppealsCount);
+    on<GetAppealsListEvent>(_onGetAppealsList);
   }
 
   FutureOr<void> _onGetPharmInfo(
     GetPharmInfoEvent event,
     Emitter<PharmInfoState> emit,
   ) async {
-    final result = await pharmInfoRepository.getPharmInfo(event.context,event.keyword, event.status, event.itemsPerPage, event.page);
+    final result = await pharmInfoRepository.getPharmInfo(event.context,
+        event.keyword, event.status, event.itemsPerPage, event.page);
     result.when(
       success: (data) {
         event.onSuccess();
@@ -49,7 +54,7 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     GetRegionListEvent event,
     Emitter<PharmInfoState> emit,
   ) async {
-    final result = await pharmInfoRepository.getRegionList();
+    final result = await pharmInfoRepository.getRegionList(event.context);
     result.when(
       success: (data) {
         emit(state.copyWith(getRegionListResponse: data));
@@ -59,10 +64,10 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
   }
 
   FutureOr<void> _onGetProfileData(
-    GetProfileDataEvent event,
+    GetProfileDataPharmEvent event,
     Emitter<PharmInfoState> emit,
   ) async {
-    final result = await pharmInfoRepository.getProfileData();
+    final result = await pharmInfoRepository.getProfileData(event.context);
     result.when(
       success: (data) {
         emit(state.copyWith(profileDataResponse: data));
@@ -80,7 +85,7 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     GetAppealsCountEvent event,
     Emitter<PharmInfoState> emit,
   ) async {
-    final result = await pharmInfoRepository.getAppealsCount();
+    final result = await pharmInfoRepository.getAppealsCount(event.context);
     result.when(
       success: (data) {
         emit(state.copyWith(productAppealCountResponse: data));
@@ -90,6 +95,34 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
         print('created -->${data.created}');
         print('finished --> ${data.finished}');
         print('${data.sendToCourt}');
+      },
+      failure: (failure) {},
+    );
+  }
+
+  FutureOr<void> _onGetAppealsList(
+      GetAppealsListEvent event,
+      Emitter<PharmInfoState> emit,
+      ) async {
+    final result = await pharmInfoRepository.getAppealsList(event.context,event.status);
+    result.when(
+      success: (data) {
+        emit(state.copyWith(productAppealListResponse: data));
+      },
+      failure: (failure) {},
+    );
+  }
+
+  FutureOr<void> _updateUserToken(
+    UpdateUserTokenEvent event,
+    Emitter<PharmInfoState> emit,
+  ) async {
+    final result = await pharmInfoRepository.updateUserToken(event.context,event.username);
+    result.when(
+      success: (data)async {
+        emit(state.copyWith(oneIdAuthResponse: data));
+        print('Token in main page ==> ${data.token}');
+        await LocalStorage.instance.setToken(data.token);
       },
       failure: (failure) {},
     );

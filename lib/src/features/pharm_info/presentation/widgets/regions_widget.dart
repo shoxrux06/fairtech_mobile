@@ -1,7 +1,6 @@
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/components/buttons/custom_button_without_gradient.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +16,7 @@ class _RegionsWidgetState extends State<RegionsWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<PharmInfoBloc>().add(GetRegionListEvent());
+    context.read<PharmInfoBloc>().add(GetRegionListEvent(context));
     super.initState();
   }
   @override

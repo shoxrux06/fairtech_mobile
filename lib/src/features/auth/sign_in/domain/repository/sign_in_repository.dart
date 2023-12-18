@@ -6,5 +6,5 @@ import '../../data/models/one_id_auth_response.dart';
 
 abstract class SignInRepository{
   Future<ApiResult<OneIdAuthResponse>> getOneIdData(BuildContext context,dynamic resultCode);
-  Future<ApiResult<EditPasswordResponse>> editPassword(BuildContext context,int userID,String userName, String password);
+  // Future<ApiResult<EditPasswordResponse>> editPassword(BuildContext context,int userID,String userName, String password);
 }

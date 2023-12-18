@@ -1,4 +1,5 @@
 import 'package:fairtech_mobile/src/core/handlers/http_service.dart';
+import 'package:fairtech_mobile/src/core/platform/network_info.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/data/repository/sign_in_repository_impl.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/domain/repository/sign_in_repository.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:fairtech_mobile/src/features/product_info/data/repository/produc
 import 'package:fairtech_mobile/src/features/product_info/domain/repository/product_info_repository.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -26,6 +28,7 @@ setUpDependencies() {
   sl.registerLazySingleton<StarRepository>(() => StarRepository());
 
   mainFeature();
+  networkFeature();
   servicesFeature();
   signInFeature();
   pharmInfoFeature();
@@ -43,6 +46,11 @@ final stareRepository = sl.get<StarRepository>();
 void mainFeature() {
   /// main
   sl.registerLazySingleton(MainBloc.new);
+}
+void networkFeature() {
+  /// main
+  sl.registerLazySingleton(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton(InternetConnectionChecker.new);
 }
 
 void servicesFeature() {

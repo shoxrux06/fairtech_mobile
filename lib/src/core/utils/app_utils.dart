@@ -1,6 +1,8 @@
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 sealed class AppUtils {
   AppUtils._();
@@ -79,33 +81,5 @@ sealed class AppUtils {
       bottomLeft: Radius.circular(12),
     ),
   );
-
-  // static decoration({bool isHintText = false, String? text}) => InputDecoration(
-  //   fillColor: helperColor,
-  //   filled: true,
-  //   hintText: isHintText?text: null,
-  //   hintStyle: TextStyle(color: disableColor, fontWeight: FontWeight.normal, fontSize: 16),
-  //   // prefixIcon: const Icon(Icons.not_listed_location_outlined),
-  //   border: OutlineInputBorder(
-  //     borderRadius: const BorderRadius.all(Radius.circular(16)),
-  //     borderSide: BorderSide(color: mainColor, width: 0.5),
-  //   ),
-  //   enabledBorder: OutlineInputBorder(
-  //     borderRadius: const BorderRadius.all(Radius.circular(16)),
-  //     borderSide: BorderSide(color: conte, width: 0.5),
-  //   ),
-  //   focusedBorder: OutlineInputBorder(
-  //     borderRadius: const BorderRadius.all(Radius.circular(16)),
-  //     borderSide: BorderSide(color: mainColor, width: 0.5),
-  //   ),
-  //   errorBorder: OutlineInputBorder(
-  //     borderRadius: const BorderRadius.all(Radius.circular(16)),
-  //     borderSide: BorderSide(color: mainColor, width: 0.5),
-  //   ),
-  //   focusedErrorBorder: OutlineInputBorder(
-  //     borderRadius: const BorderRadius.all(Radius.circular(16)),
-  //     borderSide: BorderSide(color: mainColor, width: 0.5),
-  //   ),
-  // );
 
 }

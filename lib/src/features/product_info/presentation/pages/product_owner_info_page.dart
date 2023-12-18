@@ -12,34 +12,18 @@ class ProductOwnerInfoPage extends StatefulWidget {
 class _ProductOwnerInfoPageState extends State<ProductOwnerInfoPage> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        AppUtils.kGap40,
-        AppUtils.kGap40,
-        Center(
-          child: Text('Ishlab chiqaruvchi haqida ma\'lumot topilmadi')
-        )
-        // customListTile(Icons.branding_watermark, 'Korxona nomi', 'Coco cola LTD'),
-        // customListTile(Icons.gps_fixed_rounded, 'Manzil', 'O\'zbekistan, Toshkent'),
-        // customListTile(Icons.confirmation_number_sharp, 'STIR', '123456789'),
-        // customListTile(Icons.info, 'Qo\'shimcha ,ma\'lumotlar', 'Qo\'shimcha ,ma\'lumotlar'),
-      ],
-    );
-  }
-
-  Widget customListTile(IconData icon, String title, String subTitle){
-    return Column(
-      children: [
-        ListTile(
-          leading: Icon(icon,color: context.theme.primaryColor),
-          title: Text(title,style: context.textStyle.regularBody.copyWith(color: context.theme.primaryColor, fontSize: 14)),
-          subtitle: Text(subTitle,style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor),),
-        ),
-        const Divider(
-          height: 1,
-          color: Colors.black12,
-        ),
-      ],
+    return const Padding(
+      padding: EdgeInsets.all(12.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AppUtils.kGap40,
+          AppUtils.kGap40,
+          Center(
+            child: Text('Ishlab chiqaruvchi haqida ma\'lumot topilmadi', textAlign: TextAlign.center,)
+          )
+        ],
+      ),
     );
   }
 }

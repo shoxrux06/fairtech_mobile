@@ -15,11 +15,15 @@ sealed class Routes {
   static const String chooseOption = '/choose_option';
   static const String shtrixCode = '/shtrix_code';
   static const String mxikCode = '/mxik_code';
+  static const String mxikCodeService = '/mxikCodeService';
   static const String tnVedProductDetail = '/tnVed_product_detail';
   static const String selectFromMap = '/select_from_map';
   static const String mainAppeal = '/main_appeal';
   static const String productOrService = '/product_or_service';
   static const String service = '/service';
+  static const String allAppeals = '/allAppeals';
+  static const String completedAppeals = '/completedAppeals';
+  static const String inProcessAppeals = '/inProcessAppeals';
 
   /// auth
   static const String authOneId = '/auth_one_id';

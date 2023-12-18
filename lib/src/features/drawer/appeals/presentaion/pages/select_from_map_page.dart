@@ -112,7 +112,7 @@ class _LocationChooserState extends State<SelectFromMapPage> {
                                         color: Colors.orange.withOpacity(0.5)),
                                     labelStyle: TextStyle(
                                         color: Colors.black.withOpacity(1)),
-                                    labelText: "Address"),
+                                    labelText: "Manzil"),
                                 cursorColor: Colors.black12
                             ),
                             SizedBox(
@@ -125,7 +125,7 @@ class _LocationChooserState extends State<SelectFromMapPage> {
                                     'lane': textEditingController.text,
                                   });
                                 }
-                              },text: 'Save',
+                              },text: 'Saqlash',
                               textColor: Colors.white,
                               ),
                             ),

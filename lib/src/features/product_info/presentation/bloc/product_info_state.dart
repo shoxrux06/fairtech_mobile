@@ -9,9 +9,9 @@ class ProductInfoState with _$ProductInfoState {
     @Default(false) bool isGettingProductData,
     @Default(false) bool isGettingProductDataByScanner,
     @Default(false) bool isGettingProductDataByMxikCode,
-    @Default(false) bool isGotProductData,
-    @Default(false) bool isGotProductDataByScanner,
-    @Default(false) bool isGotProductDataByMxikCode,
+    @Default(false) bool isSuccessProductData,
+    @Default(false) bool isSuccessProductDataByScanner,
+    @Default(false) bool isSuccessProductDataByMxikCode,
 }) = Initial;
 }
 

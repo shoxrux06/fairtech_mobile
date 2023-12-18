@@ -35,7 +35,7 @@ class _TnVedProductDetailPageState extends State<TnVedProductDetailPage> {
                 height: Responsive.height(20, context),
                 fit: BoxFit.fill,
               ),
-              item(context, 'Product nomi', productName.substring(0, productName.indexOf('вес'))),
+              item(context, 'Product nomi', productName),
               item(context, 'Netto', widget.good.weightNetto.toString()),
               item(context, 'Brutto', widget.good.brutto.toString()),
               item(context, 'O\'lchov birligi', widget.good.addedUnitsMeasureName),

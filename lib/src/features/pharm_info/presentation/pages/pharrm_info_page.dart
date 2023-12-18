@@ -1,7 +1,9 @@
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/features/components/dropdown/custom_dropdown_form_filed.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/widgets/all_appeals_widget.dart';
+import 'package:fairtech_mobile/src/features/pharm_info/presentation/widgets/appeal_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +44,7 @@ class _PharmInfoPageState extends State<PharmInfoPage>
         });
       }
     });
-    dropdownValue = list.first;
+    // dropdownValue = list.first;
     context.read<PharmInfoBloc>().add(GetPharmInfoEvent(
         context: context,
         onSuccess: () {},
@@ -68,78 +70,49 @@ class _PharmInfoPageState extends State<PharmInfoPage>
         title: const Text('Online kuzatuv'),
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            CustomDropDownFormField(
-              value: dropdownValue,
-              hintText: 'Murojaat holatini tanlang',
-              items: list,
-              onChanged: (val) {
-                int index = 0;
-                if (val == 'Ijro jarayonida') {
-                  index = 0;
-                } else if (val == 'Yakunlangan') {
-                  index = 1;
-                } else if (val == 'Barchasi') {
-                  index = 2;
-                }
-                sendRequest(index);
-              },
+      body:BlocBuilder<PharmInfoBloc, PharmInfoState>(
+        builder: (context, state){
+          return Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: (state.productAppealListResponse?.list.isEmpty??false)?
+              MainAxisAlignment.center: MainAxisAlignment.start,
+              children: [
+                CustomDropDownFormField(
+                  value: dropdownValue,
+                  hintText: 'Murojaat holatini tanlang',
+                  items: list,
+                  onChanged: (val) {
+                    int index = 0;
+                    if (val == 'Ijro jarayonida') {
+                      index = 0;
+                    } else if (val == 'Yakunlangan') {
+                      index = 1;
+                    } else if (val == 'Barchasi') {
+                      index = 2;
+                    }
+                    sendRequest(index);
+                  },
+                ),
+                (state.productAppealListResponse?.list.isEmpty??false)? Spacer():Container(),
+                AppUtils.kGap4,
+                Expanded(child: AppealWidget(list: state.productAppealListResponse?.list)),
+                (state.productAppealListResponse?.list.isEmpty??false)? Spacer():Container(),
+              ],
             ),
-            AppUtils.kGap24,
-            Spacer(),
-            AllAppealsWidget(),
-            Spacer(),
-          ],
-        ),
-      ),
+          );
+        },
+      )
     );
   }
 
   void sendRequest(int index) {
     if (index == 0) {
-      context.read<PharmInfoBloc>().add(GetPharmInfoEvent(
-          context: context,
-          onSuccess: () {
-            if (kDebugMode) {
-              print('Success');
-            }
-          },
-          onError: () {
-            print('Error');
-          },
-          keyword: '',
-          status: SearchStatus.PROCCESS.name,
-          itemsPerPage: 20,
-          page: 0));
+      context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'PROCESS'));
     } else if (index == 1) {
-      context.read<PharmInfoBloc>().add(GetPharmInfoEvent(
-          context: context,
-          onSuccess: () {
-            print('Success');
-          },
-          onError: () {
-            print('Error');
-          },
-          keyword: '',
-          status: SearchStatus.FINISHED.name,
-          itemsPerPage: 20,
-          page: 0));
+      context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'FINISHED'));
     } else if (index == 2) {
-      context.read<PharmInfoBloc>().add(GetPharmInfoEvent(
-          context: context,
-          onSuccess: () {
-            print('Success');
-          },
-          onError: () {
-            print('Error');
-          },
-          keyword: '',
-          status: SearchStatus.ALL.name,
-          itemsPerPage: 20,
-          page: 0));
+      context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'Created'));
     }
-  }
+}
 }

@@ -30,6 +30,7 @@ class _ScannerResultPageState extends State<ScannerResultPage>
 
 
   int _selectedIndex = 0;
+  bool isNothing = false;
 
   final list = [
     'Mahsulot',
@@ -51,30 +52,40 @@ class _ScannerResultPageState extends State<ScannerResultPage>
         });
       }
     });
-    context.read<ProductInfoBloc>().add(GetProductInfoByScannerEvent(onSuccess: (){}, onError: (){}, lang: 'uz_latin', internationalCode: widget.code));
+    context.read<ProductInfoBloc>().add(GetProductInfoByScannerEvent(
+        context: context,
+        onSuccess: (){
+
+        },
+        onError: (){},
+        lang: 'uz_latin',
+        internationalCode: widget.code)
+    );
     super.initState();
   }
-
-  bool isNothing = false;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppealsBloc(appealsRepository),
-      child: BlocConsumer<ProductInfoBloc,ProductInfoState>(
-        listener: (context,state){
-          isNothing = (state.mxikAndShtrixCodeResponse?.data.mxikInfo.internationalCode.isEmpty?? false)
-              && (state.mxikAndShtrixCodeResponse?.data.mxikCode.isEmpty ?? false);
-          print('isNothing <<<<$isNothing>>>>>');
-          },
-        builder: (context,state){
-          return ModalProgressHUD(
-            inAsyncCall: state.isGettingProductData,
-            child: Scaffold(
+    return BlocBuilder<ProductInfoBloc,ProductInfoState>(
+      builder: (context,state){
+        if(state.isGettingProductDataByScanner){
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator(),),
+          );
+        }else{
+          if(state.isSuccessProductDataByScanner){
+            if((state.mxikAndShtrixCodeResponse?.data.mxikInfo.internationalCode.isEmpty?? false) &&
+                (state.mxikAndShtrixCodeResponse?.data.mxikCode.isEmpty ?? false)){
+              return Scaffold(
+                appBar: CustomAppBar(title: 'Ma\'lumotlar'),
+                body: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Center(child: Text('Tanlangan mahsulot "Milliy tasnif" da ro\'yxatdan o\'tmagan',style:context.textStyle.regularTitle2.copyWith(color: Colors.black),textAlign: TextAlign.center,),),
+                ),
+              );
+            }
+            return Scaffold(
               appBar: CustomAppBar(title: 'Ma\'lumotlar'),
-              body:isNothing? Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Center(child: Text('Tanlangan mahsulot "Milliy tasnif" da ro\'yxatdan o\'tmagan',style:context.textStyle.regularTitle2.copyWith(color: Colors.black),textAlign: TextAlign.center,),),
-              ): Stack(
+              body:Stack(
                 children: [
                   PageView.builder(
                       controller: controller,
@@ -123,10 +134,18 @@ class _ScannerResultPageState extends State<ScannerResultPage>
                   ),
                 ],
               ),
-            ),
-          );
-        },
-      )
+            );
+          }else{
+            return Scaffold(
+              body: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Center(child: Text('Server xatoligi yoki noto\'g\'ri so\'rov',style:context.textStyle.regularTitle2.copyWith(color: Colors.red),textAlign: TextAlign.center,),),
+              ),
+            );
+          }
+        }
+
+      },
     );
   }
 
