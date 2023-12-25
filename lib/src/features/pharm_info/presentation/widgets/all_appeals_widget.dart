@@ -94,7 +94,7 @@ class _AllAppealsWidgetState extends State<AllAppealsWidget> {
                             children: [
                               Expanded(child: Text('Murojaat yuborilgan sana',style: context.textStyle.largeTitle2,)),
                               AppUtils.kGap12,
-                              Expanded(child: Text('---', style: context.textStyle.regularTitle1,))
+                              Expanded(child: Text(item.createJson.substring(0,item.createJson.indexOf(' '))??'---', style: context.textStyle.regularTitle1,))
                             ],
                           ),
                         ],

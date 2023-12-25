@@ -1,8 +1,6 @@
-
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 sealed class AppUtils {
   AppUtils._();
@@ -79,6 +77,44 @@ sealed class AppUtils {
     borderRadius: BorderRadius.only(
       bottomRight: Radius.circular(12),
       bottomLeft: Radius.circular(12),
+    ),
+  );
+
+  static inputDecoration(BuildContext context, String hintText) => InputDecoration(
+    fillColor: context.theme.cardColor,
+    filled: true,
+    hintText: '',
+    // prefixIcon: const Icon(Icons.not_listed_location_outlined),
+    hintStyle: context.textStyle.regularBody,
+    border: OutlineInputBorder(
+      borderRadius:
+      const BorderRadius.all(Radius.circular(16)),
+      borderSide: BorderSide(
+          color: context.theme.primaryColor, width: 1),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius:
+      const BorderRadius.all(Radius.circular(16)),
+      borderSide: BorderSide(
+          color: context.theme.primaryColor, width: 1),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius:
+      const BorderRadius.all(Radius.circular(16)),
+      borderSide: BorderSide(
+          color: context.theme.primaryColor, width: 1),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius:
+      const BorderRadius.all(Radius.circular(16)),
+      borderSide: BorderSide(
+          color: context.theme.primaryColor, width: 1),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius:
+      const BorderRadius.all(Radius.circular(16)),
+      borderSide: BorderSide(
+          color: context.theme.primaryColor, width: 1),
     ),
   );
 

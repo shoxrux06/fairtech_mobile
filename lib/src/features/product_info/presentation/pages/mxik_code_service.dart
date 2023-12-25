@@ -291,10 +291,9 @@ class _MxikCodePageServiceState extends State<MxikCodePageService> {
                         controller: codeController,
                         hintText: '- - - - - - - - - - - - - - - - -',
                         onFieldSubmitted: (value) {
-
-                          String hasValue = value.substring(0,3);
                           bool isHas = false;
                           if(value.length == 17){
+                            String hasValue = value.substring(0,3);
                             for (var element in list) {
                               if(hasValue == element){
                                 isHas = true;
@@ -316,9 +315,9 @@ class _MxikCodePageServiceState extends State<MxikCodePageService> {
                         },
                         suffixIcon: IconButton(
                             onPressed: () {
-                              String hasValue = codeController.text.substring(0,3);
                               bool isHas = false;
                               if(codeController.text.length == 17){
+                                String hasValue = codeController.text.substring(0,3);
                                 for (var element in list) {
                                   if(hasValue == element){
                                     isHas = true;
@@ -336,6 +335,7 @@ class _MxikCodePageServiceState extends State<MxikCodePageService> {
                               }else{
                                 AppSnackBar.showWarningSnackBar(context, 'Mxik kod noto\'g\'ri kiritilgan');
                               }
+                              FocusManager.instance.primaryFocus?.unfocus();
                             },
                             icon: const Icon(Icons.search)
                         ),

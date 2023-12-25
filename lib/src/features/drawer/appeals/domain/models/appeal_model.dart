@@ -4,10 +4,10 @@ class AppealModel {
   final String sender;
   final String applierType;
   final String applierJshshir;
-  final String? applierNumber;
   final String? applierFullname;
   final int? applierZipcode;
   final String? applierAddress;
+  final String? applierPhone;
   final int appealTypeId;
   final String? appealType;
   final String? appealSubtype;
@@ -16,6 +16,7 @@ class AppealModel {
   final List<int> documentTypeIds;
   final String lang;
   final String lat;
+  final String latAddress;
   final String orgTin;
   final String physicalTin;
   final bool checkbox;
@@ -27,37 +28,18 @@ class AppealModel {
     required this.applierFullname,
     required this.applierZipcode,
     required this.applierAddress,
+    required this.applierPhone,
     required this.appealTypeId,
     required this.appealType,
     required this.appealSubtype,
     required this.appealDescription,
-    required this.applierNumber,
     required this.appealFileList,
     required this.documentTypeIds,
     required this.lang,
     required this.lat,
+    required this.latAddress,
     required this.orgTin,
     required this.physicalTin,
     required this.checkbox,
   });
-
-  Map<String, dynamic> toJson() => {
-        "sender": sender,
-        "applier_type": applierType,
-        "applier_jshshir": applierJshshir,
-        "applier_number": applierNumber,
-        "applier_fullname": applierFullname,
-        "applier_zipcode": applierZipcode,
-        "applier_address": applierAddress,
-        "appealType_id": appealTypeId,
-        "appeal_type": appealType,
-        "appeal_subtype": appealSubtype,
-        "appeal_description": appealDescription,
-        "appeal_file": appealFileList,
-        "documentTypeIds": documentTypeIds,
-        "lang": lang,
-        "org_tin": orgTin,
-        "physical_tin": orgTin,
-        "checkbox": checkbox,
-      };
 }

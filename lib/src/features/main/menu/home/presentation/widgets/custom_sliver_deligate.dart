@@ -30,14 +30,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     final proportion = 2 - (expandedHeight / appBarSize);
     final percent = proportion < 0 || proportion > 1 ? 0.0 : proportion;
     String image = LocalStorage.instance.getUserImageUrl();
-
-    print('$image --->$image');
-
     final memImage = const Base64Decoder().convert(image);
 
-    print('getAllAppealNumber${LocalStorage.instance.getAllAppealNumber()}');
-
-    print('shrinkOffset **********$shrinkOffset ************');
     return BlocBuilder<PharmInfoBloc, PharmInfoState>(builder: (context,state){
       return SizedBox(
         height: expandedHeight + expandedHeight / 2,
@@ -49,7 +43,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                 bottomLeft: appBarSize < kToolbarHeight? const Radius.circular(0):const Radius.circular(20),
               ),
               child: SizedBox(
-                height: appBarSize < kToolbarHeight ? kToolbarHeight + 32 : appBarSize + 32,
+                height: appBarSize < kToolbarHeight ? kToolbarHeight + 50 : appBarSize + 50,
                 child: AppBar(
                   backgroundColor: context.theme.primaryColor,
                   leading: Builder(
@@ -91,7 +85,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                               Text(
                                 LocalStorage.instance.getFullNameName().isNotEmpty
                                     ? LocalStorage.instance.getFullNameName()
-                                    : 'Quroqov Shoxrux',
+                                    : '---',
                                 style:
                                 context.textStyle.largeTitle1.copyWith(fontSize: 10, color: context.theme.primaryColor),
                               ),
@@ -137,15 +131,16 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                 ),
               ),
             ),
+            AppUtils.kGap24,
             Positioned(
               left: 20.0,
               right: 0.0,
-              top: cardTopPosition > 0 ? cardTopPosition - 60 : 0,
-              bottom: 50.0,
+              top: cardTopPosition > 0 ? cardTopPosition - 34 : 0,
+              bottom: 30.0,
               child: Opacity(
                 opacity:percent,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 22),
+                  padding: const EdgeInsets.only(top: 22),
                   child: Text(
                       'Fair tech',
                       style: context.textStyle.largeTitle1.copyWith(color: Colors.white)
@@ -156,8 +151,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             Positioned(
               left: 0.0,
               right: 0.0,
-              top: cardTopPosition > 0 ? cardTopPosition : 0,
-              bottom: 20.0,
+              top: cardTopPosition > 0 ? cardTopPosition + 25 : 0,
+              bottom: 0.0,
               child: Opacity(
                 opacity: percent,
                 child: Padding(
@@ -189,12 +184,11 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                               children: [
                                 Text(
                                   'Murojaatlar',
-                                  style: context.textStyle.largeTitle2
-                                      .copyWith(color: context.theme.primaryColor),
+                                  style: context.textStyle.largeTitle2.copyWith(color: context.theme.primaryColor),
                                 ),
                                 AppUtils.kGap4,
                                 Text(
-                                  '${state.productAppealListResponse?.total ?? '0'}',
+                                  '${state.productAppealCountResponse?.created ?? '0'}',
                                   style: context.textStyle.largeTitle1.copyWith(color: context.theme.primaryColor),
                                 )
                               ],
@@ -256,7 +250,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => expandedHeight + expandedHeight / 2;
 
   @override
-  double get minExtent => kToolbarHeight + 32;
+  double get minExtent => kToolbarHeight + 50;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {

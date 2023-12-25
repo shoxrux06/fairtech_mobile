@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by User on 25/12/23.
+  
+*/
+"NSLocationAlwaysUsageDescription" = "Используется для определения местоположения объекта на карте";
+"NSLocationWhenInUseUsageDescription" = "Используется для определения местоположения объекта на карте";
+"NSCameraUsageDescription" = "Этому приложению требуется доступ к камере для сканирования QR-кодов или присоединения файла.";
+"NSPhotoLibraryUsageDescription" = "Этому приложению необходим доступ к фотографиям, чтобы получить QR-код из библиотеки фотографий или прикрепить файл.";

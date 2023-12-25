@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by User on 25/12/23.
+  
+*/
+"NSLocationAlwaysUsageDescription" = "Subyektning xaritadagi o'rnini aniqlash uchun ishlatiladi";
+"NSLocationWhenInUseUsageDescription" = "Subyektning xaritadagi o'rnini aniqlash uchun ishlatiladi";
+"NSCameraUsageDescription" = "Bu ilova QR kodlarini skanerlash yoki fayl biriktirish uchun kameradan foydalanishi kerak";
+"NSPhotoLibraryUsageDescription" = "Galereyangizdan QR kodni olish yoki faylni biriktirish uchun bu ilova rasmlarga kirish huquqini talab qiladi.";

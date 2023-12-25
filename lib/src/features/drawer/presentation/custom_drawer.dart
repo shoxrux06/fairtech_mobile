@@ -68,7 +68,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 AppUtils.kGap4,
                 Text(
-                  LocalStorage.instance.getFullNameName().isNotEmpty ? LocalStorage.instance.getFullNameName() : 'Quroqov Shoxrux',
+                  LocalStorage.instance.getFullNameName().isNotEmpty ? LocalStorage.instance.getFullNameName() : '---',
                   style: context.textStyle.largeTitle2,
                 ),
                 Text(

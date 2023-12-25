@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_image_type_response.dart';
+import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_tin_data_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/appeal_type_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/profile_data_response.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/models/send_appeal_response.dart';
@@ -24,6 +25,7 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
     on<SendAppealEvent>(_sendAppealEvent);
     on<GetImageTypeEvent>(_getImageType);
     on<GetAppealTypeEvent>(_getAppealType);
+    on<GetAppealsTinDataEvent>(_getAppealsTinData);
   }
 
   FutureOr<void> _getProfileData(
@@ -44,7 +46,8 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
     Emitter<AppealsState> emit,
   ) async {
     emit(state.copyWith(appealIsSending: true));
-    final result = await appealsRepository.sendAppeal(event.context,event.appealModel);
+    final result =
+        await appealsRepository.sendAppeal(event.context, event.appealModel);
     result.when(
       success: (data) {
         emit(state.copyWith(sendAppealResponse: data, appealIsSending: false));
@@ -55,26 +58,42 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
     );
   }
 
-  FutureOr<void> _getImageType(GetImageTypeEvent event, Emitter<AppealsState> emit,) async{
+  FutureOr<void> _getImageType(
+    GetImageTypeEvent event,
+    Emitter<AppealsState> emit,
+  ) async {
     final result = await appealsRepository.getImageTypeList(event.context);
     result.when(
       success: (data) {
         emit(state.copyWith(appealImageTypeResponse: data));
       },
-      failure: (failure) {
-
-      },
+      failure: (failure) {},
     );
   }
 
-  FutureOr<void> _getAppealType(GetAppealTypeEvent event, Emitter<AppealsState> emit,) async{
+  FutureOr<void> _getAppealType(
+    GetAppealTypeEvent event,
+    Emitter<AppealsState> emit,
+  ) async {
     final result = await appealsRepository.getAppealTypeList(event.context);
     result.when(
       success: (data) {
         emit(state.copyWith(appealTypeResponse: data));
       },
-      failure: (failure) {
+      failure: (failure) {},
+    );
+  }
+
+  FutureOr<void> _getAppealsTinData(
+    GetAppealsTinDataEvent event,
+    Emitter<AppealsState> emit,
+  ) async {
+    final result = await appealsRepository.getAppealsTinData(event.context, event.tin);
+    result.when(
+      success: (data) {
+        emit(state.copyWith(appealTinDataResponse: data));
       },
+      failure: (failure) {},
     );
   }
 }

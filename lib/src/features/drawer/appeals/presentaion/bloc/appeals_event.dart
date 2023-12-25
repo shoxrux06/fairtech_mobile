@@ -35,3 +35,12 @@ class GetAppealTypeEvent extends AppealsEvent {
   });
 }
 
+class GetAppealsTinDataEvent extends AppealsEvent {
+  final BuildContext context;
+  final String tin;
+
+  GetAppealsTinDataEvent({
+    required this.context,
+    required this.tin,
+  });
+}

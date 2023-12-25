@@ -25,10 +25,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
-    context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'Created'));
     context.read<PharmInfoBloc>().add(UpdateUserTokenEvent(context: context, username: LocalStorage.instance.getUserName()));
-    print('bu yerga tushdi 55555');
+    context.read<PharmInfoBloc>().add(GetAppealsCountEvent(context: context));
+    context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'Created'));
     super.initState();
   }
 
@@ -59,12 +58,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         color: context.theme.primaryColor,
                       ),
                     ),
+                   AppUtils.kGap12,
                    SizedBox(
-                     height: Responsive.height(25, context),
+                     height: Responsive.height(20, context),
                      width: Responsive.width(100, context),
                      child: Row(
                        mainAxisSize: MainAxisSize.min,
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                        children: [
                          ActiveItem(
                            onTap: (){
@@ -87,8 +87,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                    ),
                     AppUtils.kGap12,
                     SizedBox(
-                      height: Responsive.height(25, context),
+                      height: Responsive.height(20, context),
+                      width: Responsive.width(100, context),
                       child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ActiveItem(
                             onTap: () {
@@ -102,7 +105,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             opacity: 0,
                             child: ActiveItem(
                               onTap: (){
-                                context.push(Routes.pharmInfo);
+
                               },
                               icon: AppConstants.appealMonitoringSvg,
                               title: 'Online kuzatuv',

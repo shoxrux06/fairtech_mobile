@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by User on 25/12/23.
+  
+*/
+"NSLocationAlwaysUsageDescription" = "It is used to determine the location of the subject on the map";
+"NSLocationWhenInUseUsageDescription" = "It is used to determine the location of the subject on the map";
+"NSCameraUsageDescription" = "This app needs camera access to scan QR codes or to attach a file";
+"NSPhotoLibraryUsageDescription" = "This app needs photos access to get QR code from photo library or to attach a file";

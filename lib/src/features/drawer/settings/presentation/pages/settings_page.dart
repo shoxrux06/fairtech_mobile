@@ -24,6 +24,23 @@ class SettingsPage extends StatelessWidget {
     }
   }
 
+  Widget logoutDialog(BuildContext context){
+    return AlertDialog(
+      title: Text(context.tr('pleaseConfirm'), style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
+      content: Text(context.tr('deleteProfileMessage'),style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+      actions: [
+        TextButton(
+          onPressed: () => context.pop(false),
+          child: Text(context.tr('no'),style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
+        ),
+        TextButton(
+          onPressed: () => context.pop(true),
+          child: Text(context.tr('yes'),style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final options = AppOptions.of(context);
@@ -110,8 +127,20 @@ class SettingsPage extends StatelessWidget {
                 context.tr('deleteProfile'),
                 style: TextStyle(color: context.color?.red, fontSize: 15, fontWeight: FontWeight.w500),
               ),
-              onTap: () {
-                _deleteProfile();
+              onTap: () async{
+                bool? yes =
+                await showDialog<bool>(context: context, builder: logoutDialog);
+                if (yes == true) {
+                  LocalStorage.instance.deleteToken();
+                  LocalStorage.instance.deletePinCode();
+                  LocalStorage.instance.deleteFullName();
+                  LocalStorage.instance.deleteUserPassword();
+                  LocalStorage.instance.deleteUserId();
+                  LocalStorage.instance.deleteUserPhone();
+                  context.pushReplacement(Routes.signIn);
+                } else {
+                  Navigator.pop(context);
+                }
               },
             ),
 
@@ -137,10 +166,14 @@ class SettingsPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                // LocalStorage.instance.deleteToken();
-                // LocalStorage.instance.deletePinCode();
+                LocalStorage.instance.deleteToken();
+                LocalStorage.instance.deletePinCode();
+                LocalStorage.instance.deleteFullName();
+                LocalStorage.instance.deleteUserPassword();
+                LocalStorage.instance.deleteUserId();
+                LocalStorage.instance.deleteUserPhone();
                 ctx.pop();
-                // ctx.pushReplacement(Routes.signIn);
+                ctx.replace(Routes.signIn);
               },
               child: Text(ctx.tr('yes'),style: ctx.textStyle.regularTitle2.copyWith(color: ctx.color?.red)),
             ),

@@ -87,6 +87,7 @@ class _ShtrixCodePageState extends State<ShtrixCodePage> {
                                   controller.text.toString(),
                                 ),
                               );
+                              FocusManager.instance.primaryFocus?.unfocus();
                             },
                             icon: const Icon(Icons.search),
                           ),

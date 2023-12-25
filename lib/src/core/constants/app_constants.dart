@@ -12,7 +12,6 @@ class AppConstants {
   static const getPharmInfo = '/api/v.1/pharm/searchOutside?';
   static const getRegionList = '/api/v.1/geographical-region/get-region-soatos';
   static const getProfileData = '/api/v.1/outer-cabinet/profile-data';
-  // static const getAppealsCount = '/api/v.1/pharm/status-count-outside';
   static const getAppealsCount = '/api/v.1/outer-cabinet/get/status-count';
   AppConstants._();
   ///prefs

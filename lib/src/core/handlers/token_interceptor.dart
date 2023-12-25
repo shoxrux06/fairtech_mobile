@@ -29,9 +29,8 @@ class TokenInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     // TODO: implement onError
     final r = err.response;
-    if (r?.statusCode == 401) {
+    if (r?.statusCode == 401 || r?.statusCode == 403) {
       context.pushReplacement(Routes.signIn);
     }
-
   }
 }

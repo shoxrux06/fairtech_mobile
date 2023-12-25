@@ -8,20 +8,22 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class SelectFromMapPage extends StatefulWidget {
-  const SelectFromMapPage({super.key});
+  const SelectFromMapPage({super.key, required this.context});
 
+  final BuildContext context;
 
   @override
   _LocationChooserState createState() => _LocationChooserState();
 }
 
 class _LocationChooserState extends State<SelectFromMapPage> {
+  bool isLoading = false;
+
   final Completer<GoogleMapController> _controller = Completer();
-  LatLng _center = LatLng(41.297441965444406, 69.24021454703133);
+  LatLng _center = const LatLng(41.297441965444406, 69.24021454703133);
   final Set<Marker> _markers = {};
   late LatLng _lastMapPosition = _center;
   MapType _currentMapType = MapType.normal;
@@ -74,7 +76,9 @@ class _LocationChooserState extends State<SelectFromMapPage> {
                   minHeight: _height * 0.05,
                   maxHeight: _height * 0.4,
                   controller: panelController,
-                  panel: Padding(
+                  panel: isLoading? const Center(
+                    child: CircularProgressIndicator(),
+                  ):Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Stack(
                       children: [
@@ -134,7 +138,8 @@ class _LocationChooserState extends State<SelectFromMapPage> {
                       ],
                     ),
                   ),
-                  body: null),
+                  body: null
+              ),
               Positioned(
                 right: 10,
                 top: 10,
@@ -218,26 +223,32 @@ class _LocationChooserState extends State<SelectFromMapPage> {
   }
 
   _getUserLocation() async {
+    setState(() {
+      isLoading = true;
+    });
     bool serviceEnabled;
     LocationPermission permission;
     panelController.open();
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
     if (!serviceEnabled) {
       return Future.error('Location services are disabled');
     }
 
     permission = await Geolocator.checkPermission();
+
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
+        // AppSnackBar.showErrorSnackBar(widget.context, 'Xatolik', 'Lokatsiya yoqilmagan');
         return Future.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return Future.error('Location permissions are permanently denied, we cannot request permissions.');
     }
+
     late Position position;
 
     if(permission == LocationPermission.always || permission == LocationPermission.whileInUse){
@@ -274,5 +285,9 @@ class _LocationChooserState extends State<SelectFromMapPage> {
         });
       }
     }
+    setState(() {
+      isLoading = false;
+    });
+
   }
 }

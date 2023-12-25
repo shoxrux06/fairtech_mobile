@@ -33,6 +33,8 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   final _fullNameController = TextEditingController();
   final _shortDescController = TextEditingController();
   final _stirController = TextEditingController();
+  final _subyektNameController = TextEditingController();
+  final _subyektAddressController = TextEditingController();
   int? dropdownValueCategoryId;
   String? dropdownValueCategory;
   String? dropdownPersonType;
@@ -56,16 +58,11 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   String? dropDownValue;
 
   List<File?> selectedFileList1 = [];
-  List<File?> selectedFileList2 = [];
-  List<File?> selectedFileList3 = [];
   List<String> selectedFileNameList1 = [];
-  List<String> selectedFileNameList2 = [];
-  List<String> selectedFileNameList3 = [];
 
   List<int> imageIdList = [];
 
   List<ListElement> list = [];
-
 
   File? selectedfile1;
   File? selectedfile2;
@@ -73,7 +70,6 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
   String fileName = "";
 
   selectFile1() async {
-    // pick file from gallery
     setState(() {
       dropDownValue = null;
     });
@@ -89,38 +85,6 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
         selectedFileNameList1.add(fileName);
       });
       typeSelected = false;
-    }
-  }
-
-  selectFile2() async {
-    // pick file from gallery
-    String? filePath = await FilePicker.platform
-        .pickFiles(type: FileType.any)
-        .then((value) => value?.files.single.path);
-
-    if (filePath != null) {
-      setState(() {
-        selectedfile2 = File(filePath); // picked file
-        selectedFileList2.add(selectedfile2);
-        fileName = filePath.split('/').last;
-        selectedFileNameList2.add(fileName);
-      });
-    }
-  }
-
-  selectFile3() async {
-    // pick file from gallery
-    String? filePath = await FilePicker.platform
-        .pickFiles(type: FileType.any)
-        .then((value) => value?.files.single.path);
-
-    if (filePath != null) {
-      setState(() {
-        selectedfile3 = File(filePath); // picked file
-        selectedFileList3.add(selectedfile3);
-        fileName = filePath.split('/').last;
-        selectedFileNameList3.add(fileName);
-      });
     }
   }
 
@@ -148,16 +112,17 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
           list.addAll(state.appealImageTypeResponse?.list ??[]);
         }
         if(state.appealTypeResponse != null){
-          print('state.appealTypeResponse?.list ${state.appealTypeResponse?.list}');
           state.appealTypeResponse?.list.forEach((element) {
             subCategoryList.add(element.nameUz);
           });
-          // dropdownValueCategory = subCategoryList.first;
         }
+        // if(state.appealTinDataResponse != null){
+        //   _subyektNameController.text = state.appealTinDataResponse?.company.shortName ?? '---';
+        //   _subyektAddressController.text = state.appealTinDataResponse?.companyShippingAddresses.first.streetName ?? '---';
+        // }
         _phoneNumberController.text = '${state.profileDataResponse?.phoneNumber}';
         if (state.sendAppealResponse?.status == 0) {
           AppSnackBar.showSuccessSnackBar(context,'Muaffaqiyatli yuborildi','${state.sendAppealResponse?.message}');
-          // context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'Created'));
           selectedFileList1 = [];
           selectedFileNameList1 = [];
           setState(() {
@@ -477,8 +442,55 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                               keyboardType: TextInputType.number,
                               controller: _stirController,
                               style: context.textStyle.regularBody,
-                            ),
+                              onFieldSubmitted: (val){
+                                // context.read<AppealsBloc>().add(GetAppealsTinDataEvent(context: context,tin: _stirController.text));
+                              },
+                            ) ,
+                            // AppUtils.kGap12,
+                            // Text('Subyekt nomi',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                            // CustomTextField(
+                            //   hintText: 'Subyekt nomi',
+                            //   keyboardType: TextInputType.number,
+                            //   enabled: false,
+                            //   controller: _subyektNameController,
+                            //   style: context.textStyle.regularBody,
+                            // ),
+                            // AppUtils.kGap12,
+                            // Text('Subyekt manzili',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                            // CustomTextField(
+                            //   hintText: 'Subyekt manzili',
+                            //   keyboardType: TextInputType.number,
+                            //   enabled: false,
+                            //   controller: _subyektAddressController,
+                            //   style: context.textStyle.regularBody,
+                            // ),
                             AppUtils.kGap24,
+                            CustomButtonWithoutGradient(
+                              onTap: () async{
+                                dynamic result = await context.push(Routes.selectFromMap, extra: context);
+                                if(result != null) {
+                                  setState(() {
+                                    center = result['coordinates'];
+                                    lang = center?.longitude.toString() ?? '12.34343434';
+                                    lat = center?.latitude.toString() ?? '34.45553566';
+                                    fullAddress = result['lane'];
+                                  });
+                                }
+                              },
+                              text: 'Xaritadagi joylashgan joyi *',
+                              textColor: Colors.white,
+                            ),
+                            AppUtils.kGap12,
+                            center == null? Container():Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text('${center?.latitude} ${center?.longitude}',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText, fontWeight: FontWeight.w400)),
+                            ),
+                            // center == null? Container():AppUtils.kGap8,
+                            center == null? Container():Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text('$fullAddress',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText)),
+                            ),
+                            AppUtils.kGap12,
                             CustomButtonWithoutGradient(
                               onTap: (){
                                 customModalBottomSheet(
@@ -560,81 +572,6 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 ),)
                               ],
                             ),
-                            selectedFileNameList2.isEmpty? Container():AppUtils.kGap12,
-                            selectedFileNameList2.isEmpty
-                                ? Container()
-                                : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ...selectedFileNameList2.map((item) => Container(
-                                    margin: const EdgeInsets.symmetric(vertical: 4),
-                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[100]),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Icon(Icons.file_copy, color: Colors.redAccent),
-                                        const SizedBox(width: 12),
-                                        Flexible(
-                                          child: Text(
-                                            item,
-                                            style: context.textStyle.regularBody,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                ),)
-                              ],
-                            ),
-                            selectedFileNameList2.isEmpty? Container():AppUtils.kGap12,
-                            selectedFileNameList3.isEmpty
-                                ? Container()
-                                : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ...selectedFileNameList3.map((item) => Container(
-                                    margin: const EdgeInsets.symmetric(vertical: 4),
-                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[100]),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Icon(Icons.file_copy, color: Colors.redAccent),
-                                        const SizedBox(width: 12),
-                                        Flexible(
-                                          child: Text(
-                                            item,
-                                            style: context.textStyle.regularBody,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                ),)
-                              ],
-                            ),
-                            AppUtils.kGap12,
-                            CustomButtonWithoutGradient(
-                              onTap: () async{
-                                // context.read<AppealsBloc>().add(GetAppealTypeEvent(context: context));
-                                dynamic result = await context.push(Routes.selectFromMap);
-
-                                print('result <<<$result >>>');
-                                if(result != null) {
-                                  setState(() {
-                                    center = result['coordinates'];
-                                    lang = center?.longitude.toString() ?? '12.34343434';
-                                    lat = center?.latitude.toString() ?? '34.45553566';
-                                    fullAddress = result['lane'];
-                                  });
-                                }
-                              },
-                              text: 'Xaritadagi joylashgan joyi *',
-                              textColor: Colors.white,
-                            ),
-                            AppUtils.kGap12,
-                            center == null? Container():Text('${center?.latitude} ${center?.longitude}',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText, fontWeight: FontWeight.w400)),
-                            center == null? Container():AppUtils.kGap8,
-                            center == null? Container():Text('$fullAddress',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText))
                           ],
                         ),
                       ),
@@ -683,17 +620,18 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                           applierType: dropdownPersonType ?? '',
                                           applierJshshir: state.profileDataResponse?.pinfl ?? '',
                                           applierFullname: '${state.profileDataResponse?.lastName} ${state.profileDataResponse?.firstName} ${state.profileDataResponse?.middleName}',
-                                          applierZipcode: 100053,
+                                          applierZipcode: 0,
+                                          applierPhone: _phoneNumberController.text,
                                           applierAddress: _addressController.text,
                                           appealTypeId: dropdownValueCategoryId ?? 0,
                                           appealType: dropdownValueCategory,
-                                          appealSubtype: 'appealSubtype',
+                                          appealSubtype: '',
                                           appealDescription: _shortDescController.text.trim(),
-                                          applierNumber: _phoneNumberController.text,
                                           appealFileList: selectedFileList1,
                                           documentTypeIds: imageIdList.toSet().toList(),
                                           lang: lang,
                                           lat: lat,
+                                          latAddress: fullAddress ?? '---',
                                           orgTin: '',
                                           physicalTin: _stirController.text.toString().trim(),
                                           checkbox: isChecked

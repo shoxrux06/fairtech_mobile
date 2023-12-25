@@ -21,7 +21,6 @@ class PersonalInformationPage extends StatefulWidget {
 class _PersonalInformationPageState extends State<PersonalInformationPage> {
   @override
   void initState() {
-    // TODO: implement initState
     context.read<PharmInfoBloc>().add(GetProfileDataPharmEvent(context: context));
     super.initState();
   }
@@ -54,12 +53,10 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(
-                            child: Text('Familyasi',
-                                style: context.textStyle.regularBody)),
+                        Expanded(child: Text('Familyasi', style: context.textStyle.regularBody)),
                         Expanded(
                             child: Text(
-                          '${data?.lastName}',
+                          data.lastName,
                           style: context.textStyle.largeTitle2.copyWith(
                             fontSize: 14,
                           ),
@@ -75,7 +72,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                                 style: context.textStyle.regularBody)),
                         Expanded(
                             child: Text(
-                          '${data?.firstName}',
+                          data.firstName,
                           style: context.textStyle.largeTitle2.copyWith(fontSize: 14),
                               textAlign: TextAlign.end,
                         )),
@@ -85,27 +82,21 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                     Row(
                       children: [
                         Expanded(
-                            child: Text('Sharifi',
-                                style: context.textStyle.regularBody)),
+                            child: Text('Sharifi', style: context.textStyle.regularBody)),
                         Expanded(
                             child: Text(
-                          '${data?.middleName}',
-                          style: context.textStyle.largeTitle2
-                              .copyWith(fontSize: 14,), textAlign: TextAlign.end,
+                          data.middleName,
+                          style: context.textStyle.largeTitle2.copyWith(fontSize: 14,), textAlign: TextAlign.end,
                         )),
                       ],
                     ),
                     AppUtils.kGap12,
                     Row(
                       children: [
-                        Expanded(
-                            child: Text('Tug\'ilgan sanasi',
-                                style: context.textStyle.regularBody)),
-                        Expanded(
-                            child: Text(
-                          '${data?.birthday}',
-                          style: context.textStyle.largeTitle2
-                              .copyWith(fontSize: 14), textAlign: TextAlign.end,
+                        Expanded(child: Text('Tug\'ilgan sanasi', style: context.textStyle.regularBody)),
+                        Expanded(child: Text(
+                          data.birthday,
+                          style: context.textStyle.largeTitle2.copyWith(fontSize: 14), textAlign: TextAlign.end,
                         )),
                       ],
                     ),
@@ -117,9 +108,8 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                                 style: context.textStyle.regularBody)),
                         Expanded(
                             child: Text(
-                          '${data?.pinfl}',
-                          style: context.textStyle.largeTitle2
-                              .copyWith(fontSize: 14), textAlign: TextAlign.end,
+                          data.pinfl,
+                          style: context.textStyle.largeTitle2.copyWith(fontSize: 14), textAlign: TextAlign.end,
                         )),
                       ],
                     ),
@@ -132,7 +122,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                         AppUtils.kGap12,
                         Expanded(
                             child: Text(
-                          '${data?.perAdress}',
+                          data.perAdress,
                           style: context.textStyle.largeTitle2
                               .copyWith(fontSize: 14), textAlign: TextAlign.end,
                         )),
@@ -147,9 +137,8 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                         AppUtils.kGap12,
                         Expanded(
                             child: Text(
-                              '${data?.birthPlace}',
-                              style: context.textStyle.largeTitle2
-                                  .copyWith(fontSize: 14), textAlign: TextAlign.end,
+                              data.birthPlace,
+                              style: context.textStyle.largeTitle2.copyWith(fontSize: 14), textAlign: TextAlign.end,
                             )),
                       ],
                     ),
@@ -162,9 +151,8 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                         AppUtils.kGap12,
                         Expanded(
                             child: Text(
-                              '${data?.passportGivenWho}',
-                              style: context.textStyle.largeTitle2
-                                  .copyWith(fontSize: 14), textAlign: TextAlign.end,
+                              data.passportGivenWho,
+                              style: context.textStyle.largeTitle2.copyWith(fontSize: 14), textAlign: TextAlign.end,
                             )),
                       ],
                     ),
@@ -177,7 +165,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                         AppUtils.kGap12,
                         Expanded(
                             child: Text(
-                              '${data?.passportSeries} ${data?.passportNumber}',
+                              '${data.passportSeries} ${data.passportNumber}',
                               style: context.textStyle.largeTitle2
                                   .copyWith(fontSize: 14), textAlign: TextAlign.end,
                             )),
@@ -192,7 +180,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                         AppUtils.kGap12,
                         Expanded(
                             child: Text(
-                              '${data?.passportGivenDate}',
+                              data.passportGivenDate,
                               style: context.textStyle.largeTitle2
                                   .copyWith(fontSize: 14), textAlign: TextAlign.end,
                             )),
@@ -207,7 +195,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                         AppUtils.kGap12,
                         Expanded(
                             child: Text(
-                              '${data?.passportEndDate}',
+                              data.passportEndDate,
                               style: context.textStyle.largeTitle2
                                   .copyWith(fontSize: 14), textAlign: TextAlign.end,
                             )),
@@ -222,7 +210,7 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
                         AppUtils.kGap12,
                         Expanded(
                             child: Text(
-                              '${data?.phoneNumber}',
+                              data.phoneNumber,
                               style: context.textStyle.largeTitle2
                                   .copyWith(fontSize: 14), textAlign: TextAlign.end,
                             )),

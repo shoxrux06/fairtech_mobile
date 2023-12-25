@@ -42,11 +42,10 @@ import 'package:go_router/go_router.dart';
 
 part 'routes.dart';
 
-final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-    GlobalKey<ScaffoldMessengerState>();
+GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class AppGoRouter {
   static final GoRouter router = GoRouter(
@@ -74,26 +73,19 @@ class AppGoRouter {
           name: Routes.main,
           path: Routes.main,
           pageBuilder: (_, state) {
-            dynamic extra;
-            if (state.extra != null) {
-              extra = state.extra as Map;
-            }
             return CustomTransitionPage(
               transitionDuration: const Duration(milliseconds: 1200),
               child: MultiBlocProvider(
                 providers: [
                   BlocProvider<MainBloc>(create: (_) => sl<MainBloc>()),
-                  BlocProvider<ProductInfoBloc>(
-                      create: (_) => sl<ProductInfoBloc>()),
+                  BlocProvider<ProductInfoBloc>(create: (_) => sl<ProductInfoBloc>()),
                   BlocProvider<StarBloc>(create: (_) => sl<StarBloc>()),
-                  BlocProvider<PharmInfoBloc>(
-                      create: (_) => PharmInfoBloc(pharmInfoRepository)),
+                  BlocProvider<PharmInfoBloc>(create: (_) => PharmInfoBloc(pharmInfoRepository)),
                 ],
                 child: const MainPage(),
               ),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
-                opacity:
-                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               ),
             );
@@ -414,9 +406,10 @@ class AppGoRouter {
           name: Routes.selectFromMap,
           path: Routes.selectFromMap,
           pageBuilder: (_, state) {
+            final extra = state.extra as BuildContext;
             return CustomTransitionPage(
               transitionDuration: const Duration(milliseconds: 1200),
-              child: SelectFromMapPage(),
+              child: SelectFromMapPage(context: extra,),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(
                 opacity:
                     CurveTween(curve: Curves.easeInOutCirc).animate(animation),

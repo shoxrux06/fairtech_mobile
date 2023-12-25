@@ -7,6 +7,7 @@ class AppealsState with _$AppealsState{
     AppealTypeResponse? appealTypeResponse,
     AppealImageTypeResponse? appealImageTypeResponse,
     SendAppealResponse? sendAppealResponse,
+    AppealTinDataResponse? appealTinDataResponse,
     @Default(false)bool appealIsSending,
     @Default(false)bool appealIsSent
 }) = Initial;

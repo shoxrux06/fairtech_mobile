@@ -73,9 +73,6 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
         emit(state.copyWith(profileDataResponse: data));
         LocalStorage.instance.setUserImageUrl(data.passportPhoto);
         LocalStorage.instance.setUserId(int.tryParse(data.userId));
-        print('getFullNameName ${LocalStorage.instance.getFullNameName()}');
-        print('user photo ${data.passportPhoto.toString()}');
-        print('user id ${data.id.toString()}');
       },
       failure: (failure) {},
     );
@@ -92,9 +89,6 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
         LocalStorage.instance.setAllAppealNumber(data.created);
         LocalStorage.instance.setProcessAppealNumber(data.process);
         LocalStorage.instance.setFinishedAppealNumber(data.finished);
-        print('created -->${data.created}');
-        print('finished --> ${data.finished}');
-        print('${data.sendToCourt}');
       },
       failure: (failure) {},
     );

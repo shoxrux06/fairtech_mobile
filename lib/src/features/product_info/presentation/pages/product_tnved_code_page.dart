@@ -96,6 +96,7 @@ class _ProductTnVedCodePageState extends State<ProductTnVedCodePage> {
                                       AppSnackBar.showWarningSnackBar(context,
                                           'TnVed kod noto\'g\'ri kiritilgan');
                                     }
+                                    FocusManager.instance.primaryFocus?.unfocus();
                                   },
                                   icon: const Icon(Icons.search)),
                             ),

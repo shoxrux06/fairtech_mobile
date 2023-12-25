@@ -24,6 +24,8 @@ mixin _$AppealsState {
       throw _privateConstructorUsedError;
   SendAppealResponse? get sendAppealResponse =>
       throw _privateConstructorUsedError;
+  AppealTinDataResponse? get appealTinDataResponse =>
+      throw _privateConstructorUsedError;
   bool get appealIsSending => throw _privateConstructorUsedError;
   bool get appealIsSent => throw _privateConstructorUsedError;
 
@@ -43,6 +45,7 @@ abstract class $AppealsStateCopyWith<$Res> {
       AppealTypeResponse? appealTypeResponse,
       AppealImageTypeResponse? appealImageTypeResponse,
       SendAppealResponse? sendAppealResponse,
+      AppealTinDataResponse? appealTinDataResponse,
       bool appealIsSending,
       bool appealIsSent});
 }
@@ -64,6 +67,7 @@ class _$AppealsStateCopyWithImpl<$Res, $Val extends AppealsState>
     Object? appealTypeResponse = freezed,
     Object? appealImageTypeResponse = freezed,
     Object? sendAppealResponse = freezed,
+    Object? appealTinDataResponse = freezed,
     Object? appealIsSending = null,
     Object? appealIsSent = null,
   }) {
@@ -84,6 +88,10 @@ class _$AppealsStateCopyWithImpl<$Res, $Val extends AppealsState>
           ? _value.sendAppealResponse
           : sendAppealResponse // ignore: cast_nullable_to_non_nullable
               as SendAppealResponse?,
+      appealTinDataResponse: freezed == appealTinDataResponse
+          ? _value.appealTinDataResponse
+          : appealTinDataResponse // ignore: cast_nullable_to_non_nullable
+              as AppealTinDataResponse?,
       appealIsSending: null == appealIsSending
           ? _value.appealIsSending
           : appealIsSending // ignore: cast_nullable_to_non_nullable
@@ -109,6 +117,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       AppealTypeResponse? appealTypeResponse,
       AppealImageTypeResponse? appealImageTypeResponse,
       SendAppealResponse? sendAppealResponse,
+      AppealTinDataResponse? appealTinDataResponse,
       bool appealIsSending,
       bool appealIsSent});
 }
@@ -128,6 +137,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? appealTypeResponse = freezed,
     Object? appealImageTypeResponse = freezed,
     Object? sendAppealResponse = freezed,
+    Object? appealTinDataResponse = freezed,
     Object? appealIsSending = null,
     Object? appealIsSent = null,
   }) {
@@ -148,6 +158,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.sendAppealResponse
           : sendAppealResponse // ignore: cast_nullable_to_non_nullable
               as SendAppealResponse?,
+      appealTinDataResponse: freezed == appealTinDataResponse
+          ? _value.appealTinDataResponse
+          : appealTinDataResponse // ignore: cast_nullable_to_non_nullable
+              as AppealTinDataResponse?,
       appealIsSending: null == appealIsSending
           ? _value.appealIsSending
           : appealIsSending // ignore: cast_nullable_to_non_nullable
@@ -168,6 +182,7 @@ class _$InitialImpl implements Initial {
       this.appealTypeResponse,
       this.appealImageTypeResponse,
       this.sendAppealResponse,
+      this.appealTinDataResponse,
       this.appealIsSending = false,
       this.appealIsSent = false});
 
@@ -180,6 +195,8 @@ class _$InitialImpl implements Initial {
   @override
   final SendAppealResponse? sendAppealResponse;
   @override
+  final AppealTinDataResponse? appealTinDataResponse;
+  @override
   @JsonKey()
   final bool appealIsSending;
   @override
@@ -188,7 +205,7 @@ class _$InitialImpl implements Initial {
 
   @override
   String toString() {
-    return 'AppealsState(profileDataResponse: $profileDataResponse, appealTypeResponse: $appealTypeResponse, appealImageTypeResponse: $appealImageTypeResponse, sendAppealResponse: $sendAppealResponse, appealIsSending: $appealIsSending, appealIsSent: $appealIsSent)';
+    return 'AppealsState(profileDataResponse: $profileDataResponse, appealTypeResponse: $appealTypeResponse, appealImageTypeResponse: $appealImageTypeResponse, sendAppealResponse: $sendAppealResponse, appealTinDataResponse: $appealTinDataResponse, appealIsSending: $appealIsSending, appealIsSent: $appealIsSent)';
   }
 
   @override
@@ -205,6 +222,8 @@ class _$InitialImpl implements Initial {
                 other.appealImageTypeResponse == appealImageTypeResponse) &&
             (identical(other.sendAppealResponse, sendAppealResponse) ||
                 other.sendAppealResponse == sendAppealResponse) &&
+            (identical(other.appealTinDataResponse, appealTinDataResponse) ||
+                other.appealTinDataResponse == appealTinDataResponse) &&
             (identical(other.appealIsSending, appealIsSending) ||
                 other.appealIsSending == appealIsSending) &&
             (identical(other.appealIsSent, appealIsSent) ||
@@ -218,6 +237,7 @@ class _$InitialImpl implements Initial {
       appealTypeResponse,
       appealImageTypeResponse,
       sendAppealResponse,
+      appealTinDataResponse,
       appealIsSending,
       appealIsSent);
 
@@ -234,6 +254,7 @@ abstract class Initial implements AppealsState {
       final AppealTypeResponse? appealTypeResponse,
       final AppealImageTypeResponse? appealImageTypeResponse,
       final SendAppealResponse? sendAppealResponse,
+      final AppealTinDataResponse? appealTinDataResponse,
       final bool appealIsSending,
       final bool appealIsSent}) = _$InitialImpl;
 
@@ -245,6 +266,8 @@ abstract class Initial implements AppealsState {
   AppealImageTypeResponse? get appealImageTypeResponse;
   @override
   SendAppealResponse? get sendAppealResponse;
+  @override
+  AppealTinDataResponse? get appealTinDataResponse;
   @override
   bool get appealIsSending;
   @override

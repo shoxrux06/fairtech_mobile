@@ -2,37 +2,6 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 class AppSnackBar {
-
-  static customMessage(BuildContext context,String text, String desc)=> Flushbar(
-    title: text,
-    titleColor: Colors.white,
-    message: desc,
-    flushbarPosition: FlushbarPosition.TOP,
-    flushbarStyle: FlushbarStyle.FLOATING,
-    reverseAnimationCurve: Curves.decelerate,
-    forwardAnimationCurve: Curves.elasticOut,
-    backgroundColor: Colors.red,
-    boxShadows: [BoxShadow(color: Colors.blueAccent.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
-    backgroundGradient: LinearGradient(colors: [Colors.blueGrey, Colors.black]),
-    isDismissible: false,
-    duration: Duration(seconds: 4),
-    icon: Icon(
-      Icons.check,
-      color: Colors.greenAccent,
-    ),
-    showProgressIndicator: false,
-    progressIndicatorBackgroundColor: Colors.blueGrey,
-    titleText: Text(
-     text,
-      style: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
-    ),
-    messageText: Text(
-      desc,
-      style: TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
-    ),
-  )..show(context);
-
   static showSuc(BuildContext context, String title) =>  ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(title),
@@ -41,29 +10,21 @@ class AppSnackBar {
   static showSuccessSnackBar(BuildContext context, String text, String desc) {
     Future.delayed(Duration.zero,(){
       Flushbar(
-        title: text,
+        margin: const EdgeInsets.symmetric(horizontal: 12),
+        borderRadius: BorderRadius.circular(12),
         titleColor: Colors.white,
         message: desc,
         flushbarPosition: FlushbarPosition.TOP,
         flushbarStyle: FlushbarStyle.FLOATING,
-        reverseAnimationCurve: Curves.decelerate,
-        forwardAnimationCurve: Curves.elasticOut,
+        reverseAnimationCurve: Curves.easeInBack,
+        forwardAnimationCurve: Curves.easeInOut,
         backgroundColor: Colors.red,
         boxShadows: [BoxShadow(color: Colors.blueAccent.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
         backgroundGradient: LinearGradient(colors: [Colors.blueGrey, Colors.black]),
-        isDismissible: false,
-        duration: Duration(seconds: 4),
-        icon: Icon(
-          Icons.check,
-          color: Colors.greenAccent,
-        ),
+        isDismissible: true,
+        duration: const Duration(seconds: 4),
         showProgressIndicator: false,
         progressIndicatorBackgroundColor: Colors.blueGrey,
-        titleText: Text(
-          text,
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.yellow[600], fontFamily: "ShadowsIntoLightTwo"),
-        ),
         messageText: Text(
           desc,
           style: TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
@@ -75,32 +36,27 @@ class AppSnackBar {
   static showWarningSnackBar(BuildContext context, String desc) {
     Future.delayed(Duration.zero,(){
       Flushbar(
-        title: 'Warning',
+        margin: const EdgeInsets.symmetric(horizontal: 12),
+        borderRadius: BorderRadius.circular(12),
         titleColor: Colors.white,
         message: desc,
         flushbarPosition: FlushbarPosition.TOP,
         flushbarStyle: FlushbarStyle.FLOATING,
-        reverseAnimationCurve: Curves.decelerate,
-        forwardAnimationCurve: Curves.elasticOut,
+        reverseAnimationCurve: Curves.easeInBack,
+        forwardAnimationCurve: Curves.easeInOut,
         backgroundColor: Colors.red,
         boxShadows: [BoxShadow(color: Colors.blueAccent.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
-        backgroundGradient: LinearGradient(colors: [Colors.blueGrey, Colors.black]),
-        isDismissible: false,
-        duration: Duration(seconds: 4),
-        icon: const Icon(
-          Icons.check,
-          color: Colors.greenAccent,
-        ),
+        backgroundGradient: const LinearGradient(colors: [Colors.blueGrey, Colors.black]),
+        isDismissible: true,
+        duration: const Duration(seconds: 4),
         showProgressIndicator: false,
         progressIndicatorBackgroundColor: Colors.blueGrey,
-        titleText: Text(
-          'Warning',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.yellow[600], fontFamily: "ShadowsIntoLightTwo"),
-        ),
-        messageText: Text(
-          desc,
-          style: TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
+        messageText: Container(
+          margin: const EdgeInsets.all(4),
+          child: Text(
+            desc,
+            style: const TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
+          ),
         ),
       ).show(context);
     });
@@ -108,29 +64,21 @@ class AppSnackBar {
 
   static showErrorSnackBar(BuildContext context, String text, String desc) =>
       Flushbar(
-        title: text,
+        margin: const EdgeInsets.symmetric(horizontal: 12),
+        borderRadius: BorderRadius.circular(12),
         titleColor: Colors.white,
         message: desc,
         flushbarPosition: FlushbarPosition.TOP,
         flushbarStyle: FlushbarStyle.FLOATING,
-        reverseAnimationCurve: Curves.decelerate,
-        forwardAnimationCurve: Curves.elasticOut,
+        reverseAnimationCurve: Curves.easeInBack,
+        forwardAnimationCurve: Curves.easeInOut,
         backgroundColor: Colors.red,
         boxShadows: [BoxShadow(color: Colors.red.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
         backgroundGradient: LinearGradient(colors: [Colors.red, Colors.red.shade100]),
-        isDismissible: false,
+        isDismissible: true,
         duration: const Duration(seconds: 4),
-        icon: const Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
         showProgressIndicator: false,
         progressIndicatorBackgroundColor: Colors.blueGrey,
-        titleText: Text(
-          text,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white, fontFamily: "ShadowsIntoLightTwo"),
-        ),
         messageText: Text(
           desc,
           style: const TextStyle(fontSize: 18.0, color: Colors.white, fontFamily: "ShadowsIntoLightTwo"),

@@ -24,7 +24,7 @@ class ProductAppealListResponse {
 class ListElement {
   int id;
   String personType;
-  int createJson;
+  String createJson;
   int pinfl;
   String fullname;
   dynamic phone;
@@ -77,7 +77,7 @@ class ListElement {
   factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
     id: json["id"] ??0,
     personType: json["personType"] ??'',
-    createJson: json["createJson"] ??0,
+    createJson: json["createJson"] ??'',
     pinfl: json["pinfl"] ??0,
     fullname: json["fullname"] ??'',
     phone: json["phone"],
@@ -151,7 +151,7 @@ class ForCreateFileDto {
     nameUz:json["nameUz"] ??'',
     nameLt:json["nameLt"] ??'',
     nameRu:json["nameRu"]??'',
-    nameEn: json["nameEn"] ??'',
+    nameEn: json["nameEn"],
     code:json["code"] ??'',
     type: json["type"] ??'',
   );

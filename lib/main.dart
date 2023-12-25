@@ -2,7 +2,6 @@ import 'package:fairtech_mobile/src/app_options.dart';
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/config/themes/themes.dart';
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
-import 'package:fairtech_mobile/src/core/handlers/http_service.dart';
 import 'package:fairtech_mobile/src/core/l10n/AppLocalizations.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +27,12 @@ void main() async {
     final token = LocalStorage.instance.getToken();
     final pincode = LocalStorage.instance.getPinCode();
 
+    DateTime from = DateTime(2012, 12, 25);
+    DateTime to = DateTime.now();
+
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
     print('pincode -->$pincode}');
     print('token -->$token}');
   }
