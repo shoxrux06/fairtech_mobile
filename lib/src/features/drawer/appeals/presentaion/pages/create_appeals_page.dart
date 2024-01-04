@@ -647,6 +647,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                             ))
                       ],
                     ),
+                    AppUtils.kGap24
                   ],
                 ),
               ),

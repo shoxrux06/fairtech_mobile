@@ -81,11 +81,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Image.asset(
-                          AppConstants.logoPng,
-                          color: Colors.white,
-                          width: Responsive.width(80, context),
-                          height: Responsive.height(25, context),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(32),
+                          child: Image.asset(
+                            AppConstants.logoPng,
+                            width: Responsive.width(80, context),
+                            height: Responsive.height(25, context),
+                          ),
                         ),
                       ],
                     ),

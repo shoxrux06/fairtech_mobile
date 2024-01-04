@@ -37,7 +37,7 @@ class Data {
   String mxikCode;
   MxikInfo mxikInfo;
   MarkingInfo markingInfo;
-  dynamic cardInfo;
+  CardInfo cardInfo;
 
   Data({
     required this.mxikCode,
@@ -50,7 +50,7 @@ class Data {
     mxikCode: json["mxik_code"] ??'',
     mxikInfo:json["mxik_info"] != null? MxikInfo.fromJson(json["mxik_info"]): MxikInfo.fromJson({}),
     markingInfo:json["marking_info"] != null? MarkingInfo.fromJson(json["marking_info"]):MarkingInfo.fromJson({}),
-    cardInfo: json["card_info"],
+    cardInfo: json["card_info"] != null ?CardInfo.fromJson(json["card_info"]): CardInfo.fromJson({}),
   );
 
   @override
@@ -194,6 +194,28 @@ class MxikInfo {
   String toString() {
     return 'MxikInfo{groupName: $groupName, brandName: $brandName, mxikName: $mxikName, attributeName: $attributeName, packages: $packages}';
   }
+}
+
+class CardInfo {
+  String tnved;
+  String countryManufacturer;
+  List<dynamic> attributeList;
+  List<String> images;
+
+  CardInfo({
+    required this.tnved,
+    required this.countryManufacturer,
+    required this.attributeList,
+    required this.images,
+  });
+
+  factory CardInfo.fromJson(Map<String, dynamic> json) => CardInfo(
+    tnved: json["tnved"] ??'',
+    countryManufacturer: json["country_manufacturer"] ??'',
+    attributeList: json["attributeList"] != null? List<dynamic>.from(json["attributeList"].map((x) => x)):[],
+    images: json["images"] !=null? List<String>.from(json["images"].map((x) => x)):[],
+  );
+
 }
 
 class Package {

@@ -30,6 +30,7 @@ class _AuthConfirmedPageState extends State<AuthConfirmedPage> {
               AppConstants.logoPng,
               width: 140,
               height: 140,
+              fit: BoxFit.cover,
             ),
             AppUtils.kGap40,
             Stack(

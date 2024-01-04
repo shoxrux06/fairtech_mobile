@@ -12,6 +12,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/utils/responsive.dart';
+import 'dart:io' show Platform;
+
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
@@ -151,7 +153,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             Positioned(
               left: 0.0,
               right: 0.0,
-              top: cardTopPosition > 0 ? cardTopPosition + 25 : 0,
+              top: cardTopPosition > 0 ? cardTopPosition + (Platform.isAndroid? 22: 25) : 0,
               bottom: 0.0,
               child: Opacity(
                 opacity: percent,
@@ -250,7 +252,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => expandedHeight + expandedHeight / 2;
 
   @override
-  double get minExtent => kToolbarHeight + 50;
+  double get minExtent => Platform.isAndroid? kToolbarHeight + 35: kToolbarHeight + 50;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {

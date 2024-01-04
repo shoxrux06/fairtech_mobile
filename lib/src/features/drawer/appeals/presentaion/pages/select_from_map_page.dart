@@ -93,6 +93,7 @@ class _LocationChooserState extends State<SelectFromMapPage> {
                             TextField(
                                 maxLines: 2,
                                 controller: textEditingController,
+                                style: context.textStyle.regularBody,
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius:

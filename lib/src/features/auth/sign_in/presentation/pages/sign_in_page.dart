@@ -41,6 +41,7 @@ class _SignInPageState extends State<SignInPage> {
                     AppConstants.logoPng,
                     width: 200,
                     height: 200,
+                    fit: BoxFit.cover,
                   ),
                   AppUtils.kGap40,
                   Text(

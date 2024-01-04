@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
@@ -53,14 +54,23 @@ class _MxikCodePageState extends State<MxikCodePage> {
       },
       builder: (context, state) {
         final data = state.mxikCodeResponse?.data;
-        List<GoodAttr>? goodAttrs = [];
+        List<CatalogDatum>? catalogDatum = [];
+        List<GoodAttr>? goodAttr = [];
         List<Package>? packages = [];
         if(state.mxikCodeResponse?.data.markingInfo.catalogData.isNotEmpty?? false){
-          goodAttrs = state.mxikCodeResponse?.data.markingInfo.catalogData[0].goodAttrs;
+          catalogDatum = state.mxikCodeResponse?.data.markingInfo.catalogData;
         }
         if(state.mxikCodeResponse?.data.mxikInfo.packages.isNotEmpty?? false){
           packages = state.mxikCodeResponse?.data.mxikInfo.packages;
         }
+
+
+        if(catalogDatum?.isNotEmpty?? false){
+          catalogDatum?.forEach((element) {
+            goodAttr.addAll(element.goodAttrs);
+          });
+        }
+
         if(state.mxikCodeResponse?.data.markingInfo.productName.isNotEmpty?? false){
           return Scaffold(
             appBar: CustomAppBar(title: state.mxikCodeResponse != null?'Natija': 'Mxik kod orqali yuborish'),
@@ -70,16 +80,7 @@ class _MxikCodePageState extends State<MxikCodePage> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
-                      (data?.markingInfo.catalogData.isNotEmpty??false)?Image.network(
-                        '${data?.markingInfo.catalogData[0].productImageUrl}' ,
-                        width: Responsive.width(100, context),
-                        height: Responsive.height(30, context),
-                        fit: BoxFit.fill,
-                      ):Image.asset(
-                        AppConstants.noImage,
-                        width: Responsive.width(100, context),
-                        height: Responsive.height(30, context),
-                        fit: BoxFit.fill,),
+                      (data?.markingInfo.catalogData.isNotEmpty??false)? carouselCatalog(data?.markingInfo.catalogData??[]):nomImage(),
                       item(context, 'Наименование товара', data?.markingInfo.productName??''),
                       (data?.markingInfo.catalogData.isNotEmpty?? false)?item(context, 'Название категории', data?.markingInfo.catalogData[0].categories[0].catName??''):Container(),
                       item(context, 'MXIK-код', data?.mxikCode??''),
@@ -100,7 +101,7 @@ class _MxikCodePageState extends State<MxikCodePage> {
                       ),
                       isMoreClicked? Column(
                         children: [
-                          ...?goodAttrs?.map((cat) => item(context, cat.attrName, cat.attrValue??''))
+                          ...goodAttr.map((cat) => item(context, cat.attrName, cat.attrValue??''))
                         ],
                       ): Container(),
                       isMoreClicked?Align(
@@ -132,8 +133,10 @@ class _MxikCodePageState extends State<MxikCodePage> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
+                      (data?.cardInfo.images.isNotEmpty??false)? carousel(data?.cardInfo.images??[]):nomImage(),
                       item(context, 'Mxik nomi', data?.mxikInfo.mxikName??''),
-                      (data?.markingInfo.catalogData.isNotEmpty?? false)?item(context, 'Название категории', data?.markingInfo.catalogData[0].categories[0].catName??''):Container(),
+                      (data?.markingInfo.catalogData.isNotEmpty?? false)?
+                      item(context, 'Название категории', data?.markingInfo.catalogData[0].categories[0].catName??''):Container(),
                       item(context, 'Mxik kod', data?.mxikCode??''),
                       item(context, 'Guruh', data?.mxikInfo.groupName??''),
                       item(context, 'Sinf', data?.mxikInfo.className??''),
@@ -214,17 +217,12 @@ class _MxikCodePageState extends State<MxikCodePage> {
             body: ModalProgressHUD(
               inAsyncCall: state.isGettingProductDataByMxikCode,
               child: Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(
-                        AppConstants.noImage,
-                        width: Responsive.width(70, context),
-                        height: Responsive.height(20, context),
-                        fit: BoxFit.fill,
-                      ),
+                      (data?.cardInfo.images.isNotEmpty??false)? carousel(data?.cardInfo.images??[]):nomImage(),
                       item2(context, 'Mxik nomi', '${state.mxikCodeResponse?.data.mxikInfo.mxikName}'),
                       item2(context, 'Guruh nomi', '${state.mxikCodeResponse?.data.mxikInfo.groupName}'),
                       item2(context, 'Brend nomi', '${state.mxikCodeResponse?.data.mxikInfo.brandName}'),
@@ -243,17 +241,12 @@ class _MxikCodePageState extends State<MxikCodePage> {
             body: ModalProgressHUD(
               inAsyncCall: state.isGettingProductDataByMxikCode,
               child: Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(
-                        AppConstants.noImage,
-                        width: Responsive.width(70, context),
-                        height: Responsive.height(20, context),
-                        fit: BoxFit.fill,
-                      ),
+                      nomImage(),
                       item(context, 'Mxik nomi', '${state.mxikCodeResponse?.data.mxikInfo.mxikName}'),
                       item(context, 'Guruh nomi', '${state.mxikCodeResponse?.data.mxikInfo.groupName}'),
                       item(context, 'Brend nomi', '${state.mxikCodeResponse?.data.mxikInfo.brandName}'),
@@ -380,4 +373,69 @@ class _MxikCodePageState extends State<MxikCodePage> {
       ],
     );
   }
+
+  CarouselSlider carousel(List<String> images) {
+    return CarouselSlider(
+        options: CarouselOptions(
+          aspectRatio: 2.0,
+          enlargeCenterPage: true,
+          enableInfiniteScroll: false,
+          initialPage: 0,
+          autoPlay: true,
+          enlargeFactor: 0.8
+        ),
+        items:images.map((item) => Container(
+          margin: const EdgeInsets.all(5.0),
+          child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              child: Stack(
+                children: <Widget>[
+                  Image.network(item, fit: BoxFit.contain, width: Responsive.width(80, context), height: Responsive.height(40, context),
+                    errorBuilder: (context,_,r){
+                      return const Center(
+                        child: Icon(
+                            Icons.error
+                        ),
+                      );
+                    },),
+                ],
+              )),
+        )).toList()
+    );
+  }
+
+  carouselCatalog(List<CatalogDatum> catalog){
+    return CarouselSlider(
+        options: CarouselOptions(
+          aspectRatio: 2.0,
+          enlargeCenterPage: true,
+          enableInfiniteScroll: false,
+          initialPage: 0,
+          autoPlay: true,
+        ),
+        items: catalog.map((item) => Container(
+          margin: const EdgeInsets.all(5.0),
+          child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              child: Stack(
+                children: <Widget>[
+                  Image.network(item.productImageUrl, fit: BoxFit.contain, width: Responsive.width(80, context), height: Responsive.height(40, context),
+                    errorBuilder: (context,_,r){
+                      return const Center(
+                        child: Icon(
+                            Icons.error
+                        ),
+                      );
+                    },),
+                ],
+              )),
+        )).toList());
+  }
+
+  Widget nomImage() => Image.asset(
+    AppConstants.noImage,
+    width: Responsive.width(80, context),
+    height: Responsive.height(25, context),
+    fit: BoxFit.fill,
+  );
 }
