@@ -24,9 +24,11 @@ class GetPharmInfoEvent extends PharmInfoEvent {
 }
 
 class GetRegionListEvent extends PharmInfoEvent {
+  final Function onSuccess;
+  final Function onError;
   final BuildContext context;
 
-  GetRegionListEvent(this.context);
+  GetRegionListEvent({required this.onSuccess,required this.onError,required this.context});
 }
 
 class GetProfileDataPharmEvent extends PharmInfoEvent {
@@ -56,3 +58,19 @@ class GetAppealsListEvent extends PharmInfoEvent {
   GetAppealsListEvent({required this.context, required this.status});
 
 }
+
+// class GetAppealsByPhoneEvent extends PharmInfoEvent {
+//   final BuildContext context;
+//   final String phoneNumber;
+//
+//   GetAppealsByPhoneEvent({required this.context, required this.phoneNumber});
+//
+// }
+//
+// class GetAppealsByJshshirEvent extends PharmInfoEvent {
+//   final BuildContext context;
+//   final String jshshir;
+//
+//   GetAppealsByJshshirEvent({required this.context, required this.jshshir});
+//
+// }

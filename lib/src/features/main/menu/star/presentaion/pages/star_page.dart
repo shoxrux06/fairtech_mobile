@@ -47,23 +47,6 @@ class _StarPageState extends State<StarPage> {
     super.initState();
   }
 
-  Widget logoutDialog(BuildContext context){
-    return AlertDialog(
-      title: Text(context.tr('pleaseConfirm'), style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
-      content: Text(context.tr('doYouWantLogout'),style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(false),
-          child: Text(context.tr('no'),style: context.textStyle.regularTitle2.copyWith(color: context.theme.primaryColor)),
-        ),
-        TextButton(
-          onPressed: () => context.pop(true),
-          child: Text(context.tr('yes'),style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StarBloc, StarState>(

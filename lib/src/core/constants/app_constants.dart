@@ -2,21 +2,45 @@ import 'package:flutter/material.dart';
 
 class AppConstants {
   ///api
+
+  ///Base Url API
   static const baseUrl = 'https://app.fairtech.uz';
+  static const baseUrlLocal = 'http://10.10.5.42:8085';
+
+  ///Sign in with One Id and Update token API
   static const redirect = '/api/v.1/product-auth/auth/oneid/redirectUri';
   static const updateToken = '/api/v.1/product-auth/auth-payload';
   static const editPassword = '/api/v.1/product-auth/edit-password?';
+
+  ///Appeal API
   static const getProductAppealsList = '/api/v.1/outer-cabinet/list-search-status?';
+  static const getAppealsCount = '/api/v.1/outer-cabinet/get/status-count';
+  static const getProductAppealsCount = '/api/v.1/pharm/checkOutside?';
+
+  ///Product Info API
   static const getProductInfoTnVed = '/api/v.1/bojxona/tnved-code?';
   static const getProductInfoByScanner = '/api/v.1/soliq/getInfo?';
+
   static const getPharmInfo = '/api/v.1/pharm/searchOutside?';
   static const getRegionList = '/api/v.1/geographical-region/get-region-soatos';
+  static const getAllRegionList = '/api/v.1/geographical-region/get-all-region';
   static const getProfileData = '/api/v.1/outer-cabinet/profile-data';
-  static const getAppealsCount = '/api/v.1/outer-cabinet/get/status-count';
+
+  ///Fair Price API
+  static const getMarketList = '/api/v.1/price_market/list-search-outer?';
+  static const getMarketProductList = '/api/v.1/price_product/list-search';
+  static const getMarketBranchEmployeeProductList = '/api/v.1/price_product/outer/list-search';
+  static const createProduct = '/api/v.1/price_sum/create?';
+
+  static const productPriceHistoryList = '/api/v.1/price_sum/list-searchEmployee-outer';
+  static const getMeasuresList = '/api/v.1/price_measure/list-search';
+
+
   AppConstants._();
   ///prefs
   static const String keyToken = 'keyToken';
   static const String keyUserImageUrl = 'keyUserImageUrl';
+  static const String keyIsGuest = 'keyIsGuest';
   static const String keyLang = 'keyLang';
   static const String keyUserId = 'keyUserId';
   static const String keyUserName = 'keyUserName';
@@ -41,6 +65,8 @@ class AppConstants {
   static const String educationSvg = 'assets/icons/education.svg';
   static const String moreSvg = 'assets/icons/more.svg';
   static const String oneId = 'assets/icons/oneId.svg';
+  static const String idPerson = 'assets/icons/idperson.svg';
+  static const String idPerson2 = 'assets/icons/idperson2.svg';
   static const String personalInfoSvg = 'assets/icons/personalInfo.svg';
   static const String appealsSvg = 'assets/icons/appeals.svg';
   static const String helpSvg = 'assets/icons/help.svg';
@@ -81,6 +107,7 @@ class AppConstants {
   static const String logoPng = 'assets/images/logo.png';
   static const String instagramPng = 'assets/images/insta.png';
   static const String telegramPng = 'assets/images/telegram.png';
+  static const String barcodePng = 'assets/images/barcode.png';
   static const String youTubePng = 'assets/images/youtube.png';
   static const String authConfBack = 'assets/images/authConfBack.png';
   static const String authConfFront = 'assets/images/authConfFront.png';
@@ -91,6 +118,4 @@ class AppConstants {
   static const String sunImg = 'assets/images/sun.png';
   static const String noImage = 'assets/images/no_image.png';
   static const String noInternet = 'assets/images/noInternet.png';
-
-
 }

@@ -1,13 +1,19 @@
-import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:fairtech_mobile/src/core/dynamic_link/dynamic_link.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
+import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
-import 'package:fairtech_mobile/src/features/components/loading_widgets/modal_progress_hud.dart';
-import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/bloc/product_info_bloc.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_info_page.dart';
 import 'package:fairtech_mobile/src/features/product_info/presentation/pages/product_owner_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
 class ScannerResultPage extends StatefulWidget {
   final String code;
@@ -28,6 +34,33 @@ class _ScannerResultPageState extends State<ScannerResultPage>
   final controller = PageController(initialPage: 0);
   final ScrollController _scrollController = ScrollController();
 
+  ScreenshotController screenshotController = ScreenshotController();
+  late File customFile;
+
+  Future<void> widgetToImageFile(Uint8List capturedImage,) async {
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    final ts = DateTime.now().millisecondsSinceEpoch.toString();
+    String path = '$tempPath/$ts.png';
+    customFile = await File(path).writeAsBytes(capturedImage);
+  }
+
+  initFile() async {
+    await screenshotController.captureFromWidget(Container(
+      decoration: BoxDecoration(
+          border: Border.all(
+            color:Colors.grey.shade200,
+          ),
+          borderRadius: BorderRadius.circular(12)
+      ),
+      padding: const EdgeInsets.all(24),
+      margin: const EdgeInsets.all(12),
+      height: 150,
+      child: SfBarcodeGenerator(value:widget.code,showValue: true,),
+    ),).then((capturedImage) async{
+      widgetToImageFile(capturedImage);
+    });
+  }
 
   int _selectedIndex = 0;
   bool isNothing = false;
@@ -39,6 +72,7 @@ class _ScannerResultPageState extends State<ScannerResultPage>
 
   @override
   void initState() {
+    initFile();
     controller.addListener(() {
       int newPage = controller.page!.round();
       if (newPage != _selectedIndex) {
@@ -84,7 +118,13 @@ class _ScannerResultPageState extends State<ScannerResultPage>
               );
             }
             return Scaffold(
-              appBar: CustomAppBar(title: 'Ma\'lumotlar'),
+              appBar: CustomAppBar(title: 'Ma\'lumotlar', actions: [
+                IconButton(onPressed: (){
+                  DynamicLinkProvider().createLink('sdsmdks3421').then((value) => Share.share('${state.mxikAndShtrixCodeResponse?.data.mxikInfo.mxikName}\n$value\nShtrix-kod: ${widget.code}'));
+                }, icon: const Icon(Icons.share)
+                ),
+                AppUtils.kGap4,
+              ],),
               body:Stack(
                 children: [
                   PageView.builder(
@@ -98,7 +138,7 @@ class _ScannerResultPageState extends State<ScannerResultPage>
                       itemBuilder: (context, index) {
                         switch (index) {
                           case 0:
-                            return ProductInfoPage(mxikAndShtrixCodeResponse: state.mxikAndShtrixCodeResponse);
+                            return ProductInfoPage(mxikAndShtrixCodeResponse: state.mxikAndShtrixCodeResponse, code: widget.code);
                           case 1:
                             return const ProductOwnerInfoPage();
                           default:
@@ -195,7 +235,7 @@ class _ScannerResultPageState extends State<ScannerResultPage>
     return InkWell(
       onTap: () {
         controller.animateToPage(
-            index, duration: Duration(milliseconds: 300), curve: Curves.linear);
+            index, duration: const Duration(milliseconds: 300), curve: Curves.linear);
       },
       child: AnimatedContainer(
         duration: const Duration(microseconds: 300),

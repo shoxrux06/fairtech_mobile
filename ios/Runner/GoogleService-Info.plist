@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBkoWHmoQsKo-oKiISbg9UQP-66SSCEviA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>850660143713</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.raqobatqomitasi.fairtechMobile</string>
+	<key>PROJECT_ID</key>
+	<string>fairtech-mobile</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fairtech-mobile.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:850660143713:ios:f400029ed1239896d87020</string>
+</dict>
+</plist>

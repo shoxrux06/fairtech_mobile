@@ -16,9 +16,8 @@ part 'sign_in_state.dart';
 class SignInBloc extends Bloc<SignUpEvent, SignInState> {
   final SignInRepository signUpRepository;
 
-  SignInBloc(this.signUpRepository) : super(SignInState()) {
+  SignInBloc(this.signUpRepository) : super(const SignInState()) {
     on<GetOneIdDataEvent>(_getOneIdData);
-    // on<EditPasswordEvent>(_editPassword);
     on<PinCodeEvent>(_pinCode);
   }
 
@@ -32,15 +31,10 @@ class SignInBloc extends Bloc<SignUpEvent, SignInState> {
       success: (data) async {
         event.onSuccess();
         emit(state.copyWith(oneIdAuthResponse: data,oneIdAuthResponseIsNotNull: false));
-
         await LocalStorage.instance.setToken(data.token.toString());
         await LocalStorage.instance.setUserName(data.username.toString());
         await LocalStorage.instance.setUserPassword(data.password.toString());
         await LocalStorage.instance.setFullName('${data.firstName} ${data.lastName}');
-
-        print('Token in sign in page --> ${LocalStorage.instance.getToken()}');
-        print('getUserName --> ${LocalStorage.instance.getUserName()}');
-        print('getUserPassword --> ${LocalStorage.instance.getUserPassword()}');
       },
       failure: (failure) {
         event.onError();
@@ -48,20 +42,6 @@ class SignInBloc extends Bloc<SignUpEvent, SignInState> {
       },
     );
   }
-
-  // FutureOr<void> _editPassword(
-  //   EditPasswordEvent event,
-  //   Emitter<SignInState> emit,
-  // ) async {
-  //   final result = await signUpRepository.editPassword(event.context,event.userId, event.userName, event.password);
-  //   result.when(
-  //     success: (data) async {
-  //       emit(state.copyWith(editPasswordResponse: data));
-  //       await LocalStorage.instance.setUserPhone(data.password);
-  //     },
-  //     failure: (failure) {},
-  //   );
-  // }
 
   FutureOr<void> _pinCode(
     PinCodeEvent event,

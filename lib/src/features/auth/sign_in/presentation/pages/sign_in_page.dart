@@ -2,9 +2,9 @@ import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
+import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
-import 'package:fairtech_mobile/src/features/components/buttons/custom_button.dart';
 import 'package:fairtech_mobile/src/features/components/loading_widgets/modal_progress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,15 +23,13 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<SignInBloc, SignInState>(
-        listener: (context, state) {
-
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return ModalProgressHUD(
             inAsyncCall: state.oneIdAuthResponseIsNotNull,
             color: Colors.black54,
             child: Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -39,32 +37,87 @@ class _SignInPageState extends State<SignInPage> {
                   AppUtils.kGap40,
                   Image.asset(
                     AppConstants.logoPng,
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.cover,
+                    width: Responsive.width(80, context),
+                    height: Responsive.height(50, context),
+                    fit: BoxFit.contain,
                   ),
                   AppUtils.kGap40,
-                  Text(
-                    '\“FAIR TECH\” YaAT kirish uchun oneID orqali ro‘yxatdan o‘ting!',
-                    style: TextStyle(
-                      color: context.theme.primaryColor,
-                      fontSize: 24,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
                   AppUtils.kGap40,
-                  SvgPicture.asset(
-                    AppConstants.oneId,
-                    width: Responsive.width(60, context),
-                    height: 60,
-                  ),
-                  const Spacer(),
                   AppUtils.kGap12,
                   InkWell(
                     onTap: () {
                       getCode(context);
                     },
-                    child: CustomButton(text: 'Ro\'yxatdan o\'tish',),
+                    child: Container(
+                      width: double.infinity,
+                      height: 54,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: context.theme.primaryColor,
+                        gradient: const LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            Color(0xFF2A675B),
+                            Color(0xFF168070),
+                            Color(0xFF029783),
+                          ],
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'ONE',
+                            style: context.textStyle.largeTitle1.copyWith(
+                                color: Colors.white,
+                                letterSpacing: 8,
+                                fontSize: 24),
+                          ),
+                          AppUtils.kGap8,
+                          Stack(
+                            children: [
+                              SvgPicture.asset(
+                                AppConstants.idPerson2,
+                                width: 32,
+                                height: 32,
+                              ),
+                              Positioned(
+                                left: 8,
+                                top: 5,
+                                bottom: 5,
+                                child: Container(
+                                  color: Colors.white,
+                                  width: 4,
+                                  height: 22,
+                                ),
+                              ),
+                              Positioned(
+                                  right: 4,
+                                  top: 4,
+                                  bottom: 4,
+                                  child: SvgPicture.asset(
+                                    AppConstants.idPerson,
+                                    width: 22,
+                                    height: 22,
+                                  )),
+                            ],
+                          ),
+                          AppUtils.kGap12,
+                          Container(
+                            color: Colors.white,
+                            width: 1,
+                            height: 22,
+                          ),
+                          AppUtils.kGap12,
+                          Text(
+                            'Ro\'yxatdan o\'tish',
+                            style: context.textStyle.largeTitle1
+                                .copyWith(color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -80,12 +133,18 @@ class _SignInPageState extends State<SignInPage> {
       Routes.authOneId,
     );
     if (resultCode != null) {
-      print('code  >> ${resultCode['code']}');
-      print('state >> ${resultCode['state']}');
       if (mounted) {
-        context.read<SignInBloc>().add(GetOneIdDataEvent(context: context, resultCode: resultCode, onSuccess: () {
-          context.pushReplacement(Routes.authConfirmed);
-        }, onError: () {  }));
+        context.read<SignInBloc>().add(
+              GetOneIdDataEvent(
+                context: context,
+                resultCode: resultCode,
+                onSuccess: () {
+                  context.pushReplacement(Routes.authConfirmed);
+                  LocalStorage.instance.deleteIsGuest();
+                },
+                onError: () {},
+              ),
+            );
       }
     }
   }

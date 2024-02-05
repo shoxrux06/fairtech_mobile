@@ -1,7 +1,10 @@
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
+import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/features/appeal/presentation/pages/appeals_state_page.dart';
+import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
 import 'package:fairtech_mobile/src/features/components/app_bar/custom_app_bar.dart';
+import 'package:fairtech_mobile/src/features/components/pages/identity_verification_page.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/pages/create_appeals_page.dart';
 import 'package:flutter/material.dart';
@@ -49,61 +52,65 @@ class _AppealPageState extends State<AppealPage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppealsBloc(appealsRepository),
-      child: Scaffold(
-        appBar: CustomAppBar(title: 'Murojaat'),
-        body: Stack(
-          children: [
-            PageView.builder(
-                controller: controller,
-                onPageChanged: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                itemCount: list.length,
-                itemBuilder: (context, index) {
-                  switch (index) {
-                    case 0:
-                      return const CreateAppealsPage();
-                    case 1:
-                      return const AppealsStatePage();
-                    default:
-                      return Container();
-                  }
-                }),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                    height: 54,
-                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    decoration: BoxDecoration(
-                      // color: Colors.black12,
-                        border: Border.all(
-                            color: Colors.black12,
-                            width: 1
-                        ),
-                        borderRadius: BorderRadius.circular(12)
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ..._buildIndicator()
-                      ],
-                    )
+    if(LocalStorage.instance.isGuest()){
+      return BlocProvider(create: (_) => SignInBloc(signInRepository), child: const IdentityVerificationPage(),);
+    }else{
+      return BlocProvider(
+        create: (context) => AppealsBloc(appealsRepository),
+        child: Scaffold(
+          appBar: CustomAppBar(title: 'Murojaat'),
+          body: Stack(
+            children: [
+              PageView.builder(
+                  controller: controller,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  itemCount: list.length,
+                  itemBuilder: (context, index) {
+                    switch (index) {
+                      case 0:
+                        return const CreateAppealsPage();
+                      case 1:
+                        return const AppealsStatePage();
+                      default:
+                        return Container();
+                    }
+                  }),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                      height: 54,
+                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      decoration: BoxDecoration(
+                        // color: Colors.black12,
+                          border: Border.all(
+                              color: Colors.black12,
+                              width: 1
+                          ),
+                          borderRadius: BorderRadius.circular(12)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ..._buildIndicator()
+                        ],
+                      )
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   //Indicator Builder

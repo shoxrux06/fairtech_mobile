@@ -27,6 +27,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.autofocus,
     this.prefixIcon,
+    this.suffixText,
     this.prefixText,
     this.hintStyle,
     this.prefixStyle,
@@ -58,6 +59,7 @@ class CustomTextField extends StatelessWidget {
   final void Function()? onComplete;
   final String Function(String?)? validator;
   final String? prefixText;
+  final String? suffixText;
   final TextStyle? hintStyle;
   final TextStyle? prefixStyle;
   final EdgeInsets? contentPadding;
@@ -132,6 +134,7 @@ class CustomTextField extends StatelessWidget {
           hintStyle: hintStyle,
           contentPadding: contentPadding,
           prefixText: prefixText,
+          suffixText: suffixText,
           prefixStyle: prefixStyle,
         ),
         // cursorColor: context.theme.colorScheme.primary,

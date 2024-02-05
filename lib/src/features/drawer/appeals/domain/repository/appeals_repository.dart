@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 abstract class AppealsRepository{
   Future<ApiResult<ProfileDataResponse>> getProfileData(BuildContext context);
   Future<ApiResult<SendAppealResponse>> sendAppeal(BuildContext context,AppealModel appealModel,);
+  Future<ApiResult<SendAppealResponse>> getAllRegionList(BuildContext context,);
   Future<ApiResult<AppealImageTypeResponse>> getImageTypeList(BuildContext context,);
   Future<ApiResult<AppealTypeResponse>> getAppealTypeList(BuildContext context,);
   Future<ApiResult<AppealTinDataResponse>> getAppealsTinData(BuildContext context, String tin);

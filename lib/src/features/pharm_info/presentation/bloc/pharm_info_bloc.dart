@@ -30,6 +30,8 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     on<UpdateUserTokenEvent>(_updateUserToken);
     on<GetAppealsCountEvent>(_onGetAppealsCount);
     on<GetAppealsListEvent>(_onGetAppealsList);
+    // on<GetAppealsByPhoneEvent>(_onGetAppealByPhone);
+    // on<GetAppealsByJshshirEvent>(_onGetAppealByJshshir);
   }
 
   FutureOr<void> _onGetPharmInfo(
@@ -58,8 +60,11 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     result.when(
       success: (data) {
         emit(state.copyWith(getRegionListResponse: data));
+        event.onSuccess();
       },
-      failure: (failure) {},
+      failure: (failure) {
+        event.onError();
+      },
     );
   }
 
@@ -95,10 +100,11 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
   }
 
   FutureOr<void> _onGetAppealsList(
-      GetAppealsListEvent event,
-      Emitter<PharmInfoState> emit,
-      ) async {
-    final result = await pharmInfoRepository.getAppealsList(event.context,event.status);
+    GetAppealsListEvent event,
+    Emitter<PharmInfoState> emit,
+  ) async {
+    final result =
+        await pharmInfoRepository.getAppealsList(event.context, event.status);
     result.when(
       success: (data) {
         emit(state.copyWith(productAppealListResponse: data));
@@ -111,14 +117,59 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     UpdateUserTokenEvent event,
     Emitter<PharmInfoState> emit,
   ) async {
-    final result = await pharmInfoRepository.updateUserToken(event.context,event.username);
+    final result = await pharmInfoRepository.updateUserToken(
+        event.context, event.username);
     result.when(
-      success: (data)async {
-        emit(state.copyWith(oneIdAuthResponse: data));
+      success: (data) async {
+        bool isAccessToFairPrice = false;
+        String fairPriceAccessRoleName = '';
+        for (var role in data.roles) {
+          if (role.code == 'HYPERMARKET' || role.code == 'MARKET') {
+            isAccessToFairPrice = true;
+            fairPriceAccessRoleName = role.name;
+            print('*** isAccessToFairPrice $isAccessToFairPrice fairPriceAccessRoleName $fairPriceAccessRoleName ***');
+          }
+        }
+        emit(
+          state.copyWith(
+            oneIdAuthResponse: data,
+            isAccessToFairPrice: isAccessToFairPrice,
+            fairPriceAccessRoleName: fairPriceAccessRoleName,
+          ),
+        );
         print('Token in main page ==> ${data.token}');
         await LocalStorage.instance.setToken(data.token);
       },
       failure: (failure) {},
     );
   }
+
+// FutureOr<void> _onGetAppealByPhone(
+//     GetAppealsByPhoneEvent event,
+//     Emitter<PharmInfoState> emit,
+//     ) async {
+//   final result = await pharmInfoRepository.updateUserToken(event.context,event.phoneNumber);
+//   result.when(
+//     success: (data)async {
+//       emit(state.copyWith(oneIdAuthResponse: data));
+//       print('Token in main page ==> ${data.token}');
+//       await LocalStorage.instance.setToken(data.token);
+//     },
+//     failure: (failure) {},
+//   );
+// }
+// FutureOr<void> _onGetAppealByJshshir(
+//     GetAppealsByJshshirEvent event,
+//     Emitter<PharmInfoState> emit,
+//     ) async {
+//   final result = await pharmInfoRepository.updateUserToken(event.context,event.jshshir);
+//   result.when(
+//     success: (data)async {
+//       emit(state.copyWith(oneIdAuthResponse: data));
+//       print('Token in main page ==> ${data.token}');
+//       await LocalStorage.instance.setToken(data.token);
+//     },
+//     failure: (failure) {},
+//   );
+// }
 }

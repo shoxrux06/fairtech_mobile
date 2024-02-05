@@ -14,7 +14,7 @@ class ProductInfoRepositoryImpl implements ProductInfoRepository{
   @override
   Future<ApiResult<ProductInfoResponse>> getProductInfoByTnVed(BuildContext context,String  tnvedCode) async{
     try {
-      final client = inject<HttpService>().client(requireAuth: true, context: context);
+      final client = inject<HttpService>().client(requireAuth: false, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
       HttpClient()
         ..badCertificateCallback =
@@ -29,12 +29,13 @@ class ProductInfoRepositoryImpl implements ProductInfoRepository{
   @override
     Future<ApiResult<MxikAndShtrixCodeResponse>> getProductInfoByScanner(BuildContext context,String lang, String internationalCode)async {
     try {
-      final client = inject<HttpService>().client(requireAuth: true, context: context);
+      final client = inject<HttpService>().client(requireAuth: false, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
       HttpClient()
         ..badCertificateCallback =
             (X509Certificate cert, String host, int port) => true;
       final response = await client.get('${AppConstants.getProductInfoByScanner}lang=$lang&international_code=$internationalCode&mxik_code=');
+      print('getProductInfoByScanner ==> ** ${response.data} **');
       return ApiResult.success(data:MxikAndShtrixCodeResponse.fromJson(response.data));
     } catch (e) {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
@@ -44,7 +45,7 @@ class ProductInfoRepositoryImpl implements ProductInfoRepository{
   @override
   Future<ApiResult<MxikAndShtrixCodeResponse>> getProductInfoByMxiCode(BuildContext context,String lang, String mxikCode)async {
     try {
-      final client = inject<HttpService>().client(requireAuth: true, context: context);
+      final client = inject<HttpService>().client(requireAuth: false, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
       HttpClient()
         ..badCertificateCallback =

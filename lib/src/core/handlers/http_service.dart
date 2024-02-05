@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 class HttpService {
   Dio client({bool requireAuth = false, required BuildContext context,}) => Dio(
     BaseOptions(
-      baseUrl: AppConstants.baseUrl,
+      baseUrl: AppConstants.baseUrlLocal,
       connectTimeout: const Duration(milliseconds:  60 * 1000),
       receiveTimeout: const Duration(milliseconds:  60 * 1000),
       sendTimeout: const Duration(milliseconds:  60 * 1000),

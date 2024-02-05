@@ -1,18 +1,24 @@
 import 'package:fairtech_mobile/src/app_options.dart';
+import 'package:fairtech_mobile/src/config/notif/firebase_api.dart';
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/config/themes/themes.dart';
 import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
+import 'package:fairtech_mobile/src/core/dynamic_link/dynamic_link.dart';
 import 'package:fairtech_mobile/src/core/l10n/AppLocalizations.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() async {
+Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await LocalStorage.getInstance();
+  await Firebase.initializeApp();
+  await FirebaseApi().initNotifications();
   setUpDependencies();
+  DynamicLinkProvider().initDynamicLink();
   // HttpService().setCertificate();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_){
     runApp(
@@ -26,6 +32,12 @@ void main() async {
     );
     final token = LocalStorage.instance.getToken();
     final pincode = LocalStorage.instance.getPinCode();
+    final isGuest = LocalStorage.instance.isGuest();
+    final userName =  LocalStorage.instance.getUserName();
+    print('pincode -->$pincode');
+    print('token -->$token');
+    print('isGuest -->$isGuest');
+    print('userName -->$userName');
 
     DateTime from = DateTime(2012, 12, 25);
     DateTime to = DateTime.now();
@@ -33,8 +45,6 @@ void main() async {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inHours / 24).round();
-    print('pincode -->$pincode}');
-    print('token -->$token}');
   }
   );
   FlutterNativeSplash.remove();
@@ -45,7 +55,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
     final token = LocalStorage.instance.getToken();
     return MaterialApp.router(
       title: 'Fair tech',
@@ -61,7 +70,6 @@ class MyApp extends StatelessWidget {
       locale: AppOptions.of(context).locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-
       routerDelegate: AppGoRouter.router.routerDelegate,
       routeInformationParser: AppGoRouter.router.routeInformationParser,
       routeInformationProvider: AppGoRouter.router.routeInformationProvider,

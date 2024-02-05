@@ -19,6 +19,14 @@ class SendAppealEvent extends AppealsEvent {
   });
 }
 
+class GetAllRegionListEvent extends AppealsEvent {
+  final BuildContext context;
+
+  GetAllRegionListEvent({
+    required this.context,
+  });
+}
+
 class GetImageTypeEvent extends AppealsEvent {
   final BuildContext context;
 

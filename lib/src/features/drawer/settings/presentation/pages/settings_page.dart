@@ -120,7 +120,7 @@ class SettingsPage extends StatelessWidget {
               ),
               onTap: () {},
             ),
-            ListTile(
+            LocalStorage.instance.isGuest()? Container():ListTile(
               dense: true,
               leading: SvgPicture.asset(AppConstants.deleteSvg),
               title: Text(
@@ -128,12 +128,12 @@ class SettingsPage extends StatelessWidget {
                 style: TextStyle(color: context.color?.red, fontSize: 15, fontWeight: FontWeight.w500),
               ),
               onTap: () async{
-                bool? yes =
-                await showDialog<bool>(context: context, builder: logoutDialog);
+                bool? yes = await showDialog<bool>(context: context, builder: logoutDialog);
                 if (yes == true) {
                   LocalStorage.instance.deleteToken();
                   LocalStorage.instance.deletePinCode();
                   LocalStorage.instance.deleteFullName();
+                  LocalStorage.instance.deleteUsername();
                   LocalStorage.instance.deleteUserPassword();
                   LocalStorage.instance.deleteUserId();
                   LocalStorage.instance.deleteUserPhone();
@@ -169,6 +169,7 @@ class SettingsPage extends StatelessWidget {
                 LocalStorage.instance.deleteToken();
                 LocalStorage.instance.deletePinCode();
                 LocalStorage.instance.deleteFullName();
+                LocalStorage.instance.deleteUsername();
                 LocalStorage.instance.deleteUserPassword();
                 LocalStorage.instance.deleteUserId();
                 LocalStorage.instance.deleteUserPhone();

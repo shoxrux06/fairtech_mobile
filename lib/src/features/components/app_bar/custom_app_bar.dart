@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  CustomAppBar({Key? key, required this.title, this.actions})
+  const CustomAppBar({Key? key, required this.title, this.actions})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 

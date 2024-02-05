@@ -28,7 +28,7 @@ class _AuthOneIDPageState extends State<AuthOneIDPage> {
             Icons.close,
             color: Colors.black,
           ),
-          onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context),
         ),
       ),
       body: SafeArea(

@@ -30,7 +30,7 @@ class HelpPage extends StatelessWidget {
       appBar: CustomAppBar(title: context.tr('help')),
       body: Column(
         children: [
-          Divider(height: 1,color: Colors.grey,),
+          const Divider(height: 1,color: Colors.grey,),
           InkWell(
             onTap: (){
               _launchCaller();
@@ -39,7 +39,7 @@ class HelpPage extends StatelessWidget {
               padding: EdgeInsets.all(12.0),
               child: Row(
                 children: [
-                  Icon(Icons.phone),
+                  const Icon(Icons.phone),
                   SizedBox(width: 12,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

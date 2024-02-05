@@ -10,6 +10,8 @@ class PharmInfoState with _$PharmInfoState{
     @Default([])List<GetRegionListResponse?> getRegionListResponse,
     ProfileDataResponse? profileDataResponse,
     StatusCountOutsideResponse? statusCountOutsideResponse,
-    @Default(false) bool isErrorOccurredWhileGettingPharmInfo
+    @Default(false) bool isErrorOccurredWhileGettingPharmInfo,
+    @Default(false) bool isAccessToFairPrice,
+    @Default('') String fairPriceAccessRoleName
 }) = Initial;
 }

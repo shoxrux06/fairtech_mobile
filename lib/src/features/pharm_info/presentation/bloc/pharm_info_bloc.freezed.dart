@@ -32,6 +32,8 @@ mixin _$PharmInfoState {
       throw _privateConstructorUsedError;
   bool get isErrorOccurredWhileGettingPharmInfo =>
       throw _privateConstructorUsedError;
+  bool get isAccessToFairPrice => throw _privateConstructorUsedError;
+  String get fairPriceAccessRoleName => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PharmInfoStateCopyWith<PharmInfoState> get copyWith =>
@@ -52,7 +54,9 @@ abstract class $PharmInfoStateCopyWith<$Res> {
       List<GetRegionListResponse?> getRegionListResponse,
       ProfileDataResponse? profileDataResponse,
       StatusCountOutsideResponse? statusCountOutsideResponse,
-      bool isErrorOccurredWhileGettingPharmInfo});
+      bool isErrorOccurredWhileGettingPharmInfo,
+      bool isAccessToFairPrice,
+      String fairPriceAccessRoleName});
 }
 
 /// @nodoc
@@ -76,6 +80,8 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
     Object? profileDataResponse = freezed,
     Object? statusCountOutsideResponse = freezed,
     Object? isErrorOccurredWhileGettingPharmInfo = null,
+    Object? isAccessToFairPrice = null,
+    Object? fairPriceAccessRoleName = null,
   }) {
     return _then(_value.copyWith(
       pharmInfoResponse: freezed == pharmInfoResponse
@@ -111,6 +117,14 @@ class _$PharmInfoStateCopyWithImpl<$Res, $Val extends PharmInfoState>
           ? _value.isErrorOccurredWhileGettingPharmInfo
           : isErrorOccurredWhileGettingPharmInfo // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAccessToFairPrice: null == isAccessToFairPrice
+          ? _value.isAccessToFairPrice
+          : isAccessToFairPrice // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fairPriceAccessRoleName: null == fairPriceAccessRoleName
+          ? _value.fairPriceAccessRoleName
+          : fairPriceAccessRoleName // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -131,7 +145,9 @@ abstract class _$$InitialImplCopyWith<$Res>
       List<GetRegionListResponse?> getRegionListResponse,
       ProfileDataResponse? profileDataResponse,
       StatusCountOutsideResponse? statusCountOutsideResponse,
-      bool isErrorOccurredWhileGettingPharmInfo});
+      bool isErrorOccurredWhileGettingPharmInfo,
+      bool isAccessToFairPrice,
+      String fairPriceAccessRoleName});
 }
 
 /// @nodoc
@@ -153,6 +169,8 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? profileDataResponse = freezed,
     Object? statusCountOutsideResponse = freezed,
     Object? isErrorOccurredWhileGettingPharmInfo = null,
+    Object? isAccessToFairPrice = null,
+    Object? fairPriceAccessRoleName = null,
   }) {
     return _then(_$InitialImpl(
       pharmInfoResponse: freezed == pharmInfoResponse
@@ -188,6 +206,14 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.isErrorOccurredWhileGettingPharmInfo
           : isErrorOccurredWhileGettingPharmInfo // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAccessToFairPrice: null == isAccessToFairPrice
+          ? _value.isAccessToFairPrice
+          : isAccessToFairPrice // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fairPriceAccessRoleName: null == fairPriceAccessRoleName
+          ? _value.fairPriceAccessRoleName
+          : fairPriceAccessRoleName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -203,7 +229,9 @@ class _$InitialImpl implements Initial {
       final List<GetRegionListResponse?> getRegionListResponse = const [],
       this.profileDataResponse,
       this.statusCountOutsideResponse,
-      this.isErrorOccurredWhileGettingPharmInfo = false})
+      this.isErrorOccurredWhileGettingPharmInfo = false,
+      this.isAccessToFairPrice = false,
+      this.fairPriceAccessRoleName = ''})
       : _getRegionListResponse = getRegionListResponse;
 
   @override
@@ -231,10 +259,16 @@ class _$InitialImpl implements Initial {
   @override
   @JsonKey()
   final bool isErrorOccurredWhileGettingPharmInfo;
+  @override
+  @JsonKey()
+  final bool isAccessToFairPrice;
+  @override
+  @JsonKey()
+  final String fairPriceAccessRoleName;
 
   @override
   String toString() {
-    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, productAppealCountResponse: $productAppealCountResponse, oneIdAuthResponse: $oneIdAuthResponse, productAppealListResponse: $productAppealListResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse, isErrorOccurredWhileGettingPharmInfo: $isErrorOccurredWhileGettingPharmInfo)';
+    return 'PharmInfoState(pharmInfoResponse: $pharmInfoResponse, productAppealCountResponse: $productAppealCountResponse, oneIdAuthResponse: $oneIdAuthResponse, productAppealListResponse: $productAppealListResponse, getRegionListResponse: $getRegionListResponse, profileDataResponse: $profileDataResponse, statusCountOutsideResponse: $statusCountOutsideResponse, isErrorOccurredWhileGettingPharmInfo: $isErrorOccurredWhileGettingPharmInfo, isAccessToFairPrice: $isAccessToFairPrice, fairPriceAccessRoleName: $fairPriceAccessRoleName)';
   }
 
   @override
@@ -264,7 +298,12 @@ class _$InitialImpl implements Initial {
             (identical(other.isErrorOccurredWhileGettingPharmInfo,
                     isErrorOccurredWhileGettingPharmInfo) ||
                 other.isErrorOccurredWhileGettingPharmInfo ==
-                    isErrorOccurredWhileGettingPharmInfo));
+                    isErrorOccurredWhileGettingPharmInfo) &&
+            (identical(other.isAccessToFairPrice, isAccessToFairPrice) ||
+                other.isAccessToFairPrice == isAccessToFairPrice) &&
+            (identical(
+                    other.fairPriceAccessRoleName, fairPriceAccessRoleName) ||
+                other.fairPriceAccessRoleName == fairPriceAccessRoleName));
   }
 
   @override
@@ -277,7 +316,9 @@ class _$InitialImpl implements Initial {
       const DeepCollectionEquality().hash(_getRegionListResponse),
       profileDataResponse,
       statusCountOutsideResponse,
-      isErrorOccurredWhileGettingPharmInfo);
+      isErrorOccurredWhileGettingPharmInfo,
+      isAccessToFairPrice,
+      fairPriceAccessRoleName);
 
   @JsonKey(ignore: true)
   @override
@@ -295,7 +336,9 @@ abstract class Initial implements PharmInfoState {
       final List<GetRegionListResponse?> getRegionListResponse,
       final ProfileDataResponse? profileDataResponse,
       final StatusCountOutsideResponse? statusCountOutsideResponse,
-      final bool isErrorOccurredWhileGettingPharmInfo}) = _$InitialImpl;
+      final bool isErrorOccurredWhileGettingPharmInfo,
+      final bool isAccessToFairPrice,
+      final String fairPriceAccessRoleName}) = _$InitialImpl;
 
   @override
   PharmInfoResponse? get pharmInfoResponse;
@@ -313,6 +356,10 @@ abstract class Initial implements PharmInfoState {
   StatusCountOutsideResponse? get statusCountOutsideResponse;
   @override
   bool get isErrorOccurredWhileGettingPharmInfo;
+  @override
+  bool get isAccessToFairPrice;
+  @override
+  String get fairPriceAccessRoleName;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

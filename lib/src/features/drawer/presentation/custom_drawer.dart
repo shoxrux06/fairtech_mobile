@@ -182,10 +182,11 @@ class CustomDrawer extends StatelessWidget {
                 LocalStorage.instance.deleteToken();
                 LocalStorage.instance.deletePinCode();
                 LocalStorage.instance.deleteFullName();
+                LocalStorage.instance.deleteUsername();
                 LocalStorage.instance.deleteUserPassword();
                 LocalStorage.instance.deleteUserId();
                 LocalStorage.instance.deleteUserPhone();
-                context.pushReplacement(Routes.signIn);
+                context.go(Routes.signIn);
               } else {
                 Navigator.pop(context);
               }

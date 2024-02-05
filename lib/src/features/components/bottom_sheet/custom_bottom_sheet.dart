@@ -59,15 +59,27 @@ Future<T?> customModalBottomSheet<T>({
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (_) {
         if (isScrollControlled) {
-          return DraggableScrollableSheet(
-            initialChildSize: 1,
-            minChildSize: 0.5,
-            expand: false,
-            snap: true,
-            builder: (context, controller) => builder(context, controller),
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom
+            ),
+            child: SizedBox.expand(
+              child: DraggableScrollableSheet(
+                initialChildSize: 1,
+                minChildSize: 0.5,
+                expand: false,
+                snap: true,
+                builder: (context, controller) => builder(context, controller),
+              ),
+            ),
           );
         } else {
-          return builder(context, null);
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom
+            ),
+            child: builder(context, null),
+          );
         }
       },
     );

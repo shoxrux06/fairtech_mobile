@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
 import 'package:fairtech_mobile/src/core/di/inject.dart';
 import 'package:fairtech_mobile/src/core/handlers/api_result.dart';
 import 'package:fairtech_mobile/src/core/handlers/http_service.dart';
@@ -21,13 +22,10 @@ class AppealsRepositoryImpl implements AppealsRepository {
     try {
       final client = inject<HttpService>().client(requireAuth: true, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
-      HttpClient()
-        ..badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
+      HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       final response = await client.post('/api/v.1/outer-cabinet/profile-data');
       return ApiResult.success(data: ProfileDataResponse.fromJson(response.data));
     } catch (e) {
-      print('==> products failure: $e');
       AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
@@ -51,7 +49,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
         "documentTypeIds" : appealModel.documentTypeIds.toSet().toList(),
         "lang" : appealModel.lat,
         "lat" : appealModel.lat,
-        "physical_tin" : appealModel.physicalTin,
+        "org_tin" : appealModel.orgTin,
         "checkbox": appealModel.checkbox,
         'appeal_file':  await Future.wait(
           appealModel.appealFileList.map((file) async {
@@ -93,8 +91,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
       print('getImageTypeList 444 $response');
       return ApiResult.success(data:AppealImageTypeResponse.fromJson(response.data));
     } catch (e) {
-      print('==> products failure: $e');
-        AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
+      AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }
@@ -128,13 +125,28 @@ class AppealsRepositoryImpl implements AppealsRepository {
       final response = await client.post(
           '/api/v.1/yuridik-shaxs/get-info?tin=$tin',
       );
-      print('8**** response $response');
+      print('**** response $response');
       return ApiResult.success(data:AppealTinDataResponse.fromJson({
-        'company':response.data['company'],
-        'companyShippingAddresses':response.data['companyShippingAddresses'],
+        'company':response.data['company']['shortName'],
+        'companyBillingAddress':response.data['companyBillingAddress']['streetName'],
       }));
     } catch (e) {
       AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
+      return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<SendAppealResponse>> getAllRegionList(BuildContext context) async {
+    try {
+      final client = inject<HttpService>().client(requireAuth: true, context: context);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
+      HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      final response = await client.get(
+        AppConstants.getAllRegionList,
+      );
+      return ApiResult.success(data: SendAppealResponse.fromJson(response.data));
+    } catch (e) {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }

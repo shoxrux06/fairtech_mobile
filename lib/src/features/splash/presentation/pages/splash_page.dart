@@ -1,7 +1,9 @@
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
+import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/core/utils/responsive.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,38 +26,110 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     context.read<SplashBloc>().add(const SplashEvent());
   }
 
+  Widget logoutDialog(BuildContext context) {
+    return AlertDialog(
+      title: Text(context.tr('pleaseConfirm'),
+          style: context.textStyle.regularTitle2
+              .copyWith(color: context.color?.red)),
+      content: Text(context.tr('deleteProfileMessage'),
+          style: context.textStyle.regularTitle2
+              .copyWith(color: context.theme.primaryColor)),
+      actions: [
+        TextButton(
+          onPressed: () => context.pop(false),
+          child: Text(context.tr('no'),
+              style: context.textStyle.regularTitle2
+                  .copyWith(color: context.theme.primaryColor)),
+        ),
+        TextButton(
+          onPressed: () => context.pop(true),
+          child: Text(context.tr('yes'),
+              style: context.textStyle.regularTitle2
+                  .copyWith(color: context.color?.red)),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) => BlocListener<SplashBloc, SplashState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state.isTimerFinished) {
-            if (LocalStorage.instance.getToken().isNotEmpty) {
-              final passCode = LocalStorage.instance.getPinCode();
-              if (passCode.isNotEmpty) {
-                screenLock(
-                  context: context,
-                  correctString: passCode,
-                  useBlur: false,
-                  canCancel: false,
-                  config: const ScreenLockConfig(
-                    backgroundColor: Colors.white,
+            // context.pushReplacement(Routes.main);
+            if ((LocalStorage.instance.isGuest() == false) &&
+                LocalStorage.instance.getToken().isEmpty) {
+              showDialog(
+                barrierDismissible: true,
+                barrierColor: Colors.grey.withOpacity(0.989),
+                context: context,
+                builder: (ctx) => Theme(
+                  data: ThemeData(
+                    backgroundColor: Colors.grey.withOpacity(0.989),
                   ),
-                  secretsConfig: const SecretsConfig(
-                    secretConfig: SecretConfig(
-                      disabledColor: Colors.black,
-                      enabledColor: Colors.amber,
-                      size: 24
-                    )
+                  child: CupertinoAlertDialog(
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Ilovadagi mavjud barcha xizmatlardan foydalanishni hoxlaysizmi?',
+                          style: ctx.textStyle.largeTitle2.copyWith(color: ctx.color?.primaryText),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      CupertinoDialogAction(
+                        isDestructiveAction: true,
+                        onPressed: ()async {
+                          ctx.pop();
+                          ctx.go(Routes.main);
+                          await LocalStorage.instance.setGuest(true);
+                        },
+                        child: Text('Yo\'q'),
+                      ),
+                      CupertinoDialogAction(
+                        isDefaultAction: true,
+                        onPressed: () {
+                          ctx.pop();
+                        },
+                        child: Text('Ha'),
+                      ),
+                    ],
                   ),
-                  onUnlocked: () {
-                    context.pop();
-                    context.pushReplacement(Routes.main);
-                  },
-                );
+                ),
+              );
+            }
+            if (!LocalStorage.instance.isGuest()) {
+              if (LocalStorage.instance.getToken().isNotEmpty) {
+                final passCode = LocalStorage.instance.getPinCode();
+                if (passCode.isNotEmpty) {
+                  screenLock(
+                    context: context,
+                    correctString: passCode,
+                    useBlur: false,
+                    canCancel: false,
+                    config: const ScreenLockConfig(
+                      backgroundColor: Colors.white,
+                    ),
+                    secretsConfig: const SecretsConfig(
+                        secretConfig: SecretConfig(
+                            disabledColor: Colors.black,
+                            enabledColor: Colors.amber,
+                            size: 24)
+                    ),
+                    onUnlocked: () {
+                      context.pop();
+                      context.pushReplacement(Routes.main);
+                    },
+                  );
+                } else {
+                  context.push(Routes.emptyPage);
+                }
               } else {
-                context.push(Routes.emptyPage);
+                context.pushReplacement(Routes.signIn);
               }
             } else {
-              context.pushReplacement(Routes.signIn);
+              context.pushReplacement(Routes.main);
             }
           }
         },
@@ -87,6 +161,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                             AppConstants.logoPng,
                             width: Responsive.width(80, context),
                             height: Responsive.height(25, context),
+                            color: Colors.white,
                           ),
                         ),
                       ],

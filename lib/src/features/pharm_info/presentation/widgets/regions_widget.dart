@@ -16,7 +16,7 @@ class _RegionsWidgetState extends State<RegionsWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<PharmInfoBloc>().add(GetRegionListEvent(context));
+    context.read<PharmInfoBloc>().add(GetRegionListEvent(onSuccess: (){}, onError: (){}, context: context));
     super.initState();
   }
   @override

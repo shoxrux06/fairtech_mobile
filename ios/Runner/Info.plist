@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FLTEnableImpeller</key>
+	<string>false</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -26,17 +28,14 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>It is used to determine the location of the subject on the map</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>It is used to determine the location of the subject on the map</string>
-
 	<key>NSCameraUsageDescription</key>
-    <string>This app needs camera access to scan QR codes or to attach a file</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app needs photos access to get QR code from photo library or to attach a file</string>
-
+	<string>This app needs camera access to scan QR codes or to attach a file</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs photos access to get QR code from photo library or to attach a file</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

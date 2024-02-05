@@ -24,6 +24,10 @@ sealed class Routes {
   static const String allAppeals = '/allAppeals';
   static const String completedAppeals = '/completedAppeals';
   static const String inProcessAppeals = '/inProcessAppeals';
+  static const String fairPrice = '/fairPrice';
+  static const String subMarket = '/subMarket';
+  static const String priceLookOrCreate = '/priceLookOrCreate';
+  static const String fairPriceProductList = '/fairPriceProductList';
 
   /// auth
   static const String authOneId = '/auth_one_id';
@@ -39,5 +43,8 @@ sealed class Routes {
   static const String settings = '/settings';
   static const String help = '/help';
   static const String aboutSystem = '/about_system';
+
+  ///push notification
+  static const String pushNotification = '/push_notification';
 
 }

@@ -19,7 +19,6 @@ class ChooseOptionPage extends StatefulWidget {
 }
 
 class _ChooseOptionPageState extends State<ChooseOptionPage> {
-  String _scanBarCodeResult = '';
   String infoText = '“Product Info” axborot tizimi - isteʼmolchilar mobil'
       ' ilova orqali isteʼmol bozorida muomalada bo‘lgan tovar (ish, xizmat)lar'
       ' to‘g‘risida maʼlumotlarni onlayn tarzda olish maqsadida ishlab chiqilgan.';
@@ -175,20 +174,5 @@ class _ChooseOptionPageState extends State<ChooseOptionPage> {
         ),
       ],
     );
-  }
-
-  Future<void> scanQR() async {
-    String barCodeScanRes = '';
-    try {
-      FlutterBarcodeScanner.getBarcodeStreamReceiver(
-          'ff6666', 'Cancel', true, ScanMode.QR);
-    } on PlatformException {
-      barCodeScanRes = 'Failed to get platform version';
-    }
-    if (!mounted) {
-      setState(() {
-        _scanBarCodeResult = barCodeScanRes;
-      });
-    }
   }
 }

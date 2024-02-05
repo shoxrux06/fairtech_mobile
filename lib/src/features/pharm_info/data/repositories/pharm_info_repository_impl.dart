@@ -12,7 +12,6 @@ import 'package:fairtech_mobile/src/features/pharm_info/data/models/get_region_l
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/pharm_info_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/product_appeal_count_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/data/models/product_appeal_list_response.dart';
-import 'package:fairtech_mobile/src/features/pharm_info/data/models/status_count_outside_response.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/domain/repositories/pharm_info_repository.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -22,9 +21,7 @@ class PharmInfoRepositoryImpl implements PharmInfoRepository {
   Future<ApiResult<PharmInfoResponse>> getPharmInfo(BuildContext context,String keyword, String status, int itemsPerPage, int page) async {
     try {
       final client = inject<HttpService>().client(requireAuth: true, context: context);
-      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
-          HttpClient()
-            ..badCertificateCallback =
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () => HttpClient()..badCertificateCallback =
                 (X509Certificate cert, String host, int port) => true;
       final data = {"itemsPerPage":itemsPerPage,"page":page};
       final response = await client.post(
@@ -33,7 +30,6 @@ class PharmInfoRepositoryImpl implements PharmInfoRepository {
       );
       return ApiResult.success(data: PharmInfoResponse.fromJson(response.data));
     } catch (e) {
-      print('==> failure: $e');
       AppSnackBar.showErrorSnackBar(context, 'Error', 'Error occurred');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
@@ -44,15 +40,13 @@ class PharmInfoRepositoryImpl implements PharmInfoRepository {
     try {
       final client = inject<HttpService>().client(requireAuth: true, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
-      HttpClient()
-        ..badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
+      HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       final response = await client.get(
         AppConstants.getRegionList,
       );
+      print('getRegionList  ** ${response.data} **');
       return ApiResult.success(data: List.from(response.data.map((e) => GetRegionListResponse.fromJson(e))));
     } catch (e) {
-      print('==> failure: $e');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }
@@ -98,7 +92,7 @@ class PharmInfoRepositoryImpl implements PharmInfoRepository {
   @override
   Future<ApiResult<OneIdAuthResponse>> updateUserToken(BuildContext context,String username)async {
     try {
-      final client = inject<HttpService>().client(requireAuth: true, context: context);
+      final client = inject<HttpService>().client(requireAuth: false, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
       HttpClient()
         ..badCertificateCallback =
@@ -138,4 +132,48 @@ class PharmInfoRepositoryImpl implements PharmInfoRepository {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }
+
+  // @override
+  // Future<ApiResult<GetAppealsByPhoneAndPinflResponse>> getAppealsByJSHSHIR(BuildContext context, String jshshir) async{
+  //   try {
+  //     final client = inject<HttpService>().client(requireAuth: false, context: context);
+  //     (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
+  //     HttpClient()
+  //       ..badCertificateCallback =
+  //           (X509Certificate cert, String host, int port) => true;
+  //     final response = await client.post(
+  //         '${AppConstants.getProductAppealsCount}phoneNumber=&pinfl=$jshshir',
+  //         data: {
+  //           "page":0,
+  //           "itemsPerPage":50
+  //         }
+  //     );
+  //     return ApiResult.success(data: GetAppealsByPhoneAndPinflResponse.fromJson(response.data));
+  //   } catch (e) {
+  //     print('==> failure: $e');
+  //     return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+  //   }
+  // }
+  //
+  // @override
+  // Future<ApiResult<GetAppealsByPhoneAndPinflResponse>> getAppealsByPhoneNumber(BuildContext context, String phoneNumber)async {
+  //   try {
+  //     final client = inject<HttpService>().client(requireAuth: true, context: context);
+  //     (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
+  //     HttpClient()
+  //       ..badCertificateCallback =
+  //           (X509Certificate cert, String host, int port) => true;
+  //     final response = await client.post(
+  //         '${AppConstants.getProductAppealsCount}phoneNumber=$phoneNumber&pinfl=',
+  //         data: {
+  //           "page":0,
+  //           "itemsPerPage":50
+  //         }
+  //     );
+  //     return ApiResult.success(data: GetAppealsByPhoneAndPinflResponse.fromJson(response.data));
+  //   } catch (e) {
+  //     print('==> failure: $e');
+  //     return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+  //   }
+  // }
 }

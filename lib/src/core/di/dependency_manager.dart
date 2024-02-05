@@ -5,6 +5,9 @@ import 'package:fairtech_mobile/src/features/auth/sign_in/domain/repository/sign
 import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/data/repository/appeals_repository_impl.dart';
 import 'package:fairtech_mobile/src/features/drawer/appeals/domain/repository/appeals_repository.dart';
+import 'package:fairtech_mobile/src/features/fair_price/data/repositories/fair_price_repository_impl.dart';
+import 'package:fairtech_mobile/src/features/fair_price/domain/repositories/fair_price_repository.dart';
+import 'package:fairtech_mobile/src/features/fair_price/presentation/bloc/fair_price_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/data/repository.dart';
 import 'package:fairtech_mobile/src/features/main/menu/star/presentaion/bloc/star_bloc.dart';
 import 'package:fairtech_mobile/src/features/main/presentation/bloc/main/main_bloc.dart';
@@ -26,6 +29,7 @@ setUpDependencies() {
   sl.registerLazySingleton<ProductInfoRepository>(() => ProductInfoRepositoryImpl());
   sl.registerLazySingleton<PharmInfoRepository>(() => PharmInfoRepositoryImpl());
   sl.registerLazySingleton<StarRepository>(() => StarRepository());
+  sl.registerLazySingleton<FairPriceRepository>(() => FairPriceRepositoryImpl());
 
   mainFeature();
   networkFeature();
@@ -33,6 +37,7 @@ setUpDependencies() {
   signInFeature();
   pharmInfoFeature();
   filterFeature();
+  fairPriceFeature();
 }
 
 final signInRepository = sl.get<SignInRepository>();
@@ -40,6 +45,7 @@ final appealsRepository = sl.get<AppealsRepository>();
 final servicesRepository = sl.get<ProductInfoRepository>();
 final pharmInfoRepository = sl.get<PharmInfoRepository>();
 final stareRepository = sl.get<StarRepository>();
+final fairPricerepository = sl.get<FairPriceRepository>();
 
 
 
@@ -71,4 +77,9 @@ void pharmInfoFeature() {
 void filterFeature() {
   /// main
   sl.registerLazySingleton(() => StarBloc(stareRepository));
+}
+
+void fairPriceFeature() {
+  /// main
+  sl.registerLazySingleton(() => FairPriceBloc(fairPricerepository));
 }

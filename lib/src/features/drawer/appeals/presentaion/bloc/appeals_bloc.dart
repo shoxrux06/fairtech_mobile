@@ -23,6 +23,7 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
   AppealsBloc(this.appealsRepository) : super(const AppealsState()) {
     on<GetProfileDataEvent>(_getProfileData);
     on<SendAppealEvent>(_sendAppealEvent);
+    on<GetAllRegionListEvent>(_getAllRegionList);
     on<GetImageTypeEvent>(_getImageType);
     on<GetAppealTypeEvent>(_getAppealType);
     on<GetAppealsTinDataEvent>(_getAppealsTinData);
@@ -88,10 +89,24 @@ class AppealsBloc extends Bloc<AppealsEvent, AppealsState> {
     GetAppealsTinDataEvent event,
     Emitter<AppealsState> emit,
   ) async {
-    final result = await appealsRepository.getAppealsTinData(event.context, event.tin);
+    final result =
+        await appealsRepository.getAppealsTinData(event.context, event.tin);
     result.when(
       success: (data) {
         emit(state.copyWith(appealTinDataResponse: data));
+      },
+      failure: (failure) {},
+    );
+  }
+
+  FutureOr<void> _getAllRegionList(
+    GetAllRegionListEvent event,
+    Emitter<AppealsState> emit,
+  ) async {
+    final result = await appealsRepository.getAllRegionList(event.context);
+    result.when(
+      success: (data) {
+        // emit(state.copyWith(appealTinDataResponse: data));
       },
       failure: (failure) {},
     );

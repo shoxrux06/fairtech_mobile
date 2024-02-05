@@ -1,10 +1,9 @@
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
+import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
 import 'package:fairtech_mobile/src/features/components/dropdown/custom_dropdown_form_filed.dart';
-import 'package:fairtech_mobile/src/features/drawer/appeals/presentaion/bloc/appeals_bloc.dart';
+import 'package:fairtech_mobile/src/features/components/pages/identity_verification_page.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/bloc/pharm_info_bloc.dart';
-import 'package:fairtech_mobile/src/features/pharm_info/presentation/widgets/all_appeals_widget.dart';
 import 'package:fairtech_mobile/src/features/pharm_info/presentation/widgets/appeal_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -58,6 +57,9 @@ class _PharmInfoPageState extends State<PharmInfoPage>
 
   @override
   Widget build(BuildContext context) {
+    if(LocalStorage.instance.isGuest()){
+      return const IdentityVerificationPage();
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

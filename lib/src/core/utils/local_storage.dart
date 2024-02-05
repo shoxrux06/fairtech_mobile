@@ -35,6 +35,12 @@ class LocalStorage{
     }
   }
 
+  Future<void> setGuest(bool? isGuest) async {
+    if (_preferences != null) {
+      await _preferences!.setBool(AppConstants.keyIsGuest, isGuest ?? false);
+    }
+  }
+
   String getToken() => _preferences?.getString(AppConstants.keyToken) ?? '';
 
   Future<void> setUserId(int? userId) async {
@@ -96,6 +102,8 @@ class LocalStorage{
 
   int getUserId() => _preferences?.getInt(AppConstants.keyUserId) ??0;
 
+  bool isGuest() => _preferences?.getBool(AppConstants.keyIsGuest) ?? false;
+
   int getAllAppealNumber() => _preferences?.getInt(AppConstants.keyAllNumber) ??0;
 
   int getProcessAppealNumber() => _preferences?.getInt(AppConstants.keyProcessNumber) ??0;
@@ -111,8 +119,8 @@ class LocalStorage{
   String getUserPhone() => _preferences?.getString(AppConstants.keyUserPhone) ??'';
 
   void deleteToken() => _preferences?.remove(AppConstants.keyToken);
-
   void deleteUserId() => _preferences?.remove(AppConstants.keyUserId);
+  void deleteIsGuest() => _preferences?.remove(AppConstants.keyIsGuest);
   void deleteUsername() => _preferences?.remove(AppConstants.keyUserName);
   void deleteFullName() => _preferences?.remove(AppConstants.keyFullName);
   void deleteUserPassword() => _preferences?.remove(AppConstants.keyUserPassword);
