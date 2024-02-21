@@ -18,7 +18,6 @@ class SignInBloc extends Bloc<SignUpEvent, SignInState> {
 
   SignInBloc(this.signUpRepository) : super(const SignInState()) {
     on<GetOneIdDataEvent>(_getOneIdData);
-    on<PinCodeEvent>(_pinCode);
   }
 
   FutureOr<void> _getOneIdData(
@@ -43,35 +42,4 @@ class SignInBloc extends Bloc<SignUpEvent, SignInState> {
     );
   }
 
-  FutureOr<void> _pinCode(
-    PinCodeEvent event,
-    Emitter<SignInState> emit,
-  ) async {
-    if (state.pinCode.length == 4) {
-      emit(state.copyWith(
-        pinCode: [],
-        box1: false,
-        box2: false,
-        box3: false,
-        box4: false,
-      ));
-    }
-    if (state.pinCode.isEmpty) {
-      emit(state.copyWith(box1: true));
-    }
-    if (state.pinCode.length == 1) {
-      emit(state.copyWith(box2: true));
-    }
-    if (state.pinCode.length == 2) {
-      emit(state.copyWith(box3: true));
-    }
-
-    if (state.pinCode.length == 3) {
-      emit(state.copyWith(box4: true));
-    }
-
-    List<String> pinCodeList = [...state.pinCode];
-    pinCodeList.add(event.digit);
-    emit(state.copyWith(pinCode: pinCodeList));
-  }
 }

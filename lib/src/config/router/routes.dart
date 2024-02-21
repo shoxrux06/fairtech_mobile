@@ -28,6 +28,10 @@ sealed class Routes {
   static const String subMarket = '/subMarket';
   static const String priceLookOrCreate = '/priceLookOrCreate';
   static const String fairPriceProductList = '/fairPriceProductList';
+  static const String productDetail = '/productDetail';
+  static const String enterPrice = '/enterPrice';
+  static const String addObyekt = '/addObyekt';
+  static const String multipleProduct = '/multipleProduct';
 
   /// auth
   static const String authOneId = '/auth_one_id';

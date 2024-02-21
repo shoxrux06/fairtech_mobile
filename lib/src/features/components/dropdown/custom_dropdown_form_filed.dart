@@ -2,10 +2,11 @@ import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDownFormField extends StatefulWidget {
-  CustomDropDownFormField({super.key,required this.value,required this.hintText, required this.items, required this.onChanged});
+  CustomDropDownFormField({super.key,required this.value,required this.hintText, required this.items, required this.onChanged, this.style});
 
   String? value;
   String? hintText;
+  TextStyle? style;
   final List<String> items;
   final Function(String?)? onChanged;
 
@@ -27,7 +28,7 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
           iconSize: 24,
           elevation: 16,
           dropdownColor: Colors.white,
-          style: context.textStyle.regularBody,
+          style: widget.style ?? context.textStyle.regularBody,
           decoration: InputDecoration(
             fillColor: context.theme.cardColor,
             filled: true,

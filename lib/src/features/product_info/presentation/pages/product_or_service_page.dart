@@ -20,7 +20,7 @@ class _ProductOrServicePageState extends State<ProductOrServicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Tovar yoki xizmatlar'),
+      appBar: CustomAppBar(title: 'Tovar yoki xizmatlar'),
       body: Container(
         padding: const EdgeInsets.all(12),
         child: Column(

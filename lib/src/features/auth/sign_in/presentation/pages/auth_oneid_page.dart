@@ -1,5 +1,8 @@
 import 'dart:developer';
+import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
+import 'package:fairtech_mobile/src/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:go_router/go_router.dart';
 
@@ -53,6 +56,7 @@ class _AuthOneIDPageState extends State<AuthOneIDPage> {
                 {
                   'code': '${url.queryParameters['code']}',
                   'state': '${url.queryParameters['state']}',
+                  'signInBloc': context.read<SignInBloc>()
                 },
               );
             }

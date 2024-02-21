@@ -59,6 +59,7 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
     final result = await pharmInfoRepository.getRegionList(event.context);
     result.when(
       success: (data) {
+        data.insert(0,GetRegionListResponse(id: 1, nameUz: 'РEСПУБЛИКА', nameLt: 'RESPUBLIKA', nameRu: 'РEСПУБЛИКА', nameEn: 'REPUBLIC', soato: 17, parentId: 1));
         emit(state.copyWith(getRegionListResponse: data));
         event.onSuccess();
       },
@@ -124,7 +125,7 @@ class PharmInfoBloc extends Bloc<PharmInfoEvent, PharmInfoState> {
         bool isAccessToFairPrice = false;
         String fairPriceAccessRoleName = '';
         for (var role in data.roles) {
-          if (role.code == 'HYPERMARKET' || role.code == 'MARKET') {
+          if (role.code == 'MARKET') {
             isAccessToFairPrice = true;
             fairPriceAccessRoleName = role.name;
             print('*** isAccessToFairPrice $isAccessToFairPrice fairPriceAccessRoleName $fairPriceAccessRoleName ***');

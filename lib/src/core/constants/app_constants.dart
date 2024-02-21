@@ -5,7 +5,7 @@ class AppConstants {
 
   ///Base Url API
   static const baseUrl = 'https://app.fairtech.uz';
-  static const baseUrlLocal = 'http://10.10.5.42:8085';
+  static const baseUrlLocal = 'http://10.10.5.82:8085';
 
   ///Sign in with One Id and Update token API
   static const redirect = '/api/v.1/product-auth/auth/oneid/redirectUri';
@@ -27,12 +27,21 @@ class AppConstants {
   static const getProfileData = '/api/v.1/outer-cabinet/profile-data';
 
   ///Fair Price API
-  static const getMarketList = '/api/v.1/price_market/list-search-outer?';
-  static const getMarketProductList = '/api/v.1/price_product/list-search';
+  static const getMarketList = '/api/v.1/price_market/get/type';
+  static const getOuterMarketList = '/api/v.1/price_market/list-search-outer?';
+  static const getMarketProductListByType = '/api/v.1/price_product/list-search';
+  static const getMarketProductList = '/api/v.1/price_sum/parents-table';
+  static const getMarketProductListById = '/api/v.1//price_product/get-with-child/';
   static const getMarketBranchEmployeeProductList = '/api/v.1/price_product/outer/list-search';
   static const createProduct = '/api/v.1/price_sum/create?';
+  static const createObyekt = '/api/v.1/price_market/create';
+  static const oneProductAllSums = '/api/v.1/price_sum/one-product-all-sums';
+  static const getYuridikInfo = '/api/v.1/yuridik-shaxs/get-info?';
+  static const getYttInfo = '/api/v.1/ytt/get-info?';
 
-  static const productPriceHistoryList = '/api/v.1/price_sum/list-searchEmployee-outer';
+  // https://app.fairtech.uz/api/v.1/price_product/list-search?keyword=&code=FOODS&type=
+
+  static const productPriceHistoryList = '/api/v.1/price_sum/list-searchSet';
   static const getMeasuresList = '/api/v.1/price_measure/list-search';
 
 
@@ -100,6 +109,10 @@ class AppConstants {
   static const String allSvg = 'assets/icons/pi_descAll.svg';
   static const String productNameSvg = 'assets/icons/pi_productName.svg';
   static const String servicesSvg = 'assets/icons/pi_productLocation.svg';
+  static const String addPriceSvg = 'assets/icons/addPrice.svg';
+  static const String objectPriceSvg = 'assets/icons/objectPrice.svg';
+  static const String userSvg = 'assets/icons/user.svg';
+  static const String mapSvg = 'assets/icons/map.svg';
 
 
   ///png
@@ -118,4 +131,7 @@ class AppConstants {
   static const String sunImg = 'assets/images/sun.png';
   static const String noImage = 'assets/images/no_image.png';
   static const String noInternet = 'assets/images/noInternet.png';
+  static const String oilPng = 'assets/images/oil.png';
+  static const String oil2Png = 'assets/images/oil2.png';
+  static const String fairPrice = 'assets/images/fairPrice.png';
 }

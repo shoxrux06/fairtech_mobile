@@ -112,7 +112,8 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
       context.read<PharmInfoBloc>().add(GetRegionListEvent(onSuccess: (){
         myList = context.read<PharmInfoBloc>().state.getRegionListResponse;
         print('myList *****$myList');
-          }, onError: (){}, context: context));
+          }, onError: (){}, context: context)
+      );
     }
     super.initState();
   }
@@ -182,7 +183,7 @@ class _CreateAppealsPageState extends State<CreateAppealsPage> {
                                 });
                               }),
                               AppUtils.kGap12,
-                              Text('Shaxs turi',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText),),
+                              Text('Hudud',style: context.textStyle.regularTitle2.copyWith(color: context.color?.primaryText),),
                               CustomDropDownFormField(
                                   value: dropdownRegionValue,
                                   hintText: 'Viloyatni tanlang',

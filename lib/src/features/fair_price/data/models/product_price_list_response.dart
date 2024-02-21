@@ -16,8 +16,8 @@ class ProductPriceListResponse {
   });
 
   factory ProductPriceListResponse.fromJson(Map<String, dynamic> json) => ProductPriceListResponse(
-    list: List<ListElement>.from(json["list"].map((x) => ListElement.fromJson(x))),
-    total: json["total"],
+    list: json["list"] != null? List<ListElement>.from(json["list"].map((x) => ListElement.fromJson(x))):[],
+    total: json["total"] ??0,
   );
 }
 
@@ -47,15 +47,15 @@ class ListElement {
   });
 
   factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
-    id: json["id"],
-    minPrice: json["minPrice"]?.toDouble(),
-    maxPrice: json["maxPrice"]?.toDouble(),
+    id: json["id"] ??0,
+    minPrice: json["minPrice"]?.toDouble() ??0.0,
+    maxPrice: json["maxPrice"]?.toDouble()??0.0,
     date: dateValues.map[json["date"]]!,
-    statusId: json["statusId"],
-    productId: json["productId"],
+    statusId: json["statusId"] ??0,
+    productId: json["productId"] ?? 0,
     code: codeValues.map[json["code"]]!,
     priceProductDto: PriceProductDto.fromJson(json["priceProductDto"]),
-    marketId: json["marketId"],
+    marketId: json["marketId"] ?? 0,
     marketDto: MarketDto.fromJson(json["marketDto"]),
   );
 }
@@ -329,14 +329,14 @@ class PriceProductDto {
   });
 
   factory PriceProductDto.fromJson(Map<String, dynamic> json) => PriceProductDto(
-    id: json["id"],
-    code: json["code"],
+    id: json["id"] ??0,
+    code: json["code"] ??'',
     nameUz: nameEnEnumValues.map[json["nameUz"]]!,
     nameLt: nameEnEnumValues.map[json["nameLt"]]!,
     nameRu: nameEnEnumValues.map[json["nameRu"]]!,
     nameEn: nameEnEnumValues.map[json["nameEn"]]!,
-    statusId: json["statusId"],
-    measureId: json["measureId"],
+    statusId: json["statusId"] ??0,
+    measureId: json["measureId"] ??0,
     parentId: json["parentId"],
     measureDto: EDto.fromJson(json["measureDto"]),
     parentDto: json["parentDto"],

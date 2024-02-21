@@ -69,7 +69,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
       print('response 444 $response');
       return ApiResult.success(data:SendAppealResponse.fromJson(response.data));
     } catch (e) {
-      print('==> products failure: $e');
+      print('==> sendAppeal failure: $e');
       AppSnackBar.showErrorSnackBar(context, 'Error','${e.toString()}');
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }

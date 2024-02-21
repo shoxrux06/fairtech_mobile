@@ -55,82 +55,116 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) => BlocListener<SplashBloc, SplashState>(
         listener: (context, state) async {
           if (state.isTimerFinished) {
+
             // context.pushReplacement(Routes.main);
-            if ((LocalStorage.instance.isGuest() == false) &&
-                LocalStorage.instance.getToken().isEmpty) {
-              showDialog(
-                barrierDismissible: true,
-                barrierColor: Colors.grey.withOpacity(0.989),
-                context: context,
-                builder: (ctx) => Theme(
-                  data: ThemeData(
-                    backgroundColor: Colors.grey.withOpacity(0.989),
+
+            if (LocalStorage.instance.getToken().isNotEmpty) {
+              final passCode = LocalStorage.instance.getPinCode();
+              if (passCode.isNotEmpty) {
+                screenLock(
+                  context: context,
+                  correctString: passCode,
+                  useBlur: false,
+                  canCancel: false,
+                  config: const ScreenLockConfig(
+                    backgroundColor: Colors.white,
                   ),
-                  child: CupertinoAlertDialog(
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Ilovadagi mavjud barcha xizmatlardan foydalanishni hoxlaysizmi?',
-                          style: ctx.textStyle.largeTitle2.copyWith(color: ctx.color?.primaryText),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    actions: [
-                      CupertinoDialogAction(
-                        isDestructiveAction: true,
-                        onPressed: ()async {
-                          ctx.pop();
-                          ctx.go(Routes.main);
-                          await LocalStorage.instance.setGuest(true);
-                        },
-                        child: Text('Yo\'q'),
-                      ),
-                      CupertinoDialogAction(
-                        isDefaultAction: true,
-                        onPressed: () {
-                          ctx.pop();
-                        },
-                        child: Text('Ha'),
-                      ),
-                    ],
+                  secretsConfig: const SecretsConfig(
+                      secretConfig: SecretConfig(
+                          disabledColor: Colors.black,
+                          enabledColor: Colors.amber,
+                          size: 24)
                   ),
-                ),
-              );
-            }
-            if (!LocalStorage.instance.isGuest()) {
-              if (LocalStorage.instance.getToken().isNotEmpty) {
-                final passCode = LocalStorage.instance.getPinCode();
-                if (passCode.isNotEmpty) {
-                  screenLock(
-                    context: context,
-                    correctString: passCode,
-                    useBlur: false,
-                    canCancel: false,
-                    config: const ScreenLockConfig(
-                      backgroundColor: Colors.white,
-                    ),
-                    secretsConfig: const SecretsConfig(
-                        secretConfig: SecretConfig(
-                            disabledColor: Colors.black,
-                            enabledColor: Colors.amber,
-                            size: 24)
-                    ),
-                    onUnlocked: () {
-                      context.pop();
-                      context.pushReplacement(Routes.main);
-                    },
-                  );
-                } else {
-                  context.push(Routes.emptyPage);
-                }
+                  onUnlocked: () {
+                    context.pop();
+                    context.pushReplacement(Routes.main);
+                  },
+                );
               } else {
-                context.pushReplacement(Routes.signIn);
+                context.push(Routes.emptyPage);
               }
-            } else {
-              context.pushReplacement(Routes.main);
+            }else{
+              context.pushReplacement(Routes.signIn);
             }
+
+
+
+            // if ((LocalStorage.instance.isGuest() == false) && LocalStorage.instance.getToken().isEmpty) {
+            //   showDialog(
+            //     barrierDismissible: true,
+            //     barrierColor: Colors.grey.withOpacity(0.989),
+            //     context: context,
+            //     builder: (ctx) => Theme(
+            //       data: ThemeData(
+            //         backgroundColor: Colors.grey.withOpacity(0.989),
+            //       ),
+            //       child: CupertinoAlertDialog(
+            //         content: Column(
+            //           mainAxisSize: MainAxisSize.min,
+            //           children: [
+            //             Text(
+            //               'Ilovadagi mavjud barcha xizmatlardan foydalanishni hoxlaysizmi?',
+            //               style: ctx.textStyle.largeTitle2.copyWith(color: ctx.color?.primaryText),
+            //               textAlign: TextAlign.center,
+            //             ),
+            //           ],
+            //         ),
+            //         actions: [
+            //           CupertinoDialogAction(
+            //             isDestructiveAction: true,
+            //             onPressed: ()async {
+            //               ctx.pop();
+            //               ctx.go(Routes.main);
+            //               await LocalStorage.instance.setGuest(true);
+            //             },
+            //             child: Text('Yo\'q'),
+            //           ),
+            //           CupertinoDialogAction(
+            //             isDefaultAction: true,
+            //             onPressed: () {
+            //               ctx.pop();
+            //             },
+            //             child: Text('Ha'),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   );
+            // }
+            // if (!LocalStorage.instance.isGuest()) {
+            //   if (LocalStorage.instance.getToken().isNotEmpty) {
+            //     final passCode = LocalStorage.instance.getPinCode();
+            //     if (passCode.isNotEmpty) {
+            //       screenLock(
+            //         context: context,
+            //         correctString: passCode,
+            //         useBlur: false,
+            //         canCancel: false,
+            //         config: const ScreenLockConfig(
+            //           backgroundColor: Colors.white,
+            //         ),
+            //         secretsConfig: const SecretsConfig(
+            //             secretConfig: SecretConfig(
+            //                 disabledColor: Colors.black,
+            //                 enabledColor: Colors.amber,
+            //                 size: 24)
+            //         ),
+            //         onUnlocked: () {
+            //           context.pop();
+            //           context.pushReplacement(Routes.main);
+            //         },
+            //       );
+            //     } else {
+            //       context.push(Routes.emptyPage);
+            //     }
+            //   } else {
+            //     context.pushReplacement(Routes.signIn);
+            //   }
+            // } else {
+            //   context.pushReplacement(Routes.main);
+            // }
+
+
           }
         },
         child: AnnotatedRegion<SystemUiOverlayStyle>(

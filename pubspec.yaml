@@ -2,7 +2,7 @@ name: fairtech_mobile
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.1.0+14
+version: 1.1.0+18
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -67,6 +67,7 @@ dependencies:
   firebase_dynamic_links: ^5.4.8
   dotted_border: ^2.1.0
   flutter_keyboard_visibility: ^6.0.0
+  dropdown_button2: ^2.3.9
 
 
 dev_dependencies:

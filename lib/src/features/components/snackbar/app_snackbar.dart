@@ -46,7 +46,7 @@ class AppSnackBar {
         forwardAnimationCurve: Curves.easeInOut,
         backgroundColor: Colors.red,
         boxShadows: [BoxShadow(color: Colors.blueAccent.shade100, offset: Offset(0.0, 2.0), blurRadius: 3.0)],
-        backgroundGradient: const LinearGradient(colors: [Colors.blueGrey, Colors.black]),
+        backgroundGradient: LinearGradient(colors: [Colors.red.shade200, Colors.red.shade300]),
         isDismissible: true,
         duration: const Duration(seconds: 4),
         showProgressIndicator: false,
@@ -55,7 +55,7 @@ class AppSnackBar {
           margin: const EdgeInsets.all(4),
           child: Text(
             desc,
-            style: const TextStyle(fontSize: 18.0, color: Colors.green, fontFamily: "ShadowsIntoLightTwo"),
+            style: const TextStyle(fontSize: 18.0, color: Colors.white, fontFamily: "ShadowsIntoLightTwo"),
           ),
         ),
       ).show(context);

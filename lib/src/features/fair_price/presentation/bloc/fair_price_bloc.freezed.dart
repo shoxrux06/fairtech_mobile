@@ -16,19 +16,36 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FairPriceState {
-  MarketListResponse? get marketListResponse =>
+  List<MarketListResponse> get marketListResponse =>
       throw _privateConstructorUsedError;
   ProductPriceListResponse? get productPriceListResponse =>
       throw _privateConstructorUsedError;
   MarketProductListResponse? get marketProductListResponse =>
       throw _privateConstructorUsedError;
+  OneProductAllSumsResponse? get oneProductAllSumsResponse =>
+      throw _privateConstructorUsedError;
+  List<MarketProductListEntity> get marketProductListEntity =>
+      throw _privateConstructorUsedError;
+  MarketProductListEntity? get marketProductEntity =>
+      throw _privateConstructorUsedError;
   CreatedPriceProductResponse? get createdPriceProductResponse =>
+      throw _privateConstructorUsedError;
+  ProductPriceHistoryListEntity? get productPriceHistoryListEntity =>
+      throw _privateConstructorUsedError;
+  CompanyDataWithTinEntity? get companyDataWithTinEntity =>
+      throw _privateConstructorUsedError;
+  PersonDataWithPinflEntity? get personDataWithPinflEntity =>
       throw _privateConstructorUsedError;
   bool get isCreatingProductPrice => throw _privateConstructorUsedError;
   bool get isCreatedProductPrice => throw _privateConstructorUsedError;
   bool get marketListLoading => throw _privateConstructorUsedError;
   bool get marketListError => throw _privateConstructorUsedError;
   bool get productListLoading => throw _privateConstructorUsedError;
+  bool get productAllPriceLoading => throw _privateConstructorUsedError;
+  bool get isFetchingTinData => throw _privateConstructorUsedError;
+  bool get isFetchingPinflData => throw _privateConstructorUsedError;
+  bool get obyektIsCreating => throw _privateConstructorUsedError;
+  int get createObyektStatusCode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FairPriceStateCopyWith<FairPriceState> get copyWith =>
@@ -42,15 +59,26 @@ abstract class $FairPriceStateCopyWith<$Res> {
       _$FairPriceStateCopyWithImpl<$Res, FairPriceState>;
   @useResult
   $Res call(
-      {MarketListResponse? marketListResponse,
+      {List<MarketListResponse> marketListResponse,
       ProductPriceListResponse? productPriceListResponse,
       MarketProductListResponse? marketProductListResponse,
+      OneProductAllSumsResponse? oneProductAllSumsResponse,
+      List<MarketProductListEntity> marketProductListEntity,
+      MarketProductListEntity? marketProductEntity,
       CreatedPriceProductResponse? createdPriceProductResponse,
+      ProductPriceHistoryListEntity? productPriceHistoryListEntity,
+      CompanyDataWithTinEntity? companyDataWithTinEntity,
+      PersonDataWithPinflEntity? personDataWithPinflEntity,
       bool isCreatingProductPrice,
       bool isCreatedProductPrice,
       bool marketListLoading,
       bool marketListError,
-      bool productListLoading});
+      bool productListLoading,
+      bool productAllPriceLoading,
+      bool isFetchingTinData,
+      bool isFetchingPinflData,
+      bool obyektIsCreating,
+      int createObyektStatusCode});
 }
 
 /// @nodoc
@@ -66,21 +94,32 @@ class _$FairPriceStateCopyWithImpl<$Res, $Val extends FairPriceState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? marketListResponse = freezed,
+    Object? marketListResponse = null,
     Object? productPriceListResponse = freezed,
     Object? marketProductListResponse = freezed,
+    Object? oneProductAllSumsResponse = freezed,
+    Object? marketProductListEntity = null,
+    Object? marketProductEntity = freezed,
     Object? createdPriceProductResponse = freezed,
+    Object? productPriceHistoryListEntity = freezed,
+    Object? companyDataWithTinEntity = freezed,
+    Object? personDataWithPinflEntity = freezed,
     Object? isCreatingProductPrice = null,
     Object? isCreatedProductPrice = null,
     Object? marketListLoading = null,
     Object? marketListError = null,
     Object? productListLoading = null,
+    Object? productAllPriceLoading = null,
+    Object? isFetchingTinData = null,
+    Object? isFetchingPinflData = null,
+    Object? obyektIsCreating = null,
+    Object? createObyektStatusCode = null,
   }) {
     return _then(_value.copyWith(
-      marketListResponse: freezed == marketListResponse
+      marketListResponse: null == marketListResponse
           ? _value.marketListResponse
           : marketListResponse // ignore: cast_nullable_to_non_nullable
-              as MarketListResponse?,
+              as List<MarketListResponse>,
       productPriceListResponse: freezed == productPriceListResponse
           ? _value.productPriceListResponse
           : productPriceListResponse // ignore: cast_nullable_to_non_nullable
@@ -89,10 +128,34 @@ class _$FairPriceStateCopyWithImpl<$Res, $Val extends FairPriceState>
           ? _value.marketProductListResponse
           : marketProductListResponse // ignore: cast_nullable_to_non_nullable
               as MarketProductListResponse?,
+      oneProductAllSumsResponse: freezed == oneProductAllSumsResponse
+          ? _value.oneProductAllSumsResponse
+          : oneProductAllSumsResponse // ignore: cast_nullable_to_non_nullable
+              as OneProductAllSumsResponse?,
+      marketProductListEntity: null == marketProductListEntity
+          ? _value.marketProductListEntity
+          : marketProductListEntity // ignore: cast_nullable_to_non_nullable
+              as List<MarketProductListEntity>,
+      marketProductEntity: freezed == marketProductEntity
+          ? _value.marketProductEntity
+          : marketProductEntity // ignore: cast_nullable_to_non_nullable
+              as MarketProductListEntity?,
       createdPriceProductResponse: freezed == createdPriceProductResponse
           ? _value.createdPriceProductResponse
           : createdPriceProductResponse // ignore: cast_nullable_to_non_nullable
               as CreatedPriceProductResponse?,
+      productPriceHistoryListEntity: freezed == productPriceHistoryListEntity
+          ? _value.productPriceHistoryListEntity
+          : productPriceHistoryListEntity // ignore: cast_nullable_to_non_nullable
+              as ProductPriceHistoryListEntity?,
+      companyDataWithTinEntity: freezed == companyDataWithTinEntity
+          ? _value.companyDataWithTinEntity
+          : companyDataWithTinEntity // ignore: cast_nullable_to_non_nullable
+              as CompanyDataWithTinEntity?,
+      personDataWithPinflEntity: freezed == personDataWithPinflEntity
+          ? _value.personDataWithPinflEntity
+          : personDataWithPinflEntity // ignore: cast_nullable_to_non_nullable
+              as PersonDataWithPinflEntity?,
       isCreatingProductPrice: null == isCreatingProductPrice
           ? _value.isCreatingProductPrice
           : isCreatingProductPrice // ignore: cast_nullable_to_non_nullable
@@ -113,6 +176,26 @@ class _$FairPriceStateCopyWithImpl<$Res, $Val extends FairPriceState>
           ? _value.productListLoading
           : productListLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      productAllPriceLoading: null == productAllPriceLoading
+          ? _value.productAllPriceLoading
+          : productAllPriceLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFetchingTinData: null == isFetchingTinData
+          ? _value.isFetchingTinData
+          : isFetchingTinData // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFetchingPinflData: null == isFetchingPinflData
+          ? _value.isFetchingPinflData
+          : isFetchingPinflData // ignore: cast_nullable_to_non_nullable
+              as bool,
+      obyektIsCreating: null == obyektIsCreating
+          ? _value.obyektIsCreating
+          : obyektIsCreating // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createObyektStatusCode: null == createObyektStatusCode
+          ? _value.createObyektStatusCode
+          : createObyektStatusCode // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -126,15 +209,26 @@ abstract class _$$InitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {MarketListResponse? marketListResponse,
+      {List<MarketListResponse> marketListResponse,
       ProductPriceListResponse? productPriceListResponse,
       MarketProductListResponse? marketProductListResponse,
+      OneProductAllSumsResponse? oneProductAllSumsResponse,
+      List<MarketProductListEntity> marketProductListEntity,
+      MarketProductListEntity? marketProductEntity,
       CreatedPriceProductResponse? createdPriceProductResponse,
+      ProductPriceHistoryListEntity? productPriceHistoryListEntity,
+      CompanyDataWithTinEntity? companyDataWithTinEntity,
+      PersonDataWithPinflEntity? personDataWithPinflEntity,
       bool isCreatingProductPrice,
       bool isCreatedProductPrice,
       bool marketListLoading,
       bool marketListError,
-      bool productListLoading});
+      bool productListLoading,
+      bool productAllPriceLoading,
+      bool isFetchingTinData,
+      bool isFetchingPinflData,
+      bool obyektIsCreating,
+      int createObyektStatusCode});
 }
 
 /// @nodoc
@@ -148,21 +242,32 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? marketListResponse = freezed,
+    Object? marketListResponse = null,
     Object? productPriceListResponse = freezed,
     Object? marketProductListResponse = freezed,
+    Object? oneProductAllSumsResponse = freezed,
+    Object? marketProductListEntity = null,
+    Object? marketProductEntity = freezed,
     Object? createdPriceProductResponse = freezed,
+    Object? productPriceHistoryListEntity = freezed,
+    Object? companyDataWithTinEntity = freezed,
+    Object? personDataWithPinflEntity = freezed,
     Object? isCreatingProductPrice = null,
     Object? isCreatedProductPrice = null,
     Object? marketListLoading = null,
     Object? marketListError = null,
     Object? productListLoading = null,
+    Object? productAllPriceLoading = null,
+    Object? isFetchingTinData = null,
+    Object? isFetchingPinflData = null,
+    Object? obyektIsCreating = null,
+    Object? createObyektStatusCode = null,
   }) {
     return _then(_$InitialImpl(
-      marketListResponse: freezed == marketListResponse
-          ? _value.marketListResponse
+      marketListResponse: null == marketListResponse
+          ? _value._marketListResponse
           : marketListResponse // ignore: cast_nullable_to_non_nullable
-              as MarketListResponse?,
+              as List<MarketListResponse>,
       productPriceListResponse: freezed == productPriceListResponse
           ? _value.productPriceListResponse
           : productPriceListResponse // ignore: cast_nullable_to_non_nullable
@@ -171,10 +276,34 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.marketProductListResponse
           : marketProductListResponse // ignore: cast_nullable_to_non_nullable
               as MarketProductListResponse?,
+      oneProductAllSumsResponse: freezed == oneProductAllSumsResponse
+          ? _value.oneProductAllSumsResponse
+          : oneProductAllSumsResponse // ignore: cast_nullable_to_non_nullable
+              as OneProductAllSumsResponse?,
+      marketProductListEntity: null == marketProductListEntity
+          ? _value._marketProductListEntity
+          : marketProductListEntity // ignore: cast_nullable_to_non_nullable
+              as List<MarketProductListEntity>,
+      marketProductEntity: freezed == marketProductEntity
+          ? _value.marketProductEntity
+          : marketProductEntity // ignore: cast_nullable_to_non_nullable
+              as MarketProductListEntity?,
       createdPriceProductResponse: freezed == createdPriceProductResponse
           ? _value.createdPriceProductResponse
           : createdPriceProductResponse // ignore: cast_nullable_to_non_nullable
               as CreatedPriceProductResponse?,
+      productPriceHistoryListEntity: freezed == productPriceHistoryListEntity
+          ? _value.productPriceHistoryListEntity
+          : productPriceHistoryListEntity // ignore: cast_nullable_to_non_nullable
+              as ProductPriceHistoryListEntity?,
+      companyDataWithTinEntity: freezed == companyDataWithTinEntity
+          ? _value.companyDataWithTinEntity
+          : companyDataWithTinEntity // ignore: cast_nullable_to_non_nullable
+              as CompanyDataWithTinEntity?,
+      personDataWithPinflEntity: freezed == personDataWithPinflEntity
+          ? _value.personDataWithPinflEntity
+          : personDataWithPinflEntity // ignore: cast_nullable_to_non_nullable
+              as PersonDataWithPinflEntity?,
       isCreatingProductPrice: null == isCreatingProductPrice
           ? _value.isCreatingProductPrice
           : isCreatingProductPrice // ignore: cast_nullable_to_non_nullable
@@ -195,6 +324,26 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.productListLoading
           : productListLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      productAllPriceLoading: null == productAllPriceLoading
+          ? _value.productAllPriceLoading
+          : productAllPriceLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFetchingTinData: null == isFetchingTinData
+          ? _value.isFetchingTinData
+          : isFetchingTinData // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFetchingPinflData: null == isFetchingPinflData
+          ? _value.isFetchingPinflData
+          : isFetchingPinflData // ignore: cast_nullable_to_non_nullable
+              as bool,
+      obyektIsCreating: null == obyektIsCreating
+          ? _value.obyektIsCreating
+          : obyektIsCreating // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createObyektStatusCode: null == createObyektStatusCode
+          ? _value.createObyektStatusCode
+          : createObyektStatusCode // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -203,24 +352,65 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements Initial {
   const _$InitialImpl(
-      {this.marketListResponse,
+      {final List<MarketListResponse> marketListResponse = const [],
       this.productPriceListResponse,
       this.marketProductListResponse,
+      this.oneProductAllSumsResponse,
+      final List<MarketProductListEntity> marketProductListEntity = const [],
+      this.marketProductEntity,
       this.createdPriceProductResponse,
+      this.productPriceHistoryListEntity,
+      this.companyDataWithTinEntity,
+      this.personDataWithPinflEntity,
       this.isCreatingProductPrice = false,
       this.isCreatedProductPrice = false,
       this.marketListLoading = false,
       this.marketListError = false,
-      this.productListLoading = false});
+      this.productListLoading = false,
+      this.productAllPriceLoading = false,
+      this.isFetchingTinData = false,
+      this.isFetchingPinflData = false,
+      this.obyektIsCreating = false,
+      this.createObyektStatusCode = 0})
+      : _marketListResponse = marketListResponse,
+        _marketProductListEntity = marketProductListEntity;
 
+  final List<MarketListResponse> _marketListResponse;
   @override
-  final MarketListResponse? marketListResponse;
+  @JsonKey()
+  List<MarketListResponse> get marketListResponse {
+    if (_marketListResponse is EqualUnmodifiableListView)
+      return _marketListResponse;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_marketListResponse);
+  }
+
   @override
   final ProductPriceListResponse? productPriceListResponse;
   @override
   final MarketProductListResponse? marketProductListResponse;
   @override
+  final OneProductAllSumsResponse? oneProductAllSumsResponse;
+  final List<MarketProductListEntity> _marketProductListEntity;
+  @override
+  @JsonKey()
+  List<MarketProductListEntity> get marketProductListEntity {
+    if (_marketProductListEntity is EqualUnmodifiableListView)
+      return _marketProductListEntity;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_marketProductListEntity);
+  }
+
+  @override
+  final MarketProductListEntity? marketProductEntity;
+  @override
   final CreatedPriceProductResponse? createdPriceProductResponse;
+  @override
+  final ProductPriceHistoryListEntity? productPriceHistoryListEntity;
+  @override
+  final CompanyDataWithTinEntity? companyDataWithTinEntity;
+  @override
+  final PersonDataWithPinflEntity? personDataWithPinflEntity;
   @override
   @JsonKey()
   final bool isCreatingProductPrice;
@@ -236,10 +426,25 @@ class _$InitialImpl implements Initial {
   @override
   @JsonKey()
   final bool productListLoading;
+  @override
+  @JsonKey()
+  final bool productAllPriceLoading;
+  @override
+  @JsonKey()
+  final bool isFetchingTinData;
+  @override
+  @JsonKey()
+  final bool isFetchingPinflData;
+  @override
+  @JsonKey()
+  final bool obyektIsCreating;
+  @override
+  @JsonKey()
+  final int createObyektStatusCode;
 
   @override
   String toString() {
-    return 'FairPriceState(marketListResponse: $marketListResponse, productPriceListResponse: $productPriceListResponse, marketProductListResponse: $marketProductListResponse, createdPriceProductResponse: $createdPriceProductResponse, isCreatingProductPrice: $isCreatingProductPrice, isCreatedProductPrice: $isCreatedProductPrice, marketListLoading: $marketListLoading, marketListError: $marketListError, productListLoading: $productListLoading)';
+    return 'FairPriceState(marketListResponse: $marketListResponse, productPriceListResponse: $productPriceListResponse, marketProductListResponse: $marketProductListResponse, oneProductAllSumsResponse: $oneProductAllSumsResponse, marketProductListEntity: $marketProductListEntity, marketProductEntity: $marketProductEntity, createdPriceProductResponse: $createdPriceProductResponse, productPriceHistoryListEntity: $productPriceHistoryListEntity, companyDataWithTinEntity: $companyDataWithTinEntity, personDataWithPinflEntity: $personDataWithPinflEntity, isCreatingProductPrice: $isCreatingProductPrice, isCreatedProductPrice: $isCreatedProductPrice, marketListLoading: $marketListLoading, marketListError: $marketListError, productListLoading: $productListLoading, productAllPriceLoading: $productAllPriceLoading, isFetchingTinData: $isFetchingTinData, isFetchingPinflData: $isFetchingPinflData, obyektIsCreating: $obyektIsCreating, createObyektStatusCode: $createObyektStatusCode)';
   }
 
   @override
@@ -247,18 +452,28 @@ class _$InitialImpl implements Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
-            (identical(other.marketListResponse, marketListResponse) ||
-                other.marketListResponse == marketListResponse) &&
-            (identical(
-                    other.productPriceListResponse, productPriceListResponse) ||
+            const DeepCollectionEquality()
+                .equals(other._marketListResponse, _marketListResponse) &&
+            (identical(other.productPriceListResponse, productPriceListResponse) ||
                 other.productPriceListResponse == productPriceListResponse) &&
-            (identical(other.marketProductListResponse,
-                    marketProductListResponse) ||
+            (identical(other.marketProductListResponse, marketProductListResponse) ||
                 other.marketProductListResponse == marketProductListResponse) &&
-            (identical(other.createdPriceProductResponse,
-                    createdPriceProductResponse) ||
+            (identical(other.oneProductAllSumsResponse, oneProductAllSumsResponse) ||
+                other.oneProductAllSumsResponse == oneProductAllSumsResponse) &&
+            const DeepCollectionEquality().equals(
+                other._marketProductListEntity, _marketProductListEntity) &&
+            (identical(other.marketProductEntity, marketProductEntity) ||
+                other.marketProductEntity == marketProductEntity) &&
+            (identical(other.createdPriceProductResponse, createdPriceProductResponse) ||
                 other.createdPriceProductResponse ==
                     createdPriceProductResponse) &&
+            (identical(other.productPriceHistoryListEntity, productPriceHistoryListEntity) ||
+                other.productPriceHistoryListEntity ==
+                    productPriceHistoryListEntity) &&
+            (identical(other.companyDataWithTinEntity, companyDataWithTinEntity) ||
+                other.companyDataWithTinEntity == companyDataWithTinEntity) &&
+            (identical(other.personDataWithPinflEntity, personDataWithPinflEntity) ||
+                other.personDataWithPinflEntity == personDataWithPinflEntity) &&
             (identical(other.isCreatingProductPrice, isCreatingProductPrice) ||
                 other.isCreatingProductPrice == isCreatingProductPrice) &&
             (identical(other.isCreatedProductPrice, isCreatedProductPrice) ||
@@ -268,21 +483,42 @@ class _$InitialImpl implements Initial {
             (identical(other.marketListError, marketListError) ||
                 other.marketListError == marketListError) &&
             (identical(other.productListLoading, productListLoading) ||
-                other.productListLoading == productListLoading));
+                other.productListLoading == productListLoading) &&
+            (identical(other.productAllPriceLoading, productAllPriceLoading) ||
+                other.productAllPriceLoading == productAllPriceLoading) &&
+            (identical(other.isFetchingTinData, isFetchingTinData) ||
+                other.isFetchingTinData == isFetchingTinData) &&
+            (identical(other.isFetchingPinflData, isFetchingPinflData) ||
+                other.isFetchingPinflData == isFetchingPinflData) &&
+            (identical(other.obyektIsCreating, obyektIsCreating) ||
+                other.obyektIsCreating == obyektIsCreating) &&
+            (identical(other.createObyektStatusCode, createObyektStatusCode) || other.createObyektStatusCode == createObyektStatusCode));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      marketListResponse,
-      productPriceListResponse,
-      marketProductListResponse,
-      createdPriceProductResponse,
-      isCreatingProductPrice,
-      isCreatedProductPrice,
-      marketListLoading,
-      marketListError,
-      productListLoading);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(_marketListResponse),
+        productPriceListResponse,
+        marketProductListResponse,
+        oneProductAllSumsResponse,
+        const DeepCollectionEquality().hash(_marketProductListEntity),
+        marketProductEntity,
+        createdPriceProductResponse,
+        productPriceHistoryListEntity,
+        companyDataWithTinEntity,
+        personDataWithPinflEntity,
+        isCreatingProductPrice,
+        isCreatedProductPrice,
+        marketListLoading,
+        marketListError,
+        productListLoading,
+        productAllPriceLoading,
+        isFetchingTinData,
+        isFetchingPinflData,
+        obyektIsCreating,
+        createObyektStatusCode
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -293,24 +529,47 @@ class _$InitialImpl implements Initial {
 
 abstract class Initial implements FairPriceState {
   const factory Initial(
-      {final MarketListResponse? marketListResponse,
+      {final List<MarketListResponse> marketListResponse,
       final ProductPriceListResponse? productPriceListResponse,
       final MarketProductListResponse? marketProductListResponse,
+      final OneProductAllSumsResponse? oneProductAllSumsResponse,
+      final List<MarketProductListEntity> marketProductListEntity,
+      final MarketProductListEntity? marketProductEntity,
       final CreatedPriceProductResponse? createdPriceProductResponse,
+      final ProductPriceHistoryListEntity? productPriceHistoryListEntity,
+      final CompanyDataWithTinEntity? companyDataWithTinEntity,
+      final PersonDataWithPinflEntity? personDataWithPinflEntity,
       final bool isCreatingProductPrice,
       final bool isCreatedProductPrice,
       final bool marketListLoading,
       final bool marketListError,
-      final bool productListLoading}) = _$InitialImpl;
+      final bool productListLoading,
+      final bool productAllPriceLoading,
+      final bool isFetchingTinData,
+      final bool isFetchingPinflData,
+      final bool obyektIsCreating,
+      final int createObyektStatusCode}) = _$InitialImpl;
 
   @override
-  MarketListResponse? get marketListResponse;
+  List<MarketListResponse> get marketListResponse;
   @override
   ProductPriceListResponse? get productPriceListResponse;
   @override
   MarketProductListResponse? get marketProductListResponse;
   @override
+  OneProductAllSumsResponse? get oneProductAllSumsResponse;
+  @override
+  List<MarketProductListEntity> get marketProductListEntity;
+  @override
+  MarketProductListEntity? get marketProductEntity;
+  @override
   CreatedPriceProductResponse? get createdPriceProductResponse;
+  @override
+  ProductPriceHistoryListEntity? get productPriceHistoryListEntity;
+  @override
+  CompanyDataWithTinEntity? get companyDataWithTinEntity;
+  @override
+  PersonDataWithPinflEntity? get personDataWithPinflEntity;
   @override
   bool get isCreatingProductPrice;
   @override
@@ -321,6 +580,16 @@ abstract class Initial implements FairPriceState {
   bool get marketListError;
   @override
   bool get productListLoading;
+  @override
+  bool get productAllPriceLoading;
+  @override
+  bool get isFetchingTinData;
+  @override
+  bool get isFetchingPinflData;
+  @override
+  bool get obyektIsCreating;
+  @override
+  int get createObyektStatusCode;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

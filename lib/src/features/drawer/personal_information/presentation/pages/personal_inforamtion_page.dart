@@ -28,7 +28,10 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
   @override
   Widget build(BuildContext context) {
     String image = LocalStorage.instance.getUserImageUrl();
+    print('image43 => *** $image ****');
+
     final memImage = const Base64Decoder().convert(image);
+    print('memImage => *** $memImage ****');
     return BlocBuilder<PharmInfoBloc, PharmInfoState>(
       builder: (context, state) {
         final data = state.profileDataResponse;

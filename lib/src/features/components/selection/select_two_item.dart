@@ -16,8 +16,8 @@ class SelectTwoItem extends StatelessWidget {
       child: InkWell(
         onTap:onTap,
         child: Container(
-          width: Responsive.width(40, context),
-          height: Responsive.height(20, context),
+          // width: Responsive.width(40, context),
+          // height: Responsive.height(20, context),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),

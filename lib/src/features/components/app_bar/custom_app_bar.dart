@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({Key? key, required this.title, this.actions})
+  CustomAppBar({Key? key, required this.title, this.actions, this.textColor = const Color(0xFF0D0D26)})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   final List<Widget>? actions;
   final String title;
+  final Color textColor;
   @override
   final Size preferredSize; // default is 56.0
 
@@ -24,11 +25,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
         onPressed: () {
           context.pop();
         },
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back_ios,
+          color: widget.textColor,
         ),
       ),
-      title: Text(widget.title, style: context.textStyle.largeTitle2,),
+      title: Text(widget.title, style: context.textStyle.largeTitle2.copyWith(color: widget.textColor),),
       centerTitle: true,
       actions: widget.actions,
     );

@@ -42,107 +42,102 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       },
       child: BlocBuilder<PharmInfoBloc,PharmInfoState>(
         builder: (context, state){
-          return Scaffold(
-            drawer: LocalStorage.instance.isGuest()?const CustomDrawerGuest(): const CustomDrawer(),
-            body: CustomScrollView(
-              slivers: [
-                SliverPersistentHeader(
-                    pinned: true,
-                    floating: false,
-                    delegate: LocalStorage.instance.isGuest() ? CustomSliverDelegateGuest(expandedHeight: 100):CustomSliverDelegate(
-                        expandedHeight: 160
-                    )
-                ),
-                SliverFillRemaining(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 12,
-                        right: 12,
-                        bottom: 12,
-                        top: 12
-                    ),
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Interaktiv xizmatlar',
-                            style: context.textStyle.regularTitle2.copyWith(
-                              color: context.theme.primaryColor,
+          return RefreshIndicator(
+            onRefresh: () async {
+            if(!LocalStorage.instance.isGuest()){
+                print('*** Refresh loaded guest 5555 ***');
+                context.read<PharmInfoBloc>().add(UpdateUserTokenEvent(context: context, username: LocalStorage.instance.getUserName()));
+                context.read<PharmInfoBloc>().add(GetAppealsCountEvent(context: context));
+                context.read<PharmInfoBloc>().add(GetAppealsListEvent(context: context, status: 'Created'));
+              }
+            },
+            child: Scaffold(
+              drawer: LocalStorage.instance.isGuest()?const CustomDrawerGuest(): const CustomDrawer(),
+              body: CustomScrollView(
+                slivers: [
+                  SliverPersistentHeader(
+                      pinned: true,
+                      floating: false,
+                      delegate: LocalStorage.instance.isGuest() ? CustomSliverDelegateGuest(expandedHeight: 100):CustomSliverDelegate(
+                          expandedHeight: 160
+                      )
+                  ),
+                  SliverFillRemaining(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 12,
+                          right: 12,
+                          bottom: 12,
+                          top: 12
+                      ),
+                      child: SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Interaktiv xizmatlar',
+                              style: context.textStyle.regularTitle2.copyWith(
+                                color: context.theme.primaryColor,
+                              ),
                             ),
-                          ),
-                          AppUtils.kGap12,
-                          SizedBox(
-                            height: Responsive.height(20, context),
-                            width: Responsive.width(100, context),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ActiveItem(
-                                  onTap: (){
-                                    context.push(Routes.mainAppeal);
-                                  },
-                                  icon: AppConstants.appealCreateSvg,
-                                  title: 'Murojaat',
-                                  subTitle: 'Raqobat qo\'mitasiga murojaat yo\'llash',
-                                ),
-                                ActiveItem(
-                                  onTap: () {
-                                    context.push(Routes.pharmInfo);
-                                  },
-                                  icon: AppConstants.appealMonitoringSvg,
-                                  title: 'Online kuzatuv',
-                                  subTitle: 'Murojaat holatini kuzatish',
-                                ),
-                              ],
-                            ),
-                          ),
-                          AppUtils.kGap12,
-                          SizedBox(
-                            height: Responsive.height(20, context),
-                            width: Responsive.width(100, context),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ActiveItem(
-                                  onTap: () {
-                                    context.push(Routes.productOrService);
-                                  },
-                                  icon: AppConstants.pharmInfoSvg,
-                                  title: 'Product Info',
-                                  subTitle: 'Tovar tog\'risidagi ma\'lumot',
-                                ),
-                                state.isAccessToFairPrice?Opacity(
-                                  opacity: LocalStorage.instance.isGuest()? 0 : 1,
-                                  child: ActiveItem(
+                            AppUtils.kGap12,
+                            SizedBox(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ActiveItem(
+                                    onTap: (){
+                                      context.push(Routes.mainAppeal);
+                                    },
+                                    icon: AppConstants.appealCreateSvg,
+                                    title: 'Murojaat',
+                                    subTitle: 'Raqobat qo\'mitasiga murojaat yo\'llash',
+                                  ),
+                                  ActiveItem(
                                     onTap: () {
-                                      if(!LocalStorage.instance.isGuest() && state.fairPriceAccessRoleName == 'price-market'){
-                                        context.push(Routes.fairPrice);
-                                      }else if(!LocalStorage.instance.isGuest() && state.fairPriceAccessRoleName == 'price-hypermarket'){
-                                        context.push(Routes.fairPriceProductList, extra: {'marketId': 0, 'isMarketEmployee': true});
-                                      }
+                                      context.push(Routes.pharmInfo);
+                                    },
+                                    icon: AppConstants.appealMonitoringSvg,
+                                    title: 'Online kuzatuv',
+                                    subTitle: 'Murojaat holatini kuzatish',
+                                  ),
+                                ],
+                              ),
+                            ),
+                            AppUtils.kGap12,
+                            SizedBox(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  ActiveItem(
+                                    onTap: () {
+                                      context.push(Routes.productOrService);
+                                    },
+                                    icon: AppConstants.pharmInfoSvg,
+                                    title: 'Product Info',
+                                    subTitle: 'Tovar tog\'risidagi ma\'lumot',
+                                  ),
+                                  ActiveItem(
+                                    onTap: () {
+                                      context.push(Routes.fairPrice);
                                     },
                                     icon: AppConstants.fairPriceSvg,
                                     title: 'Fair Price',
                                     subTitle: 'Tovarlarning narxi',
-                                  ),
-                                ): Container(
-                                  height: Responsive.height(25, context),
-                                  width: Responsive.width(40, context),
-                                ),
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SliverPadding(padding: EdgeInsets.only(bottom: 24))
-              ],
+                  const SliverPadding(padding: EdgeInsets.only(bottom: 24))
+                ],
+              ),
             ),
           );
         },

@@ -46,4 +46,9 @@ class GetRegionListResponse {
     "soato": soato,
     "parentId": parentId,
   };
+
+  @override
+  String toString() {
+    return 'GetRegionListResponse{id: $id, nameUz: $nameUz, nameLt: $nameLt, nameRu: $nameRu, nameEn: $nameEn, soato: $soato, parentId: $parentId}';
+  }
 }

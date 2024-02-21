@@ -4,25 +4,9 @@
 
 import 'dart:convert';
 
-MarketListResponse marketListResponseFromJson(String str) => MarketListResponse.fromJson(json.decode(str));
+List<MarketListResponse> marketListResponseFromJson(String str) => List<MarketListResponse>.from(json.decode(str).map((x) => MarketListResponse.fromJson(x)));
 
 class MarketListResponse {
-  List<ListElement> list;
-  int total;
-
-  MarketListResponse({
-    required this.list,
-    required this.total,
-  });
-
-  factory MarketListResponse.fromJson(Map<String, dynamic> json) => MarketListResponse(
-    list: List<ListElement>.from(json["list"].map((x) => ListElement.fromJson(x))),
-    total: json["total"] ??0,
-  );
-
-}
-
-class ListElement {
   int id;
   String address;
   String disNameLt;
@@ -31,7 +15,6 @@ class ListElement {
   int soato;
   String marketName;
   String tin;
-  dynamic type;
   int statusId;
   int marketTypeId;
   int businessStructureId;
@@ -40,7 +23,7 @@ class ListElement {
   String businessStructureLt;
   PriceMarketTypeDto priceMarketTypeDto;
 
-  ListElement({
+  MarketListResponse({
     required this.id,
     required this.address,
     required this.disNameLt,
@@ -49,7 +32,6 @@ class ListElement {
     required this.soato,
     required this.marketName,
     required this.tin,
-    required this.type,
     required this.statusId,
     required this.marketTypeId,
     required this.businessStructureId,
@@ -59,7 +41,7 @@ class ListElement {
     required this.priceMarketTypeDto,
   });
 
-  factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
+  factory MarketListResponse.fromJson(Map<String, dynamic> json) => MarketListResponse(
     id: json["id"] ??0,
     address: json["address"] ??'',
     disNameLt: json["disNameLt"] ??'',
@@ -68,8 +50,7 @@ class ListElement {
     soato: json["soato"] ??0,
     marketName: json["marketName"] ??'',
     tin: json["tin"] ??'',
-    type: json["type"],
-    statusId: json["statusId"] ?? 0,
+    statusId: json["statusId"] ??0,
     marketTypeId: json["marketTypeId"] ??0,
     businessStructureId: json["businessStructureId"] ??0,
     businessStructureUz: json["businessStructureUz"] ??'',
@@ -85,7 +66,6 @@ class PriceMarketTypeDto {
   String nameUz;
   String nameLt;
   String nameRu;
-  dynamic nameEn;
   String type;
   int statusId;
 
@@ -94,7 +74,6 @@ class PriceMarketTypeDto {
     required this.nameUz,
     required this.nameLt,
     required this.nameRu,
-    required this.nameEn,
     required this.type,
     required this.statusId,
   });
@@ -104,8 +83,7 @@ class PriceMarketTypeDto {
     nameUz: json["nameUz"] ??'',
     nameLt: json["nameLt"] ??'',
     nameRu: json["nameRu"] ??'',
-    nameEn: json["nameEn"] ??'',
-    type: json["type"] ??'',
+    type: json["type"] ?? '',
     statusId: json["statusId"] ??0,
   );
 }

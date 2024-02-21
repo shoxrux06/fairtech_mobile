@@ -19,7 +19,7 @@ class _PriceLookCreatePageState extends State<PriceLookCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Select'),
+      appBar: CustomAppBar(title: 'Select'),
       body: Container(
         padding: const EdgeInsets.all(12),
         child: Column(

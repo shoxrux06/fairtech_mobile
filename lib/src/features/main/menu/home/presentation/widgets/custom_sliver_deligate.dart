@@ -157,7 +157,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             Positioned(
               left: 0.0,
               right: 0.0,
-              top: cardTopPosition > 0 ? cardTopPosition + (Platform.isAndroid? 22: 25) : 0,
+              top: cardTopPosition > 0 ? cardTopPosition + (Platform.isAndroid? 22: 20) : 0,
               bottom: 0.0,
               child: Opacity(
                 opacity: percent,
@@ -217,8 +217,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                                   AppUtils.kGap4,
                                   Text(
                                     '0',
-                                    style: context.textStyle.largeTitle1
-                                        .copyWith(color: Colors.deepOrange),
+                                    style: context.textStyle.largeTitle1.copyWith(color: Colors.deepOrange),
                                   )
                                 ],
                               ),

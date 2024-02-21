@@ -1,5 +1,6 @@
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/constants/app_constants.dart';
+import 'package:fairtech_mobile/src/core/di/dependency_manager.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
 import 'package:fairtech_mobile/src/core/utils/app_utils.dart';
 import 'package:fairtech_mobile/src/core/utils/local_storage.dart';
@@ -131,10 +132,12 @@ class _SignInPageState extends State<SignInPage> {
   void getCode(BuildContext context) async {
     dynamic resultCode = await context.push(
       Routes.authOneId,
+      extra: SignInBloc(signInRepository)
     );
     if (resultCode != null) {
+      final sigInInBloc = resultCode['signInBloc'] as SignInBloc;
       if (mounted) {
-        context.read<SignInBloc>().add(
+        sigInInBloc.add(
               GetOneIdDataEvent(
                 context: context,
                 resultCode: resultCode,
