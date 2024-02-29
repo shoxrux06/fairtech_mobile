@@ -217,4 +217,14 @@ class CreateObyektEvent extends FairPriceEvent {
     required this.pinfl,
     required this.isYuridik,
   });
+
+
+}
+
+class GetObyektTypeListEvent extends FairPriceEvent {
+  final BuildContext context;
+
+  GetObyektTypeListEvent({
+    required this.context,
+  });
 }

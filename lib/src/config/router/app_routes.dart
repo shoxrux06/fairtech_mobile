@@ -658,7 +658,8 @@ class AppGoRouter {
                       create: (_) => PharmInfoBloc(pharmInfoRepository)),
                 ],
                 child: EnterPricePage(
-                  soato: extra['soato'],
+                  isFromProductDetail: extra['isFromProductDetail'],
+                  dropDownObjectType: extra['dropDownObjectType'],
                 ),
               ),
               transitionsBuilder: (_, animation, __, child) => FadeTransition(

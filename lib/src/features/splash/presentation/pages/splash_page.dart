@@ -43,9 +43,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
         ),
         TextButton(
           onPressed: () => context.pop(true),
-          child: Text(context.tr('yes'),
-              style: context.textStyle.regularTitle2
-                  .copyWith(color: context.color?.red)),
+          child: Text(context.tr('yes'), style: context.textStyle.regularTitle2.copyWith(color: context.color?.red)),
         ),
       ],
     );

@@ -38,6 +38,7 @@ class AppConstants {
   static const oneProductAllSums = '/api/v.1/price_sum/one-product-all-sums';
   static const getYuridikInfo = '/api/v.1/yuridik-shaxs/get-info?';
   static const getYttInfo = '/api/v.1/ytt/get-info?';
+  static const getObyektTypeList = '/api/v.1/price_market_type/list-search?keyword=';
 
   // https://app.fairtech.uz/api/v.1/price_product/list-search?keyword=&code=FOODS&type=
 

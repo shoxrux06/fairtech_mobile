@@ -7,6 +7,7 @@ import 'package:fairtech_mobile/src/features/fair_price/data/models/market_produ
 import 'package:fairtech_mobile/src/features/fair_price/data/models/one_product_all_sums_response.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/company_data_with_tin_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/market_product_list_entity.dart';
+import 'package:fairtech_mobile/src/features/fair_price/domain/entity/obyekt_type_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/person_data-with_pinfl_entity.dart';
 import 'package:flutter/material.dart';
 import '../entity/product_price_history_list_entity.dart';
@@ -95,5 +96,9 @@ abstract class FairPriceRepository {
       String lang,
       String pinfl,
       bool isYuridik,
+      );
+
+  Future<ApiResult<ObyektTypeEntity>> getObyektTypeList(
+      BuildContext context,
       );
 }

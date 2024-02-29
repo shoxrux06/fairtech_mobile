@@ -1,7 +1,5 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:fairtech_mobile/src/config/router/app_routes.dart';
 import 'package:fairtech_mobile/src/core/extension/extension.dart';
-import 'package:fairtech_mobile/src/features/fair_price/domain/entity/market_product_list_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -36,8 +34,7 @@ class _ProductTypeWidgetState extends State<ProductTypeWidget> {
                       onTap: () {
                         state.marketProductEntity?.children.forEach((element) {
                           if (element.nameLt == e.nameLt) {
-                            context.push(Routes.productDetail,
-                                extra: {'product': element});
+                            context.push(Routes.productDetail, extra: {'product': element});
                           }
                         });
                       },
@@ -54,7 +51,7 @@ class _ProductTypeWidgetState extends State<ProductTypeWidget> {
                     );
                   } else {
                     return Theme(
-                      data: ThemeData(dividerColor: Colors.transparent),
+                      data: ThemeData(dividerColor: Colors.transparent, primaryColor: context.color?.primaryText),
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
@@ -75,8 +72,7 @@ class _ProductTypeWidgetState extends State<ProductTypeWidget> {
                                   : Icons.keyboard_arrow_down),
                           title: Text(
                             '${e.nameLt}',
-                            style: context.textStyle.bodyTitle2.copyWith(
-                                fontSize: 14, fontWeight: FontWeight.w500),
+                            style: context.textStyle.bodyTitle2.copyWith(fontSize: 14, fontWeight: FontWeight.w500,color: context.color?.primaryText),
                           ),
                           children: [
                             ...e.children.map(
@@ -85,13 +81,11 @@ class _ProductTypeWidgetState extends State<ProductTypeWidget> {
                                   context.push(Routes.productDetail, extra: {'product': e});
                                 },
                                 child: Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 12, right: 12),
+                                    padding: const EdgeInsets.only(left: 12, right: 12),
                                     child: ListTile(
                                       title: Text(
                                         '${e.nameLt}',
-                                        style: context.textStyle.bodyTitle2
-                                            .copyWith(fontSize: 14),
+                                        style: context.textStyle.bodyTitle2.copyWith(fontSize: 14, color: context.color?.primaryText),
                                       ),
                                     )),
                               ),

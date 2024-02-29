@@ -22,13 +22,4 @@ class HttpService {
   )
     ..interceptors.add(TokenInterceptor(context: context,requireAuth: requireAuth))
     ..interceptors.add(LogInterceptor());
-
-
-  // setCertificate(){
-  //   (client(context: null).httpClientAdapter as IOHttpClientAdapter).createHttpClient= () =>
-  //   HttpClient()
-  //     ..badCertificateCallback =
-  //         (X509Certificate cert, String host, int port) => true;
-  // }
-
 }

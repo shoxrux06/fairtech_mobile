@@ -14,6 +14,7 @@ class MarketProductListEntity {
   PhotoSvg photoSvg;
   PhotoSvg photoPng;
   String? code;
+  String? codeOther;
   num? maxSum;
   num? minSum;
   num? middleSum;
@@ -27,6 +28,7 @@ class MarketProductListEntity {
     required this.photoSvg,
     required this.photoPng,
     required this.code,
+    required this.codeOther,
     required this.maxSum,
     required this.minSum,
     required this.middleSum,
@@ -41,6 +43,7 @@ class MarketProductListEntity {
     photoSvg: json["photoSvg"] != null?PhotoSvg.fromJson(json["photoSvg"]):PhotoSvg.fromJson({}),
     photoPng: json["photoPng"] != null?PhotoSvg.fromJson(json["photoPng"]):PhotoSvg.fromJson({}),
     code: json["code"] ?? '',
+    codeOther: json["codeOther"] ?? '',
     maxSum: json["maxSum"] ?? 0,
     minSum: json["minSum"] ?? 0,
     middleSum: json["middleSum"] ??0,

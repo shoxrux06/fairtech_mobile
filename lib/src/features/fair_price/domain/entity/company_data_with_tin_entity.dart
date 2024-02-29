@@ -20,10 +20,10 @@ class CompanyDataWithTinEntity {
   });
 
   factory CompanyDataWithTinEntity.fromJson(Map<String, dynamic> json) => CompanyDataWithTinEntity(
-    company: Company.fromJson(json["company"]),
-    companyBillingAddress: CompanyBillingAddress.fromJson(json["companyBillingAddress"]),
-    director: Director.fromJson(json["director"]),
-    directorContact: RContact.fromJson(json["directorContact"]),
+    company:json["company"] == null? Company.fromJson({}): Company.fromJson(json["company"]),
+    companyBillingAddress: json["companyBillingAddress"] == null? CompanyBillingAddress.fromJson({}): CompanyBillingAddress.fromJson(json["companyBillingAddress"]),
+    director: json["director"] == null? Director.fromJson({}): Director.fromJson(json["director"]),
+    directorContact: json["directorContact"] == null? RContact.fromJson({}):RContact.fromJson(json["directorContact"]),
   );
 
 }
@@ -89,7 +89,7 @@ class Director {
   });
 
   factory Director.fromJson(Map<String, dynamic> json) => Director(
-    lastName: json["lastName"] ??'',
+    lastName: json["lastName"] ??'-',
     firstName: json["firstName"] ?? '-',
     middleName: json["middleName"] ?? '-',
   );
@@ -104,7 +104,7 @@ class RContact {
   });
 
   factory RContact.fromJson(Map<String, dynamic> json) => RContact(
-    phone: json["phone"] ?? '',
+    phone: json["phone"] ?? '---',
   );
 }
 

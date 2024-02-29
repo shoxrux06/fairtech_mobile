@@ -29,6 +29,13 @@ class _AddObyektPageState extends State<AddObyektPage> {
     'YaTT shaxs',
   ];
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<FairPriceBloc>().add(GetObyektTypeListEvent(context: context));
+    super.initState();
+  }
+
   int selectedIndex = 0;
 
   @override
@@ -55,10 +62,7 @@ class _AddObyektPageState extends State<AddObyektPage> {
                 child: TabBarView(
                   children: [
                     AddLegalEntity(
-                        marketTypeId: marketTypeId,
                         center: center,
-                        lang: lang,
-                        lat: lat,
                         shortName: state.companyDataWithTinEntity?.company.shortName ?? '- - -',
                         companyBillingAddress: state.companyDataWithTinEntity?.companyBillingAddress.nameLt?? '- - -',
                         phone: state.companyDataWithTinEntity?.directorContact.phone ?? '- - -',
@@ -67,16 +71,15 @@ class _AddObyektPageState extends State<AddObyektPage> {
                         middleName: state.companyDataWithTinEntity?.director.middleName ??'-',
                         businessStructureId: state.companyDataWithTinEntity?.company.businessStructure??0,
                         businessStructureName: state.companyDataWithTinEntity?.company.businessStructureNameLt??'',
-                        soato: state.companyDataWithTinEntity?.companyBillingAddress.soato??0
+                        soato: state.companyDataWithTinEntity?.companyBillingAddress.soato??0,
+                        obyektTypeEntity: state.obyektTypeEntity,
                     ),
                     AddPersonalEntityWidget(
-                        marketTypeId: marketTypeId,
                         center: center,
-                        lang: lang,
-                        lat: lat,
-                        shortName: state.personDataWithPinflEntity?.companyBillingAddress.nameLt ?? '- - -',
+                        shortName: state.personDataWithPinflEntity?.companyBillingAddress.nameLt ?? '',
                         businessStructureName: state.companyDataWithTinEntity?.company.businessStructureNameLt??'',
-                        soato: state.personDataWithPinflEntity?.companyBillingAddress.soato??0
+                        soato: state.personDataWithPinflEntity?.companyBillingAddress.soato??0,
+                        obyektTypeEntity: state.obyektTypeEntity,
                     )
                   ],
                 ),

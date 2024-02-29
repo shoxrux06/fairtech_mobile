@@ -14,6 +14,7 @@ import 'package:fairtech_mobile/src/features/fair_price/data/models/market_list_
 import 'package:fairtech_mobile/src/features/fair_price/data/models/one_product_all_sums_response.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/company_data_with_tin_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/market_product_list_entity.dart';
+import 'package:fairtech_mobile/src/features/fair_price/domain/entity/obyekt_type_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/person_data-with_pinfl_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/product_price_history_list_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/repositories/fair_price_repository.dart';
@@ -162,12 +163,9 @@ class FairPriceRepositoryImpl implements FairPriceRepository {
     int soato,
   ) async {
     try {
-      final client =
-          inject<HttpService>().client(requireAuth: true, context: context);
+      final client = inject<HttpService>().client(requireAuth: true, context: context);
       (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
-          HttpClient()
-            ..badCertificateCallback =
-                (X509Certificate cert, String host, int port) => true;
+          HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       client.options.queryParameters.addAll({
         'productId': productId.toString(),
         'marketId1': marketId1.toString(),
@@ -341,6 +339,22 @@ class FairPriceRepositoryImpl implements FairPriceRepository {
       return ApiResult.success(data: PersonDataWithPinflEntity.fromJson(response.data));
     } catch (e) {
       AppSnackBar.showErrorSnackBar(context, 'Error', '${e.toString()}');
+      return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<ObyektTypeEntity>> getObyektTypeList(BuildContext context)async {
+    try {
+      final client = inject<HttpService>().client(requireAuth: true, context: context);
+      (client.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () =>
+      HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      final response = await client.post(AppConstants.getObyektTypeList,data: {
+        'page': 0,
+        'itemsPerPage': 500,
+      });
+      return ApiResult.success(data:ObyektTypeEntity.fromJson(response.data));
+    } catch (e) {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }

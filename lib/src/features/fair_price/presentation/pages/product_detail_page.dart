@@ -96,7 +96,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
   @override
   Widget build(BuildContext context) {
-    print('CODE DET2 ${widget.product.code}');
+    bool isBenzin = (widget.product.nameLt =="A-80 markali benzin" || widget.product.nameLt =="A-92 markali benzin" || widget.product.nameLt =="A-95 markali benzin" || widget.product.nameLt =="Dizel yoqilg'isi");
+    bool isGaz = (widget.product.nameLt =="Metan" || widget.product.nameLt =="Propan" );
     return Scaffold(
       appBar: CustomAppBar(title: 'Mahsulot narxlari', textColor: context.theme.primaryColor,),
       body: BlocBuilder<FairPriceBloc,FairPriceState>(
@@ -226,7 +227,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   if(marketListGaz.isNotEmpty){
                                     dropdownGazValue = marketListGaz.first.marketName;
                                   }
-
                                   context.read<FairPriceBloc>().add(GetOneProductAllSumsEvent(
                                       context: context,
                                       onSuccess: (){},
@@ -262,13 +262,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ):
                         Column(
                           children: [
-                            item('Manzil'),
-                            AppUtils.kGap12,
-                            obyektType(xaridorgirNarx: state.oneProductAllSumsResponse?.market1.middleSum, minPrice: state.oneProductAllSumsResponse?.market1.minSum, maxPrice: state.oneProductAllSumsResponse?.market1.maxSum, list: marketListBenzin.toSet().toList(), isDehqon: false, isYirik: false, isKichik: false, isBenzin: true,isGaz: false),
-                            AppUtils.kGap12,
-                            item('Manzil'),
-                            AppUtils.kGap12,
-                            obyektType(xaridorgirNarx: state.oneProductAllSumsResponse?.market1.middleSum, minPrice: state.oneProductAllSumsResponse?.market1.minSum, maxPrice: state.oneProductAllSumsResponse?.market1.maxSum, list: marketListGaz.toSet().toList(), isDehqon: false, isYirik: false, isKichik: false, isBenzin: false,isGaz: true),
+                            isBenzin?item('Manzil'): Container(),
+                            isBenzin?AppUtils.kGap12: Container(),
+                            isBenzin?obyektType(xaridorgirNarx: state.oneProductAllSumsResponse?.market3.middleSum, minPrice: state.oneProductAllSumsResponse?.market3.minSum, maxPrice: state.oneProductAllSumsResponse?.market3.maxSum, list: marketListBenzin.toSet().toList(), isDehqon: false, isYirik: false, isKichik: false, isBenzin: true,isGaz: false): Container(),
+                            isBenzin?AppUtils.kGap12: Container(),
+                            isGaz?item('Manzil'): Container(),
+                            isGaz?AppUtils.kGap12: Container(),
+                            isGaz?obyektType(xaridorgirNarx: state.oneProductAllSumsResponse?.market3.middleSum, minPrice: state.oneProductAllSumsResponse?.market3.minSum, maxPrice: state.oneProductAllSumsResponse?.market3.maxSum, list: marketListGaz.toSet().toList(), isDehqon: false, isYirik: false, isKichik: false, isBenzin: false,isGaz: true): Container(),
                           ],
                         ),
 
@@ -278,7 +278,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         return Row(
                           children: [
                             Expanded(child: InkWell(child: CustomButtonWithIcon(onTap: (){
-                              context.push(Routes.enterPrice, extra: {'soato': soato});
+                              context.push(Routes.enterPrice, extra: {'isFromProductDetail': true});
                             }, icon: AppConstants.addPriceSvg, text: 'Narx kiritish'))),
                             AppUtils.kGap24,
                             Expanded(child: InkWell(child: CustomButtonWithIcon(onTap: (){
@@ -289,9 +289,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       }else{
                         return Container();
                       }
-
                     }),
-
                     AppUtils.kGap24
                   ],
                 ),
@@ -376,6 +374,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     child: CustomDropDownFormField2(
                         value: dropdownValue,
                         hintText: '${mType}ni tanlang',
+                        isMultiple: true,
                         style: context.textStyle.regularBody.copyWith(color: context.theme.primaryColor, fontWeight: FontWeight.w700),
                         items: List.from(list.map((e) => e.marketName).toSet().toList()),
                         onChanged: (val){
@@ -386,6 +385,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               }else if(isYirik){
                                 marketId2 = element.id;
                               }else if(isKichik){
+                                marketId3 = element.id;
+                              }else if(isBenzin){
+                                marketId3 = element.id;
+                              }else if(isGaz){
                                 marketId3 = element.id;
                               }
                             }

@@ -21,9 +21,9 @@ class OneProductAllSumsResponse {
 
   factory OneProductAllSumsResponse.fromJson(Map<String, dynamic> json) => OneProductAllSumsResponse(
     all: ProductSum.fromJson(json["all"]),
-    market1: ProductSum.fromJson(json["market1"]),
-    market2: ProductSum.fromJson(json["market2"]),
-    market3: ProductSum.fromJson(json["market3"]),
+    market1: (json["market1"] == null) ? ProductSum.fromJson({}): ProductSum.fromJson(json["market1"]),
+    market2: (json["market2"] == null) ? ProductSum.fromJson({}): ProductSum.fromJson(json["market2"]),
+    market3:( json["market3"] == null) ? ProductSum.fromJson({}): ProductSum.fromJson(json["market3"]),
   );
 }
 

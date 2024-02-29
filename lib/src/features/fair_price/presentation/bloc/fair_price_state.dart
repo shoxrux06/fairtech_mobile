@@ -13,6 +13,7 @@ class FairPriceState with _$FairPriceState {
     ProductPriceHistoryListEntity? productPriceHistoryListEntity,
     CompanyDataWithTinEntity? companyDataWithTinEntity,
     PersonDataWithPinflEntity? personDataWithPinflEntity,
+    ObyektTypeEntity? obyektTypeEntity,
     @Default(false) bool isCreatingProductPrice,
     @Default(false) bool isCreatedProductPrice,
     @Default(false) bool marketListLoading,
@@ -22,6 +23,7 @@ class FairPriceState with _$FairPriceState {
     @Default(false) bool isFetchingTinData,
     @Default(false) bool isFetchingPinflData,
     @Default(false) bool obyektIsCreating,
+    @Default(false) bool obyektIsCreated,
     @Default(0) int createObyektStatusCode
 }) = Initial;
 }

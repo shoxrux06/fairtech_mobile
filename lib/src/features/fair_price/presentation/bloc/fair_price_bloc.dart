@@ -8,6 +8,7 @@ import 'package:fairtech_mobile/src/features/fair_price/data/models/one_product_
 import 'package:fairtech_mobile/src/features/fair_price/data/models/product_price_list_response.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/company_data_with_tin_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/market_product_list_entity.dart';
+import 'package:fairtech_mobile/src/features/fair_price/domain/entity/obyekt_type_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/person_data-with_pinfl_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/entity/product_price_history_list_entity.dart';
 import 'package:fairtech_mobile/src/features/fair_price/domain/repositories/fair_price_repository.dart';
@@ -36,6 +37,7 @@ class FairPriceBloc extends Bloc<FairPriceEvent, FairPriceState> {
     on<GetPersonDataWithPinflEvent>(getPersonDataWithPinfl);
     on<CreateObyektEvent>(createObyekt);
     on<GetProductByIdEvent>(getProductById);
+    on<GetObyektTypeListEvent>(getObyektTypeList);
   }
 
   FutureOr<void> getMarketList(
@@ -222,7 +224,7 @@ class FairPriceBloc extends Bloc<FairPriceEvent, FairPriceState> {
     );
     result.when(
       success: (data) {
-        emit(state.copyWith(createObyektStatusCode: data, obyektIsCreating: false));
+        emit(state.copyWith(createObyektStatusCode: data, obyektIsCreating: false, obyektIsCreated: true));
         event.onSuccess();
       },
       failure: (failure) {
@@ -258,6 +260,17 @@ class FairPriceBloc extends Bloc<FairPriceEvent, FairPriceState> {
         event.onError();
         emit(state.copyWith(productListLoading: false));
       },
+    );
+  }
+
+  FutureOr<void> getObyektTypeList(GetObyektTypeListEvent event, Emitter<FairPriceState> emit,) async {
+    final result = await fairPriceRepository.getObyektTypeList(event.context);
+    result.when(
+      success: (data) {
+        print('getObyektTypeList ${data.list}');
+        emit(state.copyWith(obyektTypeEntity: data));
+      },
+      failure: (failure) {},
     );
   }
 }
